@@ -6,6 +6,7 @@ if (! window._babelPolyfill) {
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Shortcode from './containers/Shortcode.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 document.addEventListener('DOMContentLoaded', function() {
   const shortcode_containers = document.querySelectorAll('.wp-reactivate-shortcode');

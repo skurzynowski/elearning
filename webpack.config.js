@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = (env, argv) => {
   let production = argv.mode === 'production'
@@ -16,11 +16,11 @@ module.exports = (env, argv) => {
     },
 
     devtool: production ? '' : 'source-map',
-  
+
     resolve: {
-      extensions: [".js", ".jsx", ".json"],
+      extensions: ['.js', '.jsx', '.json'],
     },
-  
+
     module: {
       rules: [
         {
@@ -28,7 +28,25 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
           loader: 'babel-loader',
         },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
+        },
+        {
+          test: /\.svg$/,
+          use: [
+            {
+              loader: 'babel-loader'
+            },
+            {
+              loader: 'react-svg-loader',
+              options: {
+                jsx: true // true outputs JSX tags
+              }
+            }
+          ]
+        }
       ],
     },
-  };
+  }
 }

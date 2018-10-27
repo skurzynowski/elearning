@@ -1,0 +1,7 @@
+:root{
+    --main-background: purple;
+    --main-font: "Times New Roman", Times, serif;
+}
+.header-wraper{
+    height: 10vh;
+}
