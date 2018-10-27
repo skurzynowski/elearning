@@ -1,7 +1,40 @@
-:root{
+:root {
     --main-background: purple;
     --main-font: "Times New Roman", Times, serif;
 }
-.header-wraper{
-    height: 10vh;
+
+.header-wraper {
+    height: auto;
+    border-bottom: 1px solid purple;
+}
+
+.header-course-title {
+    border-right: 1px solid purple;
+    width: 40vw;
+    padding-top: 3vh;
+    padding-left: 3vh;
+}
+
+.header-progress-bar {
+    border-right: 1px solid purple;
+    width: 20vw;
+    padding-right: 3vh;
+    padding-top: 3vh;
+    padding-left: 3vh;
+}
+
+.header-progress-bar > .progress {
+    height: 0.75rem;
+}
+
+.header-logo {
+    border-right: 1px solid purple;
+    width: 290px;
+}
+
+.header-user-panel {
+    padding-right: 3vh;
+    padding-top: 4.5vh;
+    padding-left: 3vh;
+    font-size: 16px;
 }

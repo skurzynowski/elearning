@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { Container, Row, Col } from 'reactstrap'
 import { connect } from 'react-redux'
 
-class Logo extends Component {
+class UserPanel extends Component {
   render () {
     return (
-      <div className="header-logo">
-        <img src={this.props.logoUrl} alt="..." class="img-thumbnail"/>
+      <div className="header-user-panel">
+        <p>{this.props.userName} {this.props.userSurname}</p>
       </div>
     )
   }
@@ -16,7 +16,8 @@ class Logo extends Component {
 const mapDispatchToProps = ({})
 
 const mapStateToProps = state => ({
-  logoUrl: state.appState.logoUrl
+  userName: state.appState.userName,
+  userSurname: state.appState.userSurname
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Logo)
+export default connect(mapStateToProps, mapDispatchToProps)(UserPanel)
