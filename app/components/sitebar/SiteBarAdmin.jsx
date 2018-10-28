@@ -6,7 +6,7 @@ import Logo from './Logo'
 
 class SiteBarAdmin extends Component {
   renderListOfCourse = () => {
-    return this.props.listOfCourses.map(function (data, key) {
+    return this.props.listOfTests.map(function (data, key) {
       return <li key={'course_' + key}>{key+1} {data.title}</li>
     })
   }
@@ -26,8 +26,7 @@ class SiteBarAdmin extends Component {
 const mapDispatchToProps = ({})
 
 const mapStateToProps = state => ({
-  courseTitle: state.appState.courseTitle,
-  listOfCourses: state.appState.listOfCourses,
+  listOfTests: state.appState.listOfTests,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SiteBarAdmin)

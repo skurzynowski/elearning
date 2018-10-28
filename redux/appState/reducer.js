@@ -6,7 +6,7 @@ const defaultState = {
   logoUrl: "https://picsum.photos/290/75",
   userName: "Sebastian",
   userSurname: "Kurzynowski",
-  listOfCourses: [{title: "Pierwszy test", ID: 1}],
+  listOfTests: [{title: "Pierwszy test", ID: 1}],
 }
 
 export default function appState (state = defaultState, action) {
@@ -27,6 +27,11 @@ export default function appState (state = defaultState, action) {
     //logout user
     case 'APPSTATE_TOGGLE_USER_LOGIN_STATUS' :
       newState.isUserLoggedIn = action.status
+      return newState
+
+    //update list of tests
+    case 'APPSTATE_UPDATE_LIST_OF_TESTS' :
+      newState.listOfTests = action.list
       return newState
 
     default:

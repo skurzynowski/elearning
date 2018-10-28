@@ -16,6 +16,11 @@ export const toggleUserLogginStatus = (status) => ({
   type: 'APPSTATE_TOGGLE_USER_LOGIN_STATUS',
   status
 })
+//update list of tests
+export const updateListOfTests = (list) => ({
+  type: 'APPSTATE_UPDATE_LIST_OF_TESTS',
+  list
+})
 
 
 

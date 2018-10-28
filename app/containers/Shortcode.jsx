@@ -5,6 +5,7 @@ import Header from '../components/header/Header'
 import { connect } from 'react-redux'
 import { toggleUserLogginStatus } from '../../redux/appState/actions'
 import SiteBarAdmin from '../components/sitebar/SiteBarAdmin'
+import AddNewCourse from '../components/content/AddNewCourse'
 
 class Shortcode extends Component {
 
@@ -12,22 +13,17 @@ class Shortcode extends Component {
     super(props)
   };
 
-  toggleUserLogginStatus = () => {
-    this.props.toggleUserLogginStatus(!this.props.isUserLoggedIn)
-  }
-
   render () {
     return (
-      <Container onClick={this.toggleUserLogginStatus} fluid>
+      <Container fluid>
         <Row>
           <Col xs="2">
             <SiteBarAdmin/>
           </Col>
           <Col xs="10">
             <Header/>
+            <AddNewCourse/>
           </Col>
-        </Row>
-        <Row>
         </Row>
       </Container>
     )
