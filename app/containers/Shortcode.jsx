@@ -4,11 +4,12 @@ import { Container, Row, Col } from 'reactstrap'
 import Header from '../components/header/Header'
 import { connect } from 'react-redux'
 import { toggleUserLogginStatus } from '../../redux/appState/actions'
+import SiteBarAdmin from '../components/sitebar/SiteBarAdmin'
 
 class Shortcode extends Component {
 
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
   };
 
   toggleUserLogginStatus = () => {
@@ -19,9 +20,14 @@ class Shortcode extends Component {
     return (
       <Container onClick={this.toggleUserLogginStatus} fluid>
         <Row>
-          <Col>
+          <Col xs="2">
+            <SiteBarAdmin/>
+          </Col>
+          <Col xs="10">
             <Header/>
           </Col>
+        </Row>
+        <Row>
         </Row>
       </Container>
     )

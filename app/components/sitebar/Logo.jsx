@@ -6,8 +6,8 @@ import { connect } from 'react-redux'
 class Logo extends Component {
   render () {
     return (
-      <div className="header-logo">
-        <img src={this.props.logoUrl} alt="..." class="img-thumbnail"/>
+      <div className="sitebar-logo">
+        <img src={this.props.logoUrl} alt="..." className="img-thumbnail"/>
       </div>
     )
   }

@@ -6,6 +6,7 @@ const defaultState = {
   logoUrl: "https://picsum.photos/290/75",
   userName: "Sebastian",
   userSurname: "Kurzynowski",
+  listOfCourses: [{title: "Pierwszy test", ID: 1}],
 }
 
 export default function appState (state = defaultState, action) {
