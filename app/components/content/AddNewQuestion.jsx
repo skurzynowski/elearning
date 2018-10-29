@@ -33,6 +33,7 @@ class AddNewQuestion extends Component {
       photoUrl: '',
       correctAnswer: 'option0',
       imageSrc: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180',
+      courseSlug: 'test-1',
     }
   };
 
@@ -90,8 +91,8 @@ class AddNewQuestion extends Component {
     newQuestion.question = this.state.question
     newQuestion.answer = this.state.answers
     newQuestion.correctAnswer = this.state.correctAnswer
+    newQuestion.courseSlug = this.state.courseSlug
     questions = questions.concat(newQuestion)
-    this.props.updateQuestionsCollection(questions)
 
     this.props.fetchWP.post('question', {question: JSON.stringify(newQuestion)}).then((json) => console.log(json))
   }

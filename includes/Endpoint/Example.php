@@ -145,7 +145,7 @@ class Example {
 	public function add_question( $request ) {
 		$data    = json_decode( $request['question'] );
 		$post_id = wp_insert_post( array(
-			'tax_input'     => array('exam' => 'test-1' ),
+			'tax_input'     => array('exam' => $data->courseSlug ),
 			'post_type'     => 'question',
 			'post_title'    => $data->question
 		) );
