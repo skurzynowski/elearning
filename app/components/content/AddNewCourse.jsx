@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Container, Row, Col, Form, FormGroup, Input, Label, Button } from 'reactstrap'
 import { connect } from 'react-redux'
-import {updateListOfTests} from '../../../redux/appState/actions'
+import { updateListOfTests } from '../../../redux/appState/actions'
 
 class AddNewCourse extends Component {
   constructor (props) {
@@ -10,17 +10,29 @@ class AddNewCourse extends Component {
 
     this.state = {
       testTitle: '',
+      description: '',
     }
   };
 
-  onChangeTextArea = (e) => {
-    this.setState({testTitle:e.target.value})
+  onChangeTitle = (e) => {
+    this.setState({testTitle: e.target.value})
+  }
+  onChangeDescription = (e) => {
+    this.setState({description: e.target.value})
   }
   onClickBtnAddCourse = (e) => {
-    let tests = this.props.listOfTests;
-    tests = tests.concat({title:this.state.testTitle, ID: tests.length + 1});
-    this.props.updateListOfTests(tests);
-    this.setState({testTitle: ''});
+    this.props.fetchWP.post('course', {
+      course: JSON.stringify({
+        title: this.state.testTitle,
+        description: this.state.description
+      })
+    }).then(
+      (json) => {
+        this.props.updateListOfTests(json.tests)
+        this.setState({testTitle: ''})
+        this.setState({description: ''})
+      }
+    )
   }
 
   render () {
@@ -29,8 +41,14 @@ class AddNewCourse extends Component {
         <Container className="content-add-new-course" fluid>
           <Form>
             <FormGroup>
-              <Label for="exampleText">Wprowadź tytuł kursu i wciśnij OK</Label>
-              <Input onChange={this.onChangeTextArea} value={this.state.testTitle} type="textarea" name="courseTitleInput" id="exampleText"/>
+              <Label for="exampleText">Tytuł testu</Label>
+              <Input onChange={this.onChangeTitle} value={this.state.testTitle} type="textarea"
+                     name="courseTitleInput" id="exampleText"/>
+            </FormGroup>
+            <FormGroup>
+              <Label for="exampleText">Krótki opis testu</Label>
+              <Input onChange={this.onChangeDescription} value={this.state.description} type="textarea"
+                     name="courseTitleInput" id="exampleText"/>
             </FormGroup>
             <FormGroup>
               <Button onClick={this.onClickBtnAddCourse} outline color="success">Dodaj</Button>
@@ -43,12 +61,13 @@ class AddNewCourse extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateListOfTests: (list) => dispatch(updateListOfTests(list))
+  updateListOfTests: (list) => dispatch(updateListOfTests(list)),
 })
 
 const mapStateToProps = state => ({
   courseTitle: state.appState.courseTitle,
-  listOfTests: state.appState.listOfTests
+  listOfTests: state.appState.listOfTests,
+  fetchWP: state.appState.fetchWP,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddNewCourse)

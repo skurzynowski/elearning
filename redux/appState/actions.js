@@ -34,5 +34,9 @@ export const setFetchWP = (fetchWP) => ({
   fetchWP
 })
 
+export const setAppMode = (mode) => ({
+  type: 'APPSTATE_SET_APP_MODE',
+  mode
+})
 
 

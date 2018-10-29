@@ -6,10 +6,11 @@ const defaultState = {
   logoUrl: 'https://picsum.photos/290/75',
   userName: 'Sebastian',
   userSurname: 'Kurzynowski',
-  listOfTests: [{title: 'Pierwszy test', ID: 1,}],
-  appGlobalMode: 'add_question',
+  listOfTests: [],
+  appGlobalMode: 'welcome',
   questionsCollection: [],
   fetchWP: {},
+  currentTest: 'test-o-zdrowiu-czlowieka',
 }
 
 export default function appState (state = defaultState, action) {
@@ -45,6 +46,10 @@ export default function appState (state = defaultState, action) {
     //set fetch WP
     case 'APPSTATE_FETCH_WP':
       newState.fetchWP = action.fetchWP
+      return newState
+
+    case 'APPSTATE_SET_APP_MODE':
+      newState.appGlobalMode = action.mode
       return newState
 
     default:

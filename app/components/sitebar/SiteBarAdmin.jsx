@@ -7,7 +7,7 @@ import Logo from './Logo'
 class SiteBarAdmin extends Component {
   renderListOfCourse = () => {
     return this.props.listOfTests.map(function (data, key) {
-      return <li key={'course_' + key}>{key+1} {data.title}</li>
+      return <li key={'course_' + key}>{key+1} {data.title} ( {data.count} )</li>
     })
   }
 

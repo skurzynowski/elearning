@@ -73,12 +73,11 @@ class Example {
 		$namespace = $this->plugin_slug . '/v' . $version;
 		$endpoint  = '/question/';
 
-		register_rest_route( $namespace, $endpoint, array(
+		register_rest_route( $namespace, $endpoint . '(?P<term_slug>.+)', array(
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_questions' ),
 				'permission_callback' => array( $this, 'example_permissions_check' ),
-				'args'                => array(),
 			),
 		) );
 
@@ -86,6 +85,23 @@ class Example {
 			array(
 				'methods'             => \WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'add_question' ),
+				'permission_callback' => array( $this, 'example_permissions_check' ),
+				'args'                => array(),
+			),
+		) );
+
+		register_rest_route( $namespace, '/course/', array(
+			array(
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_courses' ),
+				'permission_callback' => array( $this, 'example_permissions_check' ),
+				'args'                => array(),
+			),
+		) );
+		register_rest_route( $namespace, '/course/', array(
+			array(
+				'methods'             => \WP_REST_Server::CREATABLE,
+				'callback'            => array( $this, 'add_course' ),
 				'permission_callback' => array( $this, 'example_permissions_check' ),
 				'args'                => array(),
 			),
@@ -111,6 +127,79 @@ class Example {
 
 	}
 
+	public function get_courses( $request ) {
+		$tests = get_terms( array(
+			'taxonomy'   => 'exam',
+			'hide_empty' => false,
+		) );
+
+		$tests = array_map( function ( $data ) {
+			$data->title = $data->name;
+			$data->ID    = $data->term_id;
+
+			$count = new \WP_Query( array(
+				'post_type'   => 'question',
+				'post_status' => array( 'draft', 'publish' ),
+				'tax_query'   => array(
+					array(
+						'taxonomy' => 'exam',
+						'field'    => 'id',
+						'terms'    => array( $data->term_id )
+					)
+				),
+			) );
+
+			$data->count = $count->post_count;
+
+			return $data;
+		}, $tests );
+
+		return new \WP_REST_Response( array(
+			'success' => true,
+			'tests'   => $tests,
+
+		), 200 );
+	}
+
+	public function add_course( $request ) {
+
+
+		$data = json_decode( $request['course'] );
+		wp_insert_term( $data->title, 'exam', array( 'description' => $data->description ) );
+
+		$tests = get_terms( array(
+			'taxonomy'   => 'exam',
+			'hide_empty' => false,
+		) );
+
+		$tests = array_map( function ( $data ) {
+			$data->title = $data->name;
+			$data->ID    = $data->term_id;
+
+			$count = new \WP_Query( array(
+				'post_type'   => 'question',
+				'post_status' => array( 'draft', 'publish' ),
+				'tax_query'   => array(
+					array(
+						'taxonomy' => 'exam',
+						'field'    => 'id',
+						'terms'    => array( $data->term_id )
+					)
+				),
+			) );
+
+			$data->count = $count->post_count;
+
+			return $data;
+		}, $tests );
+
+		return new \WP_REST_Response( array(
+			'success' => true,
+			'tests'   => $tests,
+
+		), 200 );
+	}
+
 	/**
 	 * Get Example
 	 *
@@ -119,19 +208,43 @@ class Example {
 	 * @return WP_Error|WP_REST_Request
 	 */
 	public function get_questions( $request ) {
-		$example_option = get_option( 'wpr_example_setting' );
+		$slug_id = $request['term_slug'];
 
-		// Don't return false if there is no option
-		if ( ! $example_option ) {
-			return new \WP_REST_Response( array(
-				'success' => true,
-				'value'   => ''
-			), 200 );
-		}
+
+		$posts = new \WP_Query( array(
+			'post_type'   => 'question',
+			'post_status' => array( 'draft', 'publish' ),
+			'tax_query'   => array(
+				array(
+					'taxonomy' => 'exam',
+					'field'    => 'id',
+					'terms'    => array( $slug_id )
+				)
+			),
+		) );
+		$posts = $posts->get_posts();
+		shuffle( $posts );
+		$posts = array_slice( $posts, 1 ,3);
+		$posts = array_map( function ( $data ) {
+			$post_id        = $data->ID;
+			$custom         = get_post_custom( $post_id );
+			$data->answer   = array();
+			$data->answer[] = array( 'key' => 'answer_0', 'value' => $custom['answer_0'][0] );
+			$data->answer[] = array( 'key' => 'answer_1', 'value' => $custom['answer_1'][0] );
+			$data->answer[] = array( 'key' => 'answer_2', 'value' => $custom['answer_2'][0] );
+			$data->answer[] = array( 'key' => 'answer_3', 'value' => $custom['answer_3'][0] );
+			$data->answer[] = array( 'key' => 'answer_4', 'value' => $custom['answer_4'][0] );
+			$data->answer[] = array( 'key' => 'answer_5', 'value' => $custom['answer_5'][0] );
+			shuffle( $data->answer );
+			$data->imageSrc = get_the_post_thumbnail_url( $post_id, 'full' );
+
+			return $data;
+		}, $posts );
+
 
 		return new \WP_REST_Response( array(
-			'success' => true,
-			'value'   => $example_option
+			'success'  => true,
+			'question' => $posts
 		), 200 );
 	}
 
@@ -145,10 +258,11 @@ class Example {
 	public function add_question( $request ) {
 		$data    = json_decode( $request['question'] );
 		$post_id = wp_insert_post( array(
-			'tax_input'     => array('exam' => $data->courseSlug ),
-			'post_type'     => 'question',
-			'post_title'    => $data->question
+			'tax_input'  => array( 'exam' => $data->courseSlug ),
+			'post_type'  => 'question',
+			'post_title' => $data->question
 		) );
+
 		update_post_meta( $post_id, 'answer_0', $data->answer[0] );
 		update_post_meta( $post_id, 'answer_1', $data->answer[1] );
 		update_post_meta( $post_id, 'answer_2', $data->answer[2] );
@@ -156,7 +270,8 @@ class Example {
 		update_post_meta( $post_id, 'answer_4', $data->answer[4] );
 		update_post_meta( $post_id, 'answer_5', $data->answer[5] );
 		update_post_meta( $post_id, 'correctAnswer', $data->correctAnswer );
-		update_post_meta( $post_id, 'imageSrc', $data->imageSrc );
+
+		set_post_thumbnail( $post_id, $data->attachmentId );
 
 
 		return new \WP_REST_Response( array(

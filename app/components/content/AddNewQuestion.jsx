@@ -34,6 +34,7 @@ class AddNewQuestion extends Component {
       correctAnswer: 'option0',
       imageSrc: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180',
       courseSlug: 'test-1',
+      attachmentId: '',
     }
   };
 
@@ -92,9 +93,43 @@ class AddNewQuestion extends Component {
     newQuestion.answer = this.state.answers
     newQuestion.correctAnswer = this.state.correctAnswer
     newQuestion.courseSlug = this.state.courseSlug
+    newQuestion.attachmentId = this.state.attachmentId
     questions = questions.concat(newQuestion)
 
-    this.props.fetchWP.post('question', {question: JSON.stringify(newQuestion)}).then((json) => console.log(json))
+    this.props.fetchWP.post('question', {question: JSON.stringify(newQuestion)}).then(() =>
+      this.props.fetchWP.get('course').then((json) => this.props.updateListOfTests(json.tests)))
+
+  }
+
+  renderCourseOptions = () => {
+    return this.props.listOfTests.map(function (data) {
+      return <option key={data.slug} value={data.slug}>{data.name}</option>
+    })
+  }
+
+  onChangeCourse = (e) => {
+    this.setState({courseSlug: e.target.value})
+  }
+
+  onClickSelectImage = () => {
+    if (frame) {
+      frame.open()
+      return
+    }
+    // Create a new media frame
+    let frame = wp.media({
+      title: 'Wybierz obrazek dla pytania',
+      button: {
+        text: 'Wybierz'
+      },
+      multiple: false  // Set to true to allow multiple files to be selected
+    })
+    frame.open()
+    frame.on('select', function () {
+      // Get media attachment details from the frame state
+      var attachment = frame.state().get('selection').first().toJSON()
+      this.setState({imageSrc: attachment.url, attachmentId: attachment.id})
+    }.bind(this))
   }
 
   render () {
@@ -107,8 +142,17 @@ class AddNewQuestion extends Component {
             <CardBody>
               <Form>
                 <FormGroup>
-                  <Input onBlur={this.onBlurImageLink} onChange={this.onChangePhotoUrl} value={this.state.photoUrl}
-                         type="url" name="url" id="exampleUrl" placeholder="Wprowadź adres URL obrazka"/>
+                  <Label for="courseSelect">Wybierz test</Label>
+                  <Input onChange={this.onChangeCourse} value={this.state.courseSlug} type="select" name="select"
+                         id="courseSelect">
+                    {this.renderCourseOptions()}
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+
+                  <Button onClick={this.onClickSelectImage} color="primary" size="lg" block>Wybierz obrazek</Button>
+                  {/*<Input onBlur={this.onBlurImageLink} onChange={this.onChangePhotoUrl} value={this.state.photoUrl}*/}
+                  {/*type="url" name="url" id="exampleUrl" placeholder="Wprowadź adres URL obrazka"/>*/}
                 </FormGroup>
                 <FormGroup>
                   <Label for="exampleText">Wprowadź treść pytania:</Label>
