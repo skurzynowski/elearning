@@ -12,6 +12,7 @@ const defaultState = {
   fetchWP: {},
   currentTest: 'test-o-zdrowiu-czlowieka',
   selectedAnswers: [],
+  testResults: [],
 }
 
 export default function appState (state = defaultState, action) {
@@ -56,6 +57,11 @@ export default function appState (state = defaultState, action) {
     case 'APPSTATE_UPDATE_ANSWERS':
       newState.selectedAnswers = action.answers
       return newState
+
+    case 'APPSTATE_UPDATE_TEST_RESULTS':
+      newState.testResults = action.results
+      return newState
+
 
     default:
       return state

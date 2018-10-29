@@ -42,6 +42,10 @@ export const updateAnswers = (answers) => ({
   type:'APPSTATE_UPDATE_ANSWERS',
   answers
 })
+export const setTestResults = (results) => ({
+  type:'APPSTATE_UPDATE_TEST_RESULTS',
+  results
+})
 
 
 

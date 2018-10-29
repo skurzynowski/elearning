@@ -23,7 +23,8 @@ import {
   updateAnswers,
   updateQuestionsCollection,
   updateListOfTests,
-  setAppMode
+  setAppMode,
+  setTestResults,
 } from '../../../redux/appState/actions'
 
 const imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180'
@@ -36,6 +37,7 @@ class QuestionUser extends Component {
       questionIndex: 0,
       questionsCollection: this.props.questionsCollection,
       selectedAnswer: '',
+      finishBtnClicked: false,
     }
   };
 
@@ -79,13 +81,20 @@ class QuestionUser extends Component {
       }
     }.bind(this))
   }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.selectedAnswers !== this.props.selectedAnswers && this.state.finishBtnClicked === true) {
+      this.props.fetchWP.post('check/result', {selectedAnswers: JSON.stringify(nextProps.selectedAnswers)})
+        .then((json) => this.props.setTestResults(json.result)).then(this.props.setAppMode('result'))
+    }
+  }
+
   onClickFinishTest = () => {
+    this.state.finishBtnClicked = true
     this.updateAnswers()
-    this.props.setAppMode('result')
   }
 
   renderFinishTestButton = () => {
-
     if (this.props.questionsCollection.length - 1 === this.state.questionIndex) {
       return (
         <FormGroup>
@@ -132,6 +141,8 @@ const mapDispatchToProps = dispatch => ({
   updateQuestionsCollection: (list) => dispatch(updateQuestionsCollection(list)),
   updateAnswers: (answers) => dispatch(updateAnswers(answers)),
   setAppMode: (mode) => dispatch(setAppMode(mode)),
+  setTestResults: (results) => dispatch(setTestResults(results)),
+
 })
 
 const mapStateToProps = state => ({

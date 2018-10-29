@@ -80,6 +80,13 @@ class Example {
 				'permission_callback' => array( $this, 'example_permissions_check' ),
 			),
 		) );
+		register_rest_route( $namespace, 'check/result', array(
+			array(
+				'methods'             => \WP_REST_Server::CREATABLE,
+				'callback'            => array( $this, 'check_answers' ),
+				'permission_callback' => array( $this, 'example_permissions_check' ),
+			),
+		) );
 
 		register_rest_route( $namespace, $endpoint, array(
 			array(
@@ -125,6 +132,36 @@ class Example {
 			),
 		) );
 
+	}
+
+	public function check_answers( $request ) {
+		$quiz_results = json_decode( $request['selectedAnswers'] );
+
+		$tmp = array();
+
+		foreach ( $quiz_results as $result ) {
+			$tmp[] = strpos( get_post_meta( $result->questionId, 'correctAnswer', true ),
+					substr( $result->answer, - 1 ) ) !== false;
+		}
+
+		$correct_answers = array_filter( $tmp, function ( $data ) {
+			return $data === true;
+		} );
+
+		$percents = floor( count( $correct_answers ) / count( $tmp ) * 100 );
+
+		$result = array(
+			'percents' => $percents,
+			'correct'  => count( $correct_answers ),
+			'wrong'    => count( $tmp ) - count( $correct_answers ),
+		);
+
+
+		return new \WP_REST_Response( array(
+			'success' => true,
+			'result'  => $result,
+
+		), 200 );
 	}
 
 	public function get_courses( $request ) {
@@ -224,7 +261,7 @@ class Example {
 		) );
 		$posts = $posts->get_posts();
 		shuffle( $posts );
-		$posts = array_slice( $posts, 1 ,3);
+		$posts = array_slice( $posts, 1, 3 );
 		$posts = array_map( function ( $data ) {
 			$post_id        = $data->ID;
 			$custom         = get_post_custom( $post_id );
