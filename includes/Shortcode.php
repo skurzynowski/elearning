@@ -117,11 +117,17 @@ class Shortcode {
 
 		wp_enqueue_media();
 
+		$page_url = get_post()->guid;
+
 		$object = shortcode_atts( array(
-			'title'       => 'Hello world',
-			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-			'api_url'     => rest_url( $this->plugin_slug . '/v1/' ),
-			'listOfTests' => $tests,
+			'title'        => 'Hello world',
+			'api_nonce'    => wp_create_nonce( 'wp_rest' ),
+			'api_url'      => rest_url( $this->plugin_slug . '/v1/' ),
+			'listOfTests'  => $tests,
+			'userLoggedIn' => is_user_logged_in(),
+			'isAdmin'      => current_user_can( 'administrator' ),
+			'registerUrl'  => wp_registration_url(),
+			'loginUrl'     => wp_login_url( $page_url ),
 		), $atts, 'wp-reactivate' );
 
 		wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );

@@ -15,7 +15,8 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  CardText
+  CardText,
+  Progress
 } from 'reactstrap'
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
@@ -36,7 +37,10 @@ class TestResult extends Component {
           <Card>
             <CardBody>
               <h3>Gratulacje! Zakończyłeś test.</h3>
-              <p>Twój wynik to: 50%</p>
+              <div className="text-left">Wynik testu:{this.props.testResults.percents}%</div>
+              <Progress value={this.props.testResults.percents}/>
+              <p>Poprawne odpowiedzi: {this.props.testResults.correct}</p>
+              <p>Błędne odpowiedzi: {this.props.testResults.wrong}</p>
             </CardBody>
           </Card>
         </Container>
@@ -52,9 +56,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  questionsCollection: state.appState.questionsCollection,
-  fetchWP: state.appState.fetchWP,
-  selectedAnswers: state.appState.selectedAnswers,
+  testResults: state.appState.testResults,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TestResult)
