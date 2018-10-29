@@ -3,15 +3,23 @@ import PropTypes from 'prop-types'
 import { Container, Row, Col } from 'reactstrap'
 import Header from '../components/header/Header'
 import { connect } from 'react-redux'
-import { toggleUserLogginStatus } from '../../redux/appState/actions'
+import { toggleUserLogginStatus, setFetchWP } from '../../redux/appState/actions'
 import SiteBarAdmin from '../components/sitebar/SiteBarAdmin'
 import AddNewCourse from '../components/content/AddNewCourse'
 import AddNewQuestion from '../components/content/AddNewQuestion'
+import fetchWP from '../utils/fetchWP'
 
 class Shortcode extends Component {
 
   constructor (props) {
     super(props)
+
+    let fetchWPInstance = new fetchWP({
+      restURL: this.props.wpObject.api_url,
+      restNonce: this.props.wpObject.api_nonce,
+    })
+
+    this.props.setFetchWP(fetchWPInstance)
   };
 
   render () {
@@ -37,7 +45,8 @@ Shortcode.propTypes = {
 }
 
 const mapDispatchToProps = dispatch => ({
-  toggleUserLogginStatus: (status) => dispatch(toggleUserLogginStatus(status))
+  toggleUserLogginStatus: (status) => dispatch(toggleUserLogginStatus(status)),
+  setFetchWP: (fetchWP) => dispatch(setFetchWP(fetchWP))
 })
 
 const mapStateToProps = state => ({

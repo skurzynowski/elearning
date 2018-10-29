@@ -70,6 +70,8 @@ spl_autoload_register(function ($class) {
     }
 });
 
+new Config();
+
 /**
  * Initialize Plugin
  *

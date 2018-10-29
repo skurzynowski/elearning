@@ -17,6 +17,7 @@ import {
   CardSubtitle,
   CardText
 } from 'reactstrap'
+import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import { updateQuestionsCollection, updateListOfTests } from '../../../redux/appState/actions'
 
@@ -91,6 +92,8 @@ class AddNewQuestion extends Component {
     newQuestion.correctAnswer = this.state.correctAnswer
     questions = questions.concat(newQuestion)
     this.props.updateQuestionsCollection(questions)
+
+    this.props.fetchWP.post('question', {question: JSON.stringify(newQuestion)}).then((json) => console.log(json))
   }
 
   render () {
@@ -198,6 +201,7 @@ const mapStateToProps = state => ({
   courseTitle: state.appState.courseTitle,
   listOfTests: state.appState.listOfTests,
   questionsCollection: state.appState.questionsCollection,
+  fetchWP: state.appState.fetchWP,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddNewQuestion)

@@ -28,5 +28,11 @@ export const updateQuestionsCollection = (list) => ({
   list
 })
 
+//update list of tests
+export const setFetchWP = (fetchWP) => ({
+  type: 'APPSTATE_FETCH_WP',
+  fetchWP
+})
+
 
 
