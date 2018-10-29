@@ -11,6 +11,7 @@ const defaultState = {
   questionsCollection: [],
   fetchWP: {},
   currentTest: 'test-o-zdrowiu-czlowieka',
+  selectedAnswers: [],
 }
 
 export default function appState (state = defaultState, action) {
@@ -50,6 +51,10 @@ export default function appState (state = defaultState, action) {
 
     case 'APPSTATE_SET_APP_MODE':
       newState.appGlobalMode = action.mode
+      return newState
+
+    case 'APPSTATE_UPDATE_ANSWERS':
+      newState.selectedAnswers = action.answers
       return newState
 
     default:

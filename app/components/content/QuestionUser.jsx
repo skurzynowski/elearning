@@ -19,7 +19,12 @@ import {
 } from 'reactstrap'
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
-import { updateQuestionsCollection, updateListOfTests } from '../../../redux/appState/actions'
+import {
+  updateAnswers,
+  updateQuestionsCollection,
+  updateListOfTests,
+  setAppMode
+} from '../../../redux/appState/actions'
 
 const imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180'
 
@@ -34,10 +39,17 @@ class QuestionUser extends Component {
     }
   };
 
-  onChangeRadio = (e) => {
-    this.setState({correctAnswer: e.target.value})
+  updateAnswers = () => {
+    let answers = this.props.selectedAnswers
+    answers = answers.concat({
+      questionId: this.props.questionsCollection[this.state.questionIndex].ID,
+      answer: this.state.selectedAnswer
+    })
+
+    this.props.updateAnswers(answers)
   }
   onClickNextQuestion = () => {
+    this.updateAnswers()
     this.setState({questionIndex: this.state.questionIndex + 1, selectedAnswer: ''})
   }
   renderCourseOptions = () => {
@@ -67,10 +79,14 @@ class QuestionUser extends Component {
       }
     }.bind(this))
   }
+  onClickFinishTest = () => {
+    this.updateAnswers()
+    this.props.setAppMode('result')
+  }
 
   renderFinishTestButton = () => {
 
-    if (this.props.questionsCollection.length - 1 === this.state.questionIndex ) {
+    if (this.props.questionsCollection.length - 1 === this.state.questionIndex) {
       return (
         <FormGroup>
           <Button onClick={this.onClickFinishTest}>Zakończ test</Button>
@@ -80,7 +96,7 @@ class QuestionUser extends Component {
   }
 
   renderNexQuestionButton = () => {
-    if (this.state.selectedAnswer !== '' && this.props.questionsCollection.length -2 >= this.state.questionIndex) {
+    if (this.state.selectedAnswer !== '' && this.props.questionsCollection.length - 2 >= this.state.questionIndex) {
       return (<FormGroup>
           <Button onClick={this.onClickNextQuestion}>Następne pytanie</Button>
         </FormGroup>
@@ -113,12 +129,15 @@ class QuestionUser extends Component {
 
 const mapDispatchToProps = dispatch => ({
   updateListOfTests: (list) => dispatch(updateListOfTests(list)),
-  updateQuestionsCollection: (list) => dispatch(updateQuestionsCollection(list))
+  updateQuestionsCollection: (list) => dispatch(updateQuestionsCollection(list)),
+  updateAnswers: (answers) => dispatch(updateAnswers(answers)),
+  setAppMode: (mode) => dispatch(setAppMode(mode)),
 })
 
 const mapStateToProps = state => ({
   questionsCollection: state.appState.questionsCollection,
   fetchWP: state.appState.fetchWP,
+  selectedAnswers: state.appState.selectedAnswers,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionUser)

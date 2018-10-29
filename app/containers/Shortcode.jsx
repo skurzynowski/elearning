@@ -11,6 +11,7 @@ import fetchWP from '../utils/fetchWP'
 import AdminControlBar from '../components/content/AdminControlBar'
 import WelcomeUser from '../components/content/WelcomeUser'
 import QuestionUser from '../components/content/QuestionUser'
+import TestResult from '../components/content/TestResult'
 
 class Shortcode extends Component {
 
@@ -40,6 +41,7 @@ class Shortcode extends Component {
             <AdminControlBar/>
             {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
             {this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? <QuestionUser/> : null}
+            {this.props.appGlobalMode === 'result' ? <TestResult/> : null}
             {this.props.appGlobalMode === 'add_question' ? <AddNewQuestion/> : null}
             {this.props.appGlobalMode === 'add_course' ? <AddNewCourse/> : null}
           </Col>

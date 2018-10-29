@@ -38,5 +38,10 @@ export const setAppMode = (mode) => ({
   type: 'APPSTATE_SET_APP_MODE',
   mode
 })
+export const updateAnswers = (answers) => ({
+  type:'APPSTATE_UPDATE_ANSWERS',
+  answers
+})
+
 
 
