@@ -41,7 +41,8 @@
 
 .sitebar-admin-wraper {
     border-right: 1px solid purple;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
 }
 
 .col-2 {

@@ -6,7 +6,9 @@ const defaultState = {
   logoUrl: "https://picsum.photos/290/75",
   userName: "Sebastian",
   userSurname: "Kurzynowski",
-  listOfTests: [{title: "Pierwszy test", ID: 1}],
+  listOfTests: [{title: "Pierwszy test", ID: 1, }],
+  appGlobalMode: 'add_question',
+  questionsCollection: [],
 }
 
 export default function appState (state = defaultState, action) {
@@ -32,6 +34,11 @@ export default function appState (state = defaultState, action) {
     //update list of tests
     case 'APPSTATE_UPDATE_LIST_OF_TESTS' :
       newState.listOfTests = action.list
+      return newState
+
+    //update list of tests
+    case 'APPSTATE_UPDATE_QUESTIONS_COLLECTION' :
+      newState.questionsCollection = action.list
       return newState
 
     default:

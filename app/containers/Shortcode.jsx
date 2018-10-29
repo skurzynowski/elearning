@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { toggleUserLogginStatus } from '../../redux/appState/actions'
 import SiteBarAdmin from '../components/sitebar/SiteBarAdmin'
 import AddNewCourse from '../components/content/AddNewCourse'
+import AddNewQuestion from '../components/content/AddNewQuestion'
 
 class Shortcode extends Component {
 
@@ -22,7 +23,8 @@ class Shortcode extends Component {
           </Col>
           <Col xs="10">
             <Header/>
-            <AddNewCourse/>
+            {this.props.appGlobalMode === 'add_question' ? <AddNewQuestion/> : null}
+            {this.props.appGlobalMode === 'add_course' ? <AddNewCourse/> : null}
           </Col>
         </Row>
       </Container>
@@ -39,7 +41,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  isUserLoggedIn: state.appState.isUserLoggedIn
+  isUserLoggedIn: state.appState.isUserLoggedIn,
+  appGlobalMode: state.appState.appGlobalMode,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shortcode)

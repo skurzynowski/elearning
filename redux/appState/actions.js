@@ -22,5 +22,11 @@ export const updateListOfTests = (list) => ({
   list
 })
 
+//update list of tests
+export const updateQuestionsCollection = (list) => ({
+  type: 'APPSTATE_UPDATE_QUESTIONS_COLLECTION',
+  list
+})
+
 
 
