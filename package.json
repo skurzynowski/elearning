@@ -38,6 +38,7 @@
     "npm": "^6.4.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
+    "react-bootstrap": "^0.32.4",
     "react-datepicker": "^1.7.0",
     "react-dom": "^16.5.2",
     "react-redux": "^5.1.0",

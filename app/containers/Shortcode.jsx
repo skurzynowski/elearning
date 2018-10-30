@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Container, Row, Col } from 'reactstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import Header from '../components/header/Header'
 import { connect } from 'react-redux'
 import { toggleUserLogginStatus, setFetchWP, updateListOfTests , setAppMode} from '../../redux/appState/actions'
@@ -33,12 +33,12 @@ class Shortcode extends Component {
 
   render () {
     return (
-      <Container fluid>
+      <Grid fluid>
         <Row>
-          <Col xs="2">
+          <Col xs={2}>
             {this.props.appGlobalMode === 'notLoggedIn' ? null : <SiteBarAdmin/>}
           </Col>
-          <Col xs="10">
+          <Col xs={10}>
             {this.props.appGlobalMode === 'notLoggedIn' ? null : <Header/>}
             {this.props.appGlobalMode === 'notLoggedIn' ? <LogInForm registerUrl={this.props.wpObject.registerUrl} loginUrl={this.props.wpObject.loginUrl}/> : null}
             {this.props.wpObject.isAdmin == 1 ? <AdminControlBar/> : null}
@@ -49,7 +49,7 @@ class Shortcode extends Component {
             {this.props.appGlobalMode === 'add_course' ? <AddNewCourse/> : null}
           </Col>
         </Row>
-      </Container>
+      </Grid>
     )
   }
 }
