@@ -1,22 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
-  CustomInput,
-  Container,
+  FormControl,
+  Grid,
   Row,
   Col,
   Form,
   FormGroup,
-  Input,
-  Label,
+
+  ControlLabel,
   Button,
-  Card,
-  CardImg,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText
-} from 'reactstrap'
+  Panel,
+} from 'react-bootstrap'
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import { updateQuestionsCollection, updateListOfTests, setAppMode } from '../../../redux/appState/actions'
@@ -49,10 +44,10 @@ class WelcomeUser extends Component {
 
   render () {
     return (
-      <Col xs={{size: 8, offset: 2}}>
-        <Container className="content-add-new-course" fluid>
-          <Card>
-            <CardBody>
+      <Col xs={8}  offset={2}>
+        <Grid componentClass="content-add-new-course" fluid>
+          <Panel>
+            <Panel.Body>
               <h3>Witaj w strefie e-learning</h3>
               <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
                 totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
@@ -63,10 +58,10 @@ class WelcomeUser extends Component {
                 exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
                 vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum
                 qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
-              <Button onClick={this.getQuestions} outline>Rozpocznij test</Button>
-            </CardBody>
-          </Card>
-        </Container>
+              <Button onClick={this.getQuestions}  >Rozpocznij test</Button>
+            </Panel.Body>
+          </Panel>
+        </Grid>
       </Col>
     )
   }

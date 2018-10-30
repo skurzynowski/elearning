@@ -29,23 +29,35 @@ module.exports = (env, argv) => {
           loader: 'babel-loader',
         },
         {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader']
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: "babel-loader"
         },
         {
-          test: /\.svg$/,
-          use: [
-            {
-              loader: 'babel-loader'
-            },
-            {
-              loader: 'react-svg-loader',
-              options: {
-                jsx: true // true outputs JSX tags
-              }
-            }
-          ]
-        }
+          test: /\.html$/,
+          loader: "html"
+        },
+        {
+          test: /\.css$/,
+          loader: "style-loader!css-loader"
+        },
+        {
+          test: /\.json$/,
+          loader: 'json-loader'
+        }, {
+          test: /\.txt$/,
+          loader: 'raw-loader'
+        }, {
+          test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+          loader: 'url-loader?limit=10000'
+        }, {
+          test: /\.(eot|ttf|wav|mp3)$/,
+          loader: 'file-loader'
+        },
+        {
+          test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+          loader: 'url-loader'
+        },
       ],
     },
   }

@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
-  CustomInput,
-  Container,
+  FormControl,
+  Grid,
   Row,
   Col,
   Form,
   FormGroup,
-  Input,
-  Label,
+
+  ControlLabel,
   Button,
-  Card,
-  CardImg,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText
-} from 'reactstrap'
+  Panel,
+  Radio
+} from 'react-bootstrap'
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import {
@@ -71,7 +67,7 @@ class QuestionUser extends Component {
         return (
           <FormGroup key={this.state.selectedIndex + data.key}>
             <div className="d-flex justify-content-start">
-              <CustomInput onChange={this.onChangeRadio} value={data.key}
+              <Radio onChange={this.onChangeRadio} value={data.key}
                            checked={this.state.selectedAnswer === data.key} type="radio"
                            id={data.key + '_id_' + this.state.questionIndex}
                            name="correctAnswer" inline/>
@@ -115,22 +111,21 @@ class QuestionUser extends Component {
 
   render () {
     return (
-      <Col xs={{size: 8, offset: 2}}>
-        <Container className="content-add-new-course" fluid>
-          <Card>
-            <CardImg top width="100%" src={this.props.questionsCollection[this.state.questionIndex].imageSrc}
-                     alt="Card image cap"/>
-            <CardBody>
+      <Col xs={8} offset={2}>
+        <Grid componentClass="content-add-new-course" fluid>
+          <Panel>
+            <img src={this.props.questionsCollection[this.state.questionIndex].imageSrc} alt="..."
+                 className="img-thumbnail"/>
+            <Panel.Body>
               <Form>
                 <h3>{this.props.questionsCollection[this.state.questionIndex].post_title}</h3>
                 {this.renderQuestions()}
                 {this.renderNexQuestionButton()}
                 {this.renderFinishTestButton()}
               </Form>
-
-            </CardBody>
-          </Card>
-        </Container>
+            </Panel.Body>
+          </Panel>
+        </Grid>
       </Col>
     )
   }

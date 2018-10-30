@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Container, Row, Col } from 'reactstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { Progress } from 'reactstrap'
+import { ProgressBar } from 'react-bootstrap'
 
-class ProgressBar extends Component {
+class ProgressBarTest extends Component {
   countProgres = () => {
     if (!isNaN(this.props.questionsCollection.length) && this.props.questionsCollection.length > 0 && !isNaN(this.props.selectedAnswers.length) && this.props.selectedAnswers.length > 0) {
       return Math.floor((this.props.selectedAnswers.length / this.props.questionsCollection.length) * 100)
@@ -17,7 +17,7 @@ class ProgressBar extends Component {
     return (
       <div className="header-progress-bar">
         <div className="text-left">Ukończenie kursu {this.countProgres()}%</div>
-        <Progress value={this.countProgres()}/>
+        <ProgressBar now={this.countProgres()}/>
       </div>
     )
   }
@@ -30,4 +30,4 @@ const mapStateToProps = state => ({
   selectedAnswers: state.appState.selectedAnswers,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProgressBar)
+export default connect(mapStateToProps, mapDispatchToProps)(ProgressBarTest)

@@ -35,10 +35,10 @@ class Shortcode extends Component {
     return (
       <Grid fluid>
         <Row>
-          <Col xs={2}>
+          <Col xs={2} lg={2} md={10}>
             {this.props.appGlobalMode === 'notLoggedIn' ? null : <SiteBarAdmin/>}
           </Col>
-          <Col xs={10}>
+          <Col xs={10} lg={10} md={10}>
             {this.props.appGlobalMode === 'notLoggedIn' ? null : <Header/>}
             {this.props.appGlobalMode === 'notLoggedIn' ? <LogInForm registerUrl={this.props.wpObject.registerUrl} loginUrl={this.props.wpObject.loginUrl}/> : null}
             {this.props.wpObject.isAdmin == 1 ? <AdminControlBar/> : null}

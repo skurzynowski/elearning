@@ -1,23 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
-  CustomInput,
-  Container,
+  FormControl,
+  Grid,
   Row,
   Col,
   Form,
   FormGroup,
-  Input,
-  Label,
+
+  ControlLabel,
   Button,
-  Card,
-  CardImg,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText,
-  Progress
-} from 'reactstrap'
+  Panel,
+  ProgressBar
+} from 'react-bootstrap'
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import {
@@ -32,18 +27,18 @@ class TestResult extends Component {
 
   render () {
     return (
-      <Col xs={{size: 8, offset: 2}}>
-        <Container className="content-test-result" fluid>
-          <Card>
-            <CardBody>
+      <Col xs={8}  offset={2}>
+        <Grid componentClass="content-test-result" fluid>
+          <Panel>
+            <Panel.Body>
               <h3>Gratulacje! Zakończyłeś test.</h3>
               <div className="text-left">Wynik testu:{this.props.testResults.percents}%</div>
-              <Progress value={this.props.testResults.percents}/>
+              <ProgressBar now={this.props.testResults.percents}/>
               <p>Poprawne odpowiedzi: {this.props.testResults.correct}</p>
               <p>Błędne odpowiedzi: {this.props.testResults.wrong}</p>
-            </CardBody>
-          </Card>
-        </Container>
+            </Panel.Body>
+          </Panel>
+        </Grid>
       </Col>
     )
   }

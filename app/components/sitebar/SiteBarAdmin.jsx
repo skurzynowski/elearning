@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Container, Row, Col } from 'reactstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import Logo from './Logo'
 
 class SiteBarAdmin extends Component {
   renderListOfCourse = () => {
@@ -14,7 +13,6 @@ class SiteBarAdmin extends Component {
   render () {
     return (
       <div className="sitebar-admin-wraper">
-        <Logo/>
         <ul className="sitebar-admin-course-list">
           {this.renderListOfCourse()}
         </ul>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Container, Row, Col, Form, FormGroup, Input, Label, Button } from 'reactstrap'
+import {Grid, Panel, Row, Col, Form, FormGroup, FormControl,  ControlLabel, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { updateListOfTests } from '../../../redux/appState/actions'
 
@@ -37,24 +37,29 @@ class AddNewCourse extends Component {
 
   render () {
     return (
-      <Col xs={{size: 8, offset: 2}}>
-        <Container className="content-add-new-course" fluid>
-          <Form>
-            <FormGroup>
-              <Label for="exampleText">Tytuł testu</Label>
-              <Input onChange={this.onChangeTitle} value={this.state.testTitle} type="textarea"
-                     name="courseTitleInput" id="exampleText"/>
-            </FormGroup>
-            <FormGroup>
-              <Label for="exampleText">Krótki opis testu</Label>
-              <Input onChange={this.onChangeDescription} value={this.state.description} type="textarea"
-                     name="courseTitleInput" id="exampleText"/>
-            </FormGroup>
-            <FormGroup>
-              <Button onClick={this.onClickBtnAddCourse} outline color="success">Dodaj</Button>
-            </FormGroup>
-          </Form>
-        </Container>
+      <Col xs={8}  offset={2}>
+        <Grid componentClass="content-add-new-course" fluid>
+          <Panel>
+            <Panel.Heading>Dodaj kurs:</Panel.Heading>
+            <Panel.Body>
+              <Form>
+                <FormGroup>
+                  <ControlLabel>Tytuł testu</ControlLabel>
+                  <FormControl onChange={this.onChangeTitle} value={this.state.testTitle} componentClass="textarea"
+                               name="courseTitleInput"/>
+                </FormGroup>
+                <FormGroup>
+                  <ControlLabel>Krótki opis testu</ControlLabel>
+                  <FormControl onChange={this.onChangeDescription} value={this.state.description} componentClass="textarea"
+                               name="courseTitleInput"/>
+                </FormGroup>
+                <FormGroup>
+                  <Button onClick={this.onClickBtnAddCourse}    bsStyle="success">Dodaj</Button>
+                </FormGroup>
+              </Form>
+            </Panel.Body>
+          </Panel>
+        </Grid>
       </Col>
     )
   }

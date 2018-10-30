@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {FormText, CardBody, Card,Container, Row, Col, Form, FormGroup, Input, Label, Button } from 'reactstrap'
+import {FormText,  Panel,Grid, Row, Col, Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { updateListOfTests } from '../../../redux/appState/actions'
 
@@ -16,41 +16,41 @@ class LogInForm extends Component {
 
   render () {
     return (
-          <Col xs={{size: 8, offset: 2}}>
-            <Container className="content-add-new-course" fluid>
-              <Card>
+          <Col xs={8}  offset={2}>
+            <Grid componentClass="content-add-new-course" fluid>
+              <Panel>
                 <CardBody>
                   <h3>Please log in</h3>
                   <a href={this.props.loginUrl}>Log in</a>
                   <Form>
                     <FormGroup row>
-                      <Label for="exampleEmail" sm={2}>Email</Label>
+                      <ControlLabel sm={2}>Email</ControlLabel>
                       <Col sm={10}>
-                        <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                        <FormControl type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
                       </Col>
                     </FormGroup>
                     <FormGroup row>
-                      <Label for="exampleEmail" sm={2}>Imię</Label>
+                      <ControlLabel  sm={2}>Imię</ControlLabel>
                       <Col sm={10}>
-                        <Input type="email" name="text" id="exampleEmail" placeholder="with a placeholder" />
+                        <FormControl type="email" name="text" id="exampleEmail" placeholder="with a placeholder" />
                       </Col>
                     </FormGroup>
                     <FormGroup row>
-                      <Label for="exampleEmail" sm={2}>Nazwisko</Label>
+                      <ControlLabel  sm={2}>Nazwisko</ControlLabel>
                       <Col sm={10}>
-                        <Input type="email" name="text" id="exampleEmail" placeholder="with a placeholder" />
+                        <FormControl type="email" name="text" id="exampleEmail" placeholder="with a placeholder" />
                       </Col>
                     </FormGroup>
                     <FormGroup row>
-                      <Label for="examplePassword" sm={2}>Hasło</Label>
+                      <ControlLabel  sm={2}>Hasło</ControlLabel>
                       <Col sm={10}>
-                        <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                        <FormControl type="password" name="password" id="examplePassword" placeholder="password placeholder" />
                       </Col>
                     </FormGroup>
                     <FormGroup row>
-                      <Label for="examplePassword" sm={2}>Powtorz hasło</Label>
+                      <ControlLabel  sm={2}>Powtorz hasło</ControlLabel>
                       <Col sm={10}>
-                        <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                        <FormControl type="password" name="password" id="examplePassword" placeholder="password placeholder" />
                       </Col>
                     </FormGroup>
                     <FormGroup check row>
@@ -60,8 +60,8 @@ class LogInForm extends Component {
                     </FormGroup>
                   </Form>
                 </CardBody>
-              </Card>
-            </Container>
+              </Panel>
+            </Grid>
           </Col>
     )
   }

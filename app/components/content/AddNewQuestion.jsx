@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
-  CustomInput,
-  Container,
+  FormControl,
+  ControlLabel,
+  Grid,
   Row,
   Col,
   Form,
   FormGroup,
-  Input,
-  Label,
   Button,
-  Card,
-  CardImg,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardText
-} from 'reactstrap'
+  Panel,
+  Image,
+Radio
+} from 'react-bootstrap'
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import { updateQuestionsCollection, updateListOfTests } from '../../../redux/appState/actions'
@@ -134,104 +130,104 @@ class AddNewQuestion extends Component {
 
   render () {
     return (
-      <Col xs={{size: 8, offset: 2}}>
-        <Container className="content-add-new-course" fluid>
-          <Card>
-            <CardImg top width="100%" src={this.state.imageSrc}
-                     alt="Card image cap"/>
-            <CardBody>
+      <Col xs={8} offset={2}>
+        <Grid componentClass="content-add-new-course" fluid>
+          <Panel>
+            <Panel.Heading>Dodaj pytanie:</Panel.Heading>
+            <Image src={this.state.imageSrc} rounded/>
+            <Panel.Body>
               <Form>
                 <FormGroup>
-                  <Label for="courseSelect">Wybierz test</Label>
-                  <Input onChange={this.onChangeCourse} value={this.state.courseSlug} type="select" name="select"
-                         id="courseSelect">
+                  <ControlLabel>Wybierz test</ControlLabel>
+                  <FormControl onChange={this.onChangeCourse} value={this.state.courseSlug} componentClass="select"
+                               name="select">
                     {this.renderCourseOptions()}
-                  </Input>
+                  </FormControl>
                 </FormGroup>
                 <FormGroup>
 
-                  <Button onClick={this.onClickSelectImage} color="primary" size="lg" block>Wybierz obrazek</Button>
-                  {/*<Input onBlur={this.onBlurImageLink} onChange={this.onChangePhotoUrl} value={this.state.photoUrl}*/}
+                  <Button onClick={this.onClickSelectImage} bsStyle="primary">Wybierz obrazek</Button>
+                  {/*<FormControl onBlur={this.onBlurImageLink} onChange={this.onChangePhotoUrl} value={this.state.photoUrl}*/}
                   {/*type="url" name="url" id="exampleUrl" placeholder="Wprowadź adres URL obrazka"/>*/}
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleText">Wprowadź treść pytania:</Label>
-                  <Input onChange={this.onChangeQuestion} value={this.state.question} type="textarea"
-                         name="courseTitleInput" id="exampleText"/>
+                  <ControlLabel>Wprowadź treść pytania:</ControlLabel>
+                  <FormControl onChange={this.onChangeQuestion} value={this.state.question} componentClass="textarea"
+                               name="courseTitleInput"/>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleText">Treść odpowiedzi 1:</Label>
+                  <ControlLabel>Treść odpowiedzi 1:</ControlLabel>
                   <div className="d-flex justify-content-between">
-                    <Input onChange={this.onChangeAnswer.bind(this, 0)} value={this.state.answers[0]} type="textarea"
-                           name="courseTitleInput" id="exampleText"/>
-                    <CustomInput onChange={this.onChangeRadio} value="option0"
-                                 checked={this.state.correctAnswer === 'option0'} type="radio" id="firstAnswer"
-                                 name="correctAnswer" className="align-self-center"
-                                 label="Poprawna" inline/>
+                    <FormControl onChange={this.onChangeAnswer.bind(this, 0)} value={this.state.answers[0]}
+                                 componentClass="textarea"
+                                 name="courseTitleInput"/>
+                    <Radio onChange={this.onChangeRadio} value="option0"
+                                 checked={this.state.correctAnswer === 'option0'}
+                                 name="correctAnswer" className="align-self-center"/>
                   </div>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleText">Treść odpowiedzi 2:</Label>
+                  <ControlLabel>Treść odpowiedzi 2:</ControlLabel>
                   <div className="d-flex justify-content-between">
-                    <Input onChange={this.onChangeAnswer.bind(this, 1)} value={this.state.answers[1]} type="textarea"
-                           name="courseTitleInput" id="exampleText"/>
-                    <CustomInput onChange={this.onChangeRadio} value="option1"
-                                 checked={this.state.correctAnswer === 'option1'} type="radio" id="secondAnswer"
-                                 name="correctAnswer" className="align-self-center"
-                                 label="Poprawna" inline/>
+                    <FormControl onChange={this.onChangeAnswer.bind(this, 1)} value={this.state.answers[1]}
+                                 componentClass="textarea"
+                                 name="courseTitleInput" id="exampleText"/>
+                    <Radio onChange={this.onChangeRadio} value="option1"
+                                 checked={this.state.correctAnswer === 'option1'}  id="secondAnswer"
+                                 name="correctAnswer" className="align-self-center"/>
                   </div>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleText">Treść odpowiedzi 3:</Label>
+                  <ControlLabel>Treść odpowiedzi 3:</ControlLabel>
                   <div className="d-flex justify-content-between">
-                    <Input onChange={this.onChangeAnswer.bind(this, 2)} value={this.state.answers[2]} type="textarea"
-                           name="courseTitleInput" id="exampleText"/>
-                    <CustomInput onChange={this.onChangeRadio} value="option2"
-                                 checked={this.state.correctAnswer === 'option2'} type="radio" id="thirdAnswer"
-                                 name="correctAnswer" className="align-self-center"
-                                 label="Poprawna" inline/>
+                    <FormControl onChange={this.onChangeAnswer.bind(this, 2)} value={this.state.answers[2]}
+                                 componentClass="textarea"
+                                 name="courseTitleInput" id="exampleText"/>
+                    <Radio onChange={this.onChangeRadio} value="option2"
+                                 checked={this.state.correctAnswer === 'option2'} id="thirdAnswer"
+                                 name="correctAnswer" className="align-self-center"/>
                   </div>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleText">Treść odpowiedzi 4:</Label>
+                  <ControlLabel>Treść odpowiedzi 4:</ControlLabel>
                   <div className="d-flex justify-content-between">
-                    <Input onChange={this.onChangeAnswer.bind(this, 3)} value={this.state.answers[3]} type="textarea"
-                           name="courseTitleInput" id="exampleText"/>
-                    <CustomInput onChange={this.onChangeRadio} value="option3"
-                                 checked={this.state.correctAnswer === 'option3'} type="radio"
-                                 className="align-self-center" name="correctAnswer" id="fourthAnswer"
-                                 label="Poprawna" inline/>
+                    <FormControl onChange={this.onChangeAnswer.bind(this, 3)} value={this.state.answers[3]}
+                                 componentClass="textarea"
+                                 name="courseTitleInput" id="exampleText"/>
+                    <Radio onChange={this.onChangeRadio} value="option3"
+                                 checked={this.state.correctAnswer === 'option3'}
+                                 className="align-self-center" name="correctAnswer" id="fourthAnswer"/>
                   </div>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleText">Treść odpowiedzi 5:</Label>
+                  <ControlLabel>Treść odpowiedzi 5:</ControlLabel>
                   <div className="d-flex justify-content-between">
-                    <Input onChange={this.onChangeAnswer.bind(this, 4)} value={this.state.answers[4]} type="textarea"
-                           name="courseTitleInput" id="exampleText"/>
-                    <CustomInput onChange={this.onChangeRadio} value="option4"
-                                 checked={this.state.correctAnswer === 'option4'} type="radio"
-                                 className="align-self-center" name="correctAnswer" id="fifthAnswer"
-                                 label="Poprawna" inline/>
+                    <FormControl onChange={this.onChangeAnswer.bind(this, 4)} value={this.state.answers[4]}
+                                 componentClass="textarea"
+                                 name="courseTitleInput" id="exampleText"/>
+                    <Radio onChange={this.onChangeRadio} value="option4"
+                                 checked={this.state.correctAnswer === 'option4'}
+                                 className="align-self-center" name="correctAnswer" id="fifthAnswer"/>
                   </div>
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleText">Treść odpowiedzi 6:</Label>
+                  <ControlLabel>Treść odpowiedzi 6:</ControlLabel>
                   <div className="d-flex justify-content-between">
-                    <Input onChange={this.onChangeAnswer.bind(this, 5)} value={this.state.answers[5]} type="textarea"
-                           name="courseTitleInput" id="exampleText"/>
-                    <CustomInput onChange={this.onChangeRadio} value="option5"
-                                 checked={this.state.correctAnswer === 'option5'} type="radio"
-                                 className="align-self-center" name="correctAnswer" id="sixthAnswer"
-                                 label="Poprawna" inline/>
+                    <FormControl onChange={this.onChangeAnswer.bind(this, 5)} value={this.state.answers[5]}
+                                 componentClass="textarea"
+                                 name="courseTitleInput" id="exampleText"/>
+                    <Radio onChange={this.onChangeRadio} value="option5"
+                                 checked={this.state.correctAnswer === 'option5'}
+                                 className="align-self-center" name="correctAnswer" id="sixthAnswer"/>
                   </div>
                 </FormGroup>
                 <FormGroup>
-                  <Button onClick={this.onClickBtnAddQuestion} outline color="success">Zapisz pytanie</Button>
+                  <Button onClick={this.onClickBtnAddQuestion} bsStyle="success">Zapisz pytanie</Button>
                 </FormGroup>
               </Form>
-            </CardBody>
-          </Card>
-        </Container>
+            </Panel.Body>
+          </Panel>
+        </Grid>
       </Col>
     )
   }
