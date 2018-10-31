@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Timer extends React.Component {
   constructor() {
@@ -68,4 +70,13 @@ class Timer extends React.Component {
   }
 }
 
-export default Timer;
+const mapDispatchToProps = {};
+
+const mapStateToProps = state => ({
+  setAppMode: state.appState.setAppMode
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Timer);
