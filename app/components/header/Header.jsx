@@ -1,24 +1,23 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Grid, Row, Col } from 'react-bootstrap'
-import CourseTitle from './CourseTitle'
-import ProgressBar from './ProgressBar'
-import UserPanel from './UserPanel'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Grid, Row, Col } from "react-bootstrap";
+import CourseTitle from "./CourseTitle";
+import ProgressBar from "./ProgressBar";
+import UserPanel from "./UserPanel";
 
 export default class Header extends Component {
-
-  render () {
+  render() {
     return (
       <Grid fluid>
         <Row>
           <Col className="d-flex header-wraper">
-            <CourseTitle/>
-            <ProgressBar/>
-            <UserPanel/>
+            <CourseTitle />
+            <ProgressBar />
+            <UserPanel />
+            <Timer />
           </Col>
         </Row>
       </Grid>
-    )
+    );
   }
 }
-
