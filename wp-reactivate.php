@@ -10,7 +10,7 @@
  * @copyright 2017 Pangolin (Pty) Ltd
  *
  * @wordpress-plugin
- * Plugin Name:       WP-Reactivate
+ * Plugin Name:       E-learning
  * Plugin URI:        https://gopangolin.com
  * Description:       React boilerplate for WordPress plugins
  * Version:           1.0.1

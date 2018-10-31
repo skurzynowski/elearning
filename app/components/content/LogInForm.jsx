@@ -19,7 +19,7 @@ class LogInForm extends Component {
           <Col xs={8}  offset={2}>
             <Grid componentClass="content-add-new-course" fluid>
               <Panel>
-                <CardBody>
+                <Panel.Body>
                   <h3>Please log in</h3>
                   <a href={this.props.loginUrl}>Log in</a>
                   <Form>
@@ -59,7 +59,7 @@ class LogInForm extends Component {
                       </Col>
                     </FormGroup>
                   </Form>
-                </CardBody>
+                </Panel.Body>
               </Panel>
             </Grid>
           </Col>
