@@ -13,6 +13,7 @@ const defaultState = {
   currentTest: 'test-o-zdrowiu-czlowieka',
   selectedAnswers: [],
   testResults: [],
+  activePost: [],
 }
 
 export default function appState (state = defaultState, action) {
@@ -69,6 +70,10 @@ export default function appState (state = defaultState, action) {
       newState.selectedAnswers = []
       return newState
 
+    case 'APPSTATE_SET_ACTIVE_POST':
+      newState.activePost = action.post
+      newState.appGlobalMode = 'post'
+      return newState
 
     default:
       return state

@@ -174,7 +174,7 @@ class Example {
 			$data->title = $data->name;
 			$data->ID    = $data->term_id;
 
-			$count = new \WP_Query( array(
+			$result = new \WP_Query( array(
 				'post_type'   => 'question',
 				'post_status' => array( 'draft', 'publish' ),
 				'tax_query'   => array(
@@ -186,7 +186,24 @@ class Example {
 				),
 			) );
 
-			$data->count = $count->post_count;
+			$data->questions_count = $result->post_count;
+
+			if(0 == $result->post_count){
+				$result = new \WP_Query( array(
+					'post_type'   => 'post',
+					'post_status' => array( 'draft', 'publish' ),
+					'tax_query'   => array(
+						array(
+							'taxonomy' => 'exam',
+							'field'    => 'id',
+							'terms'    => array( $data->term_id )
+						)
+					),
+				) );
+
+				//how many posts with knowladge of this tasonomy
+				$data->e_posts_count = $result->post_count;
+			}
 
 			return $data;
 		}, $tests );

@@ -19,6 +19,7 @@ import WelcomeUser from '../components/content/WelcomeUser'
 import QuestionUser from '../components/content/QuestionUser'
 import TestResult from '../components/content/TestResult'
 import LogInForm from '../components/content/LogInForm'
+import Post from '../components/content/Post'
 
 class Shortcode extends Component {
 
@@ -53,6 +54,7 @@ class Shortcode extends Component {
             <Header/>
             {this.props.wpObject.isAdmin == 1 ? <AdminControlBar/> : null}
             {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
+            {this.props.appGlobalMode === 'post' ? <Post/> : null}
             {this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? <QuestionUser/> : null}
             {this.props.appGlobalMode === 'result' ? <TestResult/> : null}
             {this.props.appGlobalMode === 'add_question' ? <AddNewQuestion/> : null}

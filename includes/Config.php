@@ -119,7 +119,7 @@ class Config {
 				'show_tagcloud'     => true,
 				'show_in_rest'      => true,
 			);
-			register_taxonomy( 'exam', array( 'question' ), $args );
+			register_taxonomy( 'exam', array( 'question', 'post' ), $args );
 		}
 	}
 }
