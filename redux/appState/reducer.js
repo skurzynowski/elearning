@@ -62,6 +62,13 @@ export default function appState (state = defaultState, action) {
       newState.testResults = action.results
       return newState
 
+    case 'APPSTATE_SET_CURRENT_TEST':
+      newState.currentTest = action.testSlug
+      return newState
+    case 'APPSTATE_SET_ANSWERS_DEFAULT':
+      newState.selectedAnswers = []
+      return newState
+
 
     default:
       return state

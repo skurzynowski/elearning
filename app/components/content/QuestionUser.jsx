@@ -21,6 +21,7 @@ import {
   updateListOfTests,
   setAppMode,
   setTestResults,
+  setCurrentTest,
 } from '../../../redux/appState/actions'
 
 const imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180'
@@ -68,9 +69,9 @@ class QuestionUser extends Component {
           <FormGroup key={this.state.selectedIndex + data.key}>
             <div className="d-flex justify-content-start">
               <Radio onChange={this.onChangeRadio} value={data.key}
-                           checked={this.state.selectedAnswer === data.key} type="radio"
-                           id={data.key + '_id_' + this.state.questionIndex}
-                           name="correctAnswer" inline/>
+                     checked={this.state.selectedAnswer === data.key} type="radio"
+                     id={data.key + '_id_' + this.state.questionIndex}
+                     name="correctAnswer" inline/>
               <h6>{data.value}</h6>
             </div>
           </FormGroup>)
@@ -88,6 +89,7 @@ class QuestionUser extends Component {
   onClickFinishTest = () => {
     this.state.finishBtnClicked = true
     this.updateAnswers()
+
   }
 
   renderFinishTestButton = () => {
@@ -137,13 +139,15 @@ const mapDispatchToProps = dispatch => ({
   updateAnswers: (answers) => dispatch(updateAnswers(answers)),
   setAppMode: (mode) => dispatch(setAppMode(mode)),
   setTestResults: (results) => dispatch(setTestResults(results)),
-
+  setCurrentTest: (testSlug) => dispatch(setCurrentTest(testSlug)),
 })
 
 const mapStateToProps = state => ({
   questionsCollection: state.appState.questionsCollection,
   fetchWP: state.appState.fetchWP,
   selectedAnswers: state.appState.selectedAnswers,
+  listOfTests: state.appState.listOfTests,
+  currentTest: state.appState.currentTest,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionUser)

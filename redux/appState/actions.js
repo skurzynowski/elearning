@@ -46,3 +46,11 @@ export const setTestResults = results => ({
   type: "APPSTATE_UPDATE_TEST_RESULTS",
   results
 });
+export const setCurrentTest = testSlug => ({
+  type: "APPSTATE_SET_CURRENT_TEST",
+  testSlug
+})
+export const  setSelectedAnswersDefault = () => ({
+  type: "APPSTATE_SET_ANSWERS_DEFAULT",
+})
+

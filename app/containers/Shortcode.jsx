@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import { Grid, Row, Col } from 'react-bootstrap'
 import Header from '../components/header/Header'
 import { connect } from 'react-redux'
-import { toggleUserLogginStatus, setFetchWP, updateListOfTests , setAppMode} from '../../redux/appState/actions'
+import {
+  setCurrentTest,
+  toggleUserLogginStatus,
+  setFetchWP,
+  updateListOfTests,
+  setAppMode
+} from '../../redux/appState/actions'
 import SiteBarAdmin from '../components/sitebar/SiteBarAdmin'
 import AddNewCourse from '../components/content/AddNewCourse'
 import AddNewQuestion from '../components/content/AddNewQuestion'
@@ -24,23 +30,27 @@ class Shortcode extends Component {
       restNonce: this.props.wpObject.api_nonce,
     })
 
-    this.props.setAppMode(this.props.wpObject.userLoggedIn == 1 ? 'welcome' : 'notLoggedIn')
     if (this.props.wpObject.listOfTests !== null && this.props.wpObject.listOfTests.length > 0) {
       this.props.updateListOfTests(this.props.wpObject.listOfTests)
     }
     this.props.setFetchWP(fetchWPInstance)
+    this.setCurrentTest()
   };
+
+  setCurrentTest = () => {
+    let slug = this.props.wpObject.listOfTests[0].slug
+    this.props.setCurrentTest(slug)
+  }
 
   render () {
     return (
       <Grid fluid>
         <Row>
           <Col xs={2} lg={2} md={10}>
-            {this.props.appGlobalMode === 'notLoggedIn' ? null : <SiteBarAdmin/>}
+            <SiteBarAdmin/>
           </Col>
           <Col xs={10} lg={10} md={10}>
-            {this.props.appGlobalMode === 'notLoggedIn' ? null : <Header/>}
-            {this.props.appGlobalMode === 'notLoggedIn' ? <LogInForm registerUrl={this.props.wpObject.registerUrl} loginUrl={this.props.wpObject.loginUrl}/> : null}
+            <Header/>
             {this.props.wpObject.isAdmin == 1 ? <AdminControlBar/> : null}
             {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
             {this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? <QuestionUser/> : null}
@@ -62,11 +72,11 @@ const mapDispatchToProps = dispatch => ({
   toggleUserLogginStatus: (status) => dispatch(toggleUserLogginStatus(status)),
   setFetchWP: (fetchWP) => dispatch(setFetchWP(fetchWP)),
   updateListOfTests: (list) => dispatch(updateListOfTests(list)),
-  setAppMode: (mode) => dispatch(setAppMode(mode))
+  setAppMode: (mode) => dispatch(setAppMode(mode)),
+  setCurrentTest: (testSlug) => dispatch(setCurrentTest(testSlug)),
 })
 
 const mapStateToProps = state => ({
-  isUserLoggedIn: state.appState.isUserLoggedIn,
   appGlobalMode: state.appState.appGlobalMode,
   questionsCollection: state.appState.questionsCollection,
 })

@@ -235,7 +235,7 @@ class AddNewQuestion extends Component {
 
 const mapDispatchToProps = dispatch => ({
   updateListOfTests: (list) => dispatch(updateListOfTests(list)),
-  updateQuestionsCollection: (list) => dispatch(updateQuestionsCollection(list))
+  updateQuestionsCollection: (list) => dispatch(updateQuestionsCollection(list)),
 })
 
 const mapStateToProps = state => ({

@@ -13,11 +13,7 @@ import {
 } from "react-bootstrap";
 import fetchWp from "../../utils/fetchWP";
 import { connect } from "react-redux";
-import {
-  updateQuestionsCollection,
-  updateListOfTests,
-  setAppMode
-} from "../../../redux/appState/actions";
+import StartTestButton from './StartTestButton'
 
 const imagePlaceholder =
   "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
@@ -41,13 +37,6 @@ class WelcomeUser extends Component {
 
   onChangeCourse = e => {
     this.setState({ courseSlug: e.target.value });
-  };
-
-  getQuestions = () => {
-    this.props.fetchWP
-      .get("question/" + this.props.currentTest)
-      .then(json => this.props.updateQuestionsCollection(json.question))
-      .then(this.props.setAppMode("test"));
   };
 
   render() {
@@ -74,7 +63,7 @@ class WelcomeUser extends Component {
                 molestiae consequatur, vel illum qui dolorem eum fugiat quo
                 voluptas nulla pariatur?"
               </p>
-              <Button onClick={this.getQuestions}>Rozpocznij test</Button>
+              <StartTestButton/>
             </Panel.Body>
           </Panel>
         </Grid>
@@ -84,17 +73,10 @@ class WelcomeUser extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateListOfTests: list => dispatch(updateListOfTests(list)),
-  updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),
-  setAppMode: list => dispatch(setAppMode(list))
 });
 
 const mapStateToProps = state => ({
-  courseTitle: state.appState.courseTitle,
   listOfTests: state.appState.listOfTests,
-  questionsCollection: state.appState.questionsCollection,
-  fetchWP: state.appState.fetchWP,
-  currentTest: state.appState.currentTest
 });
 
 export default connect(
