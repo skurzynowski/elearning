@@ -861,13 +861,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -881,10 +883,35 @@ var Post =
 function (_Component) {
   _inherits(Post, _Component);
 
-  function Post() {
+  function Post(props) {
+    var _this;
+
     _classCallCheck(this, Post);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Post).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Post).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentDidUpdate", function () {
+      _this.fetchPost();
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "fetchPost", function () {
+      var post = new wp.api.models.Post({
+        id: _this.props.activePost
+      });
+      post.fetch().done(function (post) {
+        this.setState({
+          activePost: post
+        });
+      }.bind(_assertThisInitialized(_assertThisInitialized(_this))));
+    });
+
+    _this.state = {
+      activePost: {}
+    };
+
+    _this.fetchPost();
+
+    return _this;
   }
 
   _createClass(Post, [{
@@ -896,11 +923,11 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         componentClass: "content-post",
         fluid: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, this.props.activePost.post_title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, this.state.activePost.post_title), typeof this.state.activePost.content != 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, {
         dangerouslySetInnerHTML: {
-          __html: this.props.activePost.post_content
+          __html: this.state.activePost.content.rendered
         }
-      }))));
+      }) : null)));
     }
   }]);
 
@@ -913,7 +940,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    activePost: state.appState.activePost
+    activePost: state.appState.activePost,
+    fetchWP: state.appState.fetchWP
   };
 };
 
@@ -2015,7 +2043,7 @@ function (_Component) {
           var sublist = data.posts.map(function (dataPost) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
               onClick: function onClick() {
-                return bindObject.props.activePost(dataPost);
+                return bindObject.props.activePost(dataPost.ID);
               },
               active: active
             }, dataPost.post_title);

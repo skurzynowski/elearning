@@ -135,6 +135,7 @@ class Shortcode {
 		$terms = get_terms();
 
 		wp_enqueue_media();
+		wp_enqueue_script( 'wp-api' );
 
 		$page_url = get_post()->guid;
 

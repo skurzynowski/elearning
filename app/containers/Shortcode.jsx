@@ -24,6 +24,7 @@ import Post from '../components/content/Post'
 class Shortcode extends Component {
 
   constructor (props) {
+
     super(props)
 
     let fetchWPInstance = new fetchWP({
@@ -41,6 +42,7 @@ class Shortcode extends Component {
   setCurrentTest = () => {
     let slug = this.props.wpObject.listOfTests[0].slug
     this.props.setCurrentTest(slug)
+
   }
 
   render () {

@@ -13,7 +13,7 @@ class SiteBarAdmin extends Component {
 
       if (typeof data.e_posts_count !== 'undefined' && data.e_posts_count > 0) {
         var sublist = data.posts.map(function (dataPost) {
-          return <ListGroupItem onClick={() =>bindObject.props.activePost(dataPost)}
+          return <ListGroupItem onClick={() =>bindObject.props.activePost(dataPost.ID)}
                                 active={active}>{dataPost.post_title}</ListGroupItem>
         }.bind(active))
       } else {
