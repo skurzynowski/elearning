@@ -15,6 +15,8 @@ const defaultState = {
   testResults: [],
   activePost: [],
   modules: [],
+  activeModule: null,
+  activeSubmodule: null,
 }
 
 export default function appState (state = defaultState, action) {
@@ -78,6 +80,14 @@ export default function appState (state = defaultState, action) {
 
     case 'APPSTATE_SET_MODULES':
       newState.modules = action.modules
+      return newState
+
+    case 'APPSTATE_SET_ACTIVE_MODULE':
+      newState.activeModule = action.module
+      return newState
+
+    case 'APPSTATE_SET_ACTIVE_SUBMODULE':
+      newState.activeSubmodule = action.submodule
       return newState
 
     default:

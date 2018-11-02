@@ -67,13 +67,13 @@ class QuestionUser extends Component {
       if (data.value !== '') {
         return (
           <FormGroup key={this.state.selectedIndex + data.key}>
-            <div className="d-flex justify-content-start">
+              <ControlLabel>
               <Radio onChange={this.onChangeRadio} value={data.key}
                      checked={this.state.selectedAnswer === data.key} type="radio"
                      id={data.key + '_id_' + this.state.questionIndex}
                      name="correctAnswer" inline/>
-              <h6>{data.value}</h6>
-            </div>
+                <div style={{fontSize:"16px",display:'inline'}}>{data.value}</div>
+              </ControlLabel>
           </FormGroup>)
       }
     }.bind(this))

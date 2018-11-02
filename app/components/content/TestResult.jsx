@@ -22,6 +22,7 @@ import {
   updateListOfTests, setSelectedAnswersDefault,
 } from '../../../redux/appState/actions'
 import StartTestButton from '../content/StartTestButton'
+import StartModuleButton from '../content/StartModuleButton'
 
 const imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180'
 
@@ -56,11 +57,12 @@ class TestResult extends Component {
         <Grid componentClass="content-test-result" fluid>
           <Panel>
             <Panel.Body>
-              <h3>Gratulacje! Zakończyłeś test.</h3>
+              <h3>Gratulacje! Zakończyłeś test{this.props.currentTest == 'pre-test' ? ' wstępny' : ' podsumowujący'}.</h3>
               <div className="text-left">Wynik testu:{this.props.testResults.percents}%</div>
               <ProgressBar now={this.props.testResults.percents}/>
               <p>Poprawne odpowiedzi: {this.props.testResults.correct}</p>
               <p>Błędne odpowiedzi: {this.props.testResults.wrong}</p>
+              {this.props.currentTest == 'pre-test' ? <StartModuleButton/> : null}
               {this.state.lastTest ? null : <StartTestButton/>}
             </Panel.Body>
           </Panel>
