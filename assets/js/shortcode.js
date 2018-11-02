@@ -890,11 +890,18 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Post).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentDidUpdate", function () {
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentDidUpdate", function (prevProps) {
+      if (_this.props.activePost === prevProps.activePost) {
+        return;
+      }
+
+      console.log(prevProps, _this.state);
+
       _this.fetchPost();
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "fetchPost", function () {
+      // this.setState({activePost: {}})
       var post = new wp.api.models.Post({
         id: _this.props.activePost
       });
@@ -923,7 +930,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         componentClass: "content-post",
         fluid: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, this.state.activePost.post_title), typeof this.state.activePost.content != 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, typeof this.state.activePost.title != 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, this.state.activePost.title.rendered) : null, typeof this.state.activePost.content != 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, {
         dangerouslySetInnerHTML: {
           __html: this.state.activePost.content.rendered
         }
@@ -2019,47 +2026,48 @@ var SiteBarAdmin =
 function (_Component) {
   _inherits(SiteBarAdmin, _Component);
 
-  function SiteBarAdmin() {
-    var _getPrototypeOf2;
-
+  function SiteBarAdmin(props) {
     var _this;
 
     _classCallCheck(this, SiteBarAdmin);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SiteBarAdmin).call(this, props));
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(SiteBarAdmin)).call.apply(_getPrototypeOf2, [this].concat(args)));
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderListOfCourse", function () {
-      var bindObject = _assertThisInitialized(_assertThisInitialized(_this));
-
-      bindObject.currentTestSlug = _this.props.currentTest;
-      return _this.props.listOfTests.map(function (data, key) {
-        var active = data.slug === bindObject.currentTestSlug ? true : false;
-
-        if (typeof data.e_posts_count !== 'undefined' && data.e_posts_count > 0) {
-          var sublist = data.posts.map(function (dataPost) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-              onClick: function onClick() {
-                return bindObject.props.activePost(dataPost.ID);
-              },
-              active: active
-            }, dataPost.post_title);
-          }.bind(active));
-        } else {
-          var sublist = null;
-        }
-
-        var listElement = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          header: data.title,
-          active: active,
-          key: 'course_' + key
-        }, sublist === null ? data.description : sublist);
-        return listElement;
-      }.bind(bindObject));
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "fetchModules", function () {
+      _this.props.fetchWP.get('modules').then(function (json) {
+        return _this.fillList(json.modules);
+      });
     });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "fillList", function (modules) {
+      _this.props.setModules(modules);
+
+      var array = modules.map(function (data) {
+        var tmp_array = [];
+        tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+          header: data.post_title
+        }));
+        data.fields.module_title_0 !== undefined ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], null, "1. ", data.fields.module_title_0)) : null;
+        data.fields.module_title_1 !== undefined ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], null, "2. ", data.fields.module_title_1)) : null;
+        data.fields.module_title_2 !== undefined ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], null, "3. ", data.fields.module_title_2)) : null;
+        data.fields.module_title_3 !== undefined ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], null, "4. ", data.fields.module_title_3)) : null;
+        data.fields.module_title_4 !== undefined ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], null, "5. ", data.fields.module_title_4)) : null;
+        data.fields.module_title_5 !== undefined ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], null, "6. ", data.fields.module_title_5)) : null;
+        return tmp_array;
+      });
+
+      _this.setState({
+        adminList: _this.state.adminList.concat(array)
+      });
+
+      console.log(_this.state);
+    });
+
+    _this.state = {
+      adminList: []
+    };
+
+    _this.fetchModules();
 
     return _this;
   }
@@ -2071,7 +2079,12 @@ function (_Component) {
         className: "sitebar-admin-wraper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroup"], {
         className: "sitebar-admin-course-list"
-      }, this.renderListOfCourse()));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+        header: "Test wst\u0119pny",
+        active: true
+      }), this.state.adminList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+        header: "Test ko\u0144cowy"
+      })));
     }
   }]);
 
@@ -2081,13 +2094,17 @@ function (_Component) {
 var mapDispatchToProps = {
   activePost: function activePost(post) {
     return Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_4__["setActivePost"])(post);
+  },
+  setModules: function setModules(modules) {
+    return Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_4__["setModules"])(modules);
   }
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     listOfTests: state.appState.listOfTests,
-    currentTest: state.appState.currentTest
+    currentTest: state.appState.currentTest,
+    fetchWP: state.appState.fetchWP
   };
 };
 
@@ -2132,15 +2149,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -2170,25 +2185,12 @@ function (_Component) {
     _classCallCheck(this, Shortcode);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Shortcode).call(this, props));
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "setCurrentTest", function () {
-      var slug = _this.props.wpObject.listOfTests[0].slug;
-
-      _this.props.setCurrentTest(slug);
-    });
-
     var fetchWPInstance = new _utils_fetchWP__WEBPACK_IMPORTED_MODULE_9__["default"]({
       restURL: _this.props.wpObject.api_url,
       restNonce: _this.props.wpObject.api_nonce
     });
 
-    if (_this.props.wpObject.listOfTests !== null && _this.props.wpObject.listOfTests.length > 0) {
-      _this.props.updateListOfTests(_this.props.wpObject.listOfTests);
-    }
-
     _this.props.setFetchWP(fetchWPInstance);
-
-    _this.setCurrentTest();
 
     return _this;
   }
@@ -2206,7 +2208,7 @@ function (_Component) {
         xs: 10,
         lg: 10,
         md: 10
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), this.props.wpObject.isAdmin == 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AdminControlBar__WEBPACK_IMPORTED_MODULE_10__["default"], null) : null, this.props.appGlobalMode === 'welcome' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === 'post' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Post__WEBPACK_IMPORTED_MODULE_15__["default"], null) : null, this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === 'result' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null, this.props.appGlobalMode === 'add_question' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewQuestion__WEBPACK_IMPORTED_MODULE_8__["default"], null) : null, this.props.appGlobalMode === 'add_course' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewCourse__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null)));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), this.props.appGlobalMode === 'welcome' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === 'post' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Post__WEBPACK_IMPORTED_MODULE_15__["default"], null) : null, this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === 'result' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null)));
     }
   }]);
 
@@ -57405,7 +57407,7 @@ if (!self.fetch) {
 /*!***********************************!*\
   !*** ./redux/appState/actions.js ***!
   \***********************************/
-/*! exports provided: setDefault, setNumber, setCallback, toggleUserLogginStatus, updateListOfTests, updateQuestionsCollection, setFetchWP, setAppMode, updateAnswers, setTestResults, setCurrentTest, setSelectedAnswersDefault, setActivePost */
+/*! exports provided: setDefault, setNumber, setCallback, toggleUserLogginStatus, updateListOfTests, updateQuestionsCollection, setFetchWP, setAppMode, updateAnswers, setTestResults, setCurrentTest, setSelectedAnswersDefault, setActivePost, setModules */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -57423,6 +57425,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCurrentTest", function() { return setCurrentTest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSelectedAnswersDefault", function() { return setSelectedAnswersDefault; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActivePost", function() { return setActivePost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setModules", function() { return setModules; });
 var setDefault = function setDefault() {
   return {
     type: "APPSTATE_SET_DEFAULT"
@@ -57503,6 +57506,12 @@ var setActivePost = function setActivePost(post) {
     post: post
   };
 };
+var setModules = function setModules(modules) {
+  return {
+    type: "APPSTATE_SET_MODULES",
+    modules: modules
+  };
+};
 
 /***/ }),
 
@@ -57528,10 +57537,11 @@ var defaultState = {
   appGlobalMode: 'welcome',
   questionsCollection: [],
   fetchWP: {},
-  currentTest: 'test-o-zdrowiu-czlowieka',
+  currentTest: 'pre-test',
   selectedAnswers: [],
   testResults: [],
-  activePost: []
+  activePost: [],
+  modules: []
 };
 function appState() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
@@ -57593,6 +57603,10 @@ function appState() {
     case 'APPSTATE_SET_ACTIVE_POST':
       newState.activePost = action.post;
       newState.appGlobalMode = 'post';
+      return newState;
+
+    case 'APPSTATE_SET_MODULES':
+      newState.modules = action.modules;
       return newState;
 
     default:

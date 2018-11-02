@@ -26,11 +26,16 @@ class Post extends Component {
     this.fetchPost()
   }
 
-  componentDidUpdate = () => {
+  componentDidUpdate = (prevProps) => {
+    if (this.props.activePost === prevProps.activePost) {
+      return
+    }
+    console.log(prevProps, this.state)
     this.fetchPost()
   }
 
   fetchPost = () => {
+    // this.setState({activePost: {}})
     var post = new wp.api.models.Post({id: this.props.activePost})
     post.fetch().done(function (post) {
       this.setState({activePost: post})
@@ -42,7 +47,8 @@ class Post extends Component {
       <Col xs={8} offset={2}>
         <Grid componentClass="content-post" fluid>
           <Panel>
-            <Panel.Heading>{this.state.activePost.post_title}</Panel.Heading>
+            {typeof this.state.activePost.title != 'undefined' ?
+              <Panel.Heading>{this.state.activePost.title.rendered}</Panel.Heading> : null}
             {typeof this.state.activePost.content != 'undefined' ?
               <Panel.Body dangerouslySetInnerHTML={{__html: this.state.activePost.content.rendered}}/> : null}
           </Panel>

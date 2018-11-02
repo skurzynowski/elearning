@@ -79,60 +79,16 @@ class Shortcode {
 			plugins_url( 'assets/css/shortcode.css', dirname( __FILE__ ) ), $this->version );
 	}
 
+	public function cmp( $a, $b ) {
+		return strcmp( $a->term_id, $b->term_id );
+	}
+
 	public function shortcode( $atts ) {
 		wp_enqueue_script( $this->plugin_slug . '-shortcode-script' );
 		wp_enqueue_style( $this->plugin_slug . '-shortcode-style' );
 
 		$object_name = 'wpr_object_' . uniqid();
 
-		$tests = get_terms( array(
-			'taxonomy'   => 'exam',
-			'hide_empty' => false,
-		) );
-
-		$tests = array_map( function ( $data ) {
-			$result = new \WP_Query( array(
-				'post_type'   => 'question',
-				'post_status' => array( 'draft', 'publish' ),
-				'tax_query'   => array(
-					array(
-						'taxonomy' => 'exam',
-						'field'    => 'id',
-						'terms'    => array( $data->term_id )
-					)
-				),
-			) );
-
-			$data->questions_count = $result->post_count;
-
-			if(0 == $result->post_count){
-				$result = new \WP_Query( array(
-					'post_type'   => 'post',
-					'post_status' => array( 'private'),
-					'tax_query'   => array(
-						array(
-							'taxonomy' => 'exam',
-							'field'    => 'id',
-							'terms'    => array( $data->term_id )
-						)
-					),
-				) );
-
-				//how many posts with knowladge of this tasonomy
-				$data->e_posts_count = $result->post_count;
-				$data->posts = $result->get_posts();
-			}
-
-			$data->title = $data->name;
-			$data->ID    = $data->term_id;
-
-			return $data;
-		}, $tests );
-
-		if ( empty( $tests ) ) {
-			$tests = null;
-		}
-		$terms = get_terms();
 
 		wp_enqueue_media();
 		wp_enqueue_script( 'wp-api' );
@@ -143,11 +99,6 @@ class Shortcode {
 			'title'        => 'Hello world',
 			'api_nonce'    => wp_create_nonce( 'wp_rest' ),
 			'api_url'      => rest_url( $this->plugin_slug . '/v1/' ),
-			'listOfTests'  => $tests,
-			'userLoggedIn' => is_user_logged_in(),
-			'isAdmin'      => current_user_can( 'administrator' ),
-			'registerUrl'  => wp_registration_url(),
-			'loginUrl'     => wp_login_url( $page_url ),
 		), $atts, 'wp-reactivate' );
 
 		wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );

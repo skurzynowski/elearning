@@ -24,7 +24,6 @@ import Post from '../components/content/Post'
 class Shortcode extends Component {
 
   constructor (props) {
-
     super(props)
 
     let fetchWPInstance = new fetchWP({
@@ -32,18 +31,8 @@ class Shortcode extends Component {
       restNonce: this.props.wpObject.api_nonce,
     })
 
-    if (this.props.wpObject.listOfTests !== null && this.props.wpObject.listOfTests.length > 0) {
-      this.props.updateListOfTests(this.props.wpObject.listOfTests)
-    }
     this.props.setFetchWP(fetchWPInstance)
-    this.setCurrentTest()
   };
-
-  setCurrentTest = () => {
-    let slug = this.props.wpObject.listOfTests[0].slug
-    this.props.setCurrentTest(slug)
-
-  }
 
   render () {
     return (
@@ -54,13 +43,10 @@ class Shortcode extends Component {
           </Col>
           <Col xs={10} lg={10} md={10}>
             <Header/>
-            {this.props.wpObject.isAdmin == 1 ? <AdminControlBar/> : null}
             {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
             {this.props.appGlobalMode === 'post' ? <Post/> : null}
             {this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? <QuestionUser/> : null}
             {this.props.appGlobalMode === 'result' ? <TestResult/> : null}
-            {this.props.appGlobalMode === 'add_question' ? <AddNewQuestion/> : null}
-            {this.props.appGlobalMode === 'add_course' ? <AddNewCourse/> : null}
           </Col>
         </Row>
       </Grid>

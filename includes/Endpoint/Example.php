@@ -87,6 +87,13 @@ class Example {
 				'permission_callback' => array( $this, 'example_permissions_check' ),
 			),
 		) );
+		register_rest_route( $namespace, 'modules', array(
+			array(
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_modules' ),
+				'permission_callback' => array( $this, 'example_permissions_check' ),
+			),
+		) );
 
 		register_rest_route( $namespace, $endpoint, array(
 			array(
@@ -140,7 +147,7 @@ class Example {
 		$tmp = array();
 
 		foreach ( $quiz_results as $result ) {
-			$tmp[] = strpos( get_post_meta( $result->questionId, 'correctAnswer', true ),
+			$tmp[] = strpos( get_field( 'prawidlowa_odpowiedz', $result->questionId ),
 					substr( $result->answer, - 1 ) ) !== false;
 		}
 
@@ -188,7 +195,7 @@ class Example {
 
 			$data->questions_count = $result->post_count;
 
-			if(0 == $result->post_count){
+			if ( 0 == $result->post_count ) {
 				$result = new \WP_Query( array(
 					'post_type'   => 'post',
 					'post_status' => array( 'draft', 'publish' ),
@@ -216,7 +223,6 @@ class Example {
 	}
 
 	public function add_course( $request ) {
-
 
 		$data = json_decode( $request['course'] );
 		wp_insert_term( $data->title, 'exam', array( 'description' => $data->description ) );
@@ -254,6 +260,27 @@ class Example {
 		), 200 );
 	}
 
+	public function get_modules( $request ) {
+
+		$posts = new \WP_Query( array(
+			'post_type'   => 'elearning',
+			'post_status' => array( 'publish' ),
+		) );
+
+		$posts = $posts->get_posts();
+		$posts = array_map( function ( $data ) {
+			$data->fields = get_fields( $data->ID );
+
+			return $data;
+		}, $posts );
+
+
+		return new \WP_REST_Response( array(
+			'success' => true,
+			'modules' => $posts
+		), 200 );
+	}
+
 	/**
 	 * Get Example
 	 *
@@ -283,12 +310,12 @@ class Example {
 			$post_id        = $data->ID;
 			$custom         = get_post_custom( $post_id );
 			$data->answer   = array();
-			$data->answer[] = array( 'key' => 'answer_0', 'value' => $custom['answer_0'][0] );
-			$data->answer[] = array( 'key' => 'answer_1', 'value' => $custom['answer_1'][0] );
-			$data->answer[] = array( 'key' => 'answer_2', 'value' => $custom['answer_2'][0] );
-			$data->answer[] = array( 'key' => 'answer_3', 'value' => $custom['answer_3'][0] );
-			$data->answer[] = array( 'key' => 'answer_4', 'value' => $custom['answer_4'][0] );
-			$data->answer[] = array( 'key' => 'answer_5', 'value' => $custom['answer_5'][0] );
+			$data->answer[] = array( 'key' => 'answer_0', 'value' => get_field( 'odpowiedz_1', $post_id ) );
+			$data->answer[] = array( 'key' => 'answer_1', 'value' => get_field( 'odpowiedz_2', $post_id ) );
+			$data->answer[] = array( 'key' => 'answer_2', 'value' => get_field( 'odpowiedz_3', $post_id ) );
+			$data->answer[] = array( 'key' => 'answer_3', 'value' => get_field( 'odpowiedz_4', $post_id ) );
+			$data->answer[] = array( 'key' => 'answer_4', 'value' => get_field( 'odpowiedz_5', $post_id ) );
+			$data->answer[] = array( 'key' => 'answer_5', 'value' => get_field( 'odpowiedz_6', $post_id ) );
 			shuffle( $data->answer );
 			$data->imageSrc = get_the_post_thumbnail_url( $post_id, 'full' );
 

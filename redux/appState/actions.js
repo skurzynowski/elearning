@@ -53,8 +53,14 @@ export const setCurrentTest = testSlug => ({
 export const  setSelectedAnswersDefault = () => ({
   type: "APPSTATE_SET_ANSWERS_DEFAULT",
 })
+
 export const  setActivePost = (post) => ({
   type: "APPSTATE_SET_ACTIVE_POST",
   post
+})
+
+export const  setModules = (modules) => ({
+  type: "APPSTATE_SET_MODULES",
+  modules
 })
 

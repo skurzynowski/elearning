@@ -10,10 +10,11 @@ const defaultState = {
   appGlobalMode: 'welcome',
   questionsCollection: [],
   fetchWP: {},
-  currentTest: 'test-o-zdrowiu-czlowieka',
+  currentTest: 'pre-test',
   selectedAnswers: [],
   testResults: [],
   activePost: [],
+  modules: [],
 }
 
 export default function appState (state = defaultState, action) {
@@ -73,6 +74,10 @@ export default function appState (state = defaultState, action) {
     case 'APPSTATE_SET_ACTIVE_POST':
       newState.activePost = action.post
       newState.appGlobalMode = 'post'
+      return newState
+
+    case 'APPSTATE_SET_MODULES':
+      newState.modules = action.modules
       return newState
 
     default:
