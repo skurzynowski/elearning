@@ -24,6 +24,8 @@ import {
   setCurrentTest,
 } from '../../../redux/appState/actions'
 
+import LightBox from './LightBox'
+
 const imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180'
 
 class QuestionUser extends Component {
@@ -35,6 +37,7 @@ class QuestionUser extends Component {
       questionsCollection: this.props.questionsCollection,
       selectedAnswer: '',
       finishBtnClicked: false,
+      selectedImages: [],
     }
   };
 
@@ -67,13 +70,13 @@ class QuestionUser extends Component {
       if (data.value !== '') {
         return (
           <FormGroup key={this.state.selectedIndex + data.key}>
-              <ControlLabel>
+            <ControlLabel>
               <Radio onChange={this.onChangeRadio} value={data.key}
                      checked={this.state.selectedAnswer === data.key} type="radio"
                      id={data.key + '_id_' + this.state.questionIndex}
                      name="correctAnswer" inline/>
-                <div style={{fontSize:"16px",display:'inline'}}>{data.value}</div>
-              </ControlLabel>
+              <div style={{fontSize: '16px', display: 'inline'}}>{data.value}</div>
+            </ControlLabel>
           </FormGroup>)
       }
     }.bind(this))
@@ -110,13 +113,20 @@ class QuestionUser extends Component {
       )
     }
   }
+  onClickImage = () => {
+    this.setState({selectedImages: this.state.selectedImages.concat(this.props.questionsCollection[this.state.questionIndex].imageSrc)})
+    this.props.toggleLightbox();
+  }
 
   render () {
     return (
       <Col xs={8} offset={2}>
         <Grid componentClass="content-add-new-course" fluid>
+          {typeof this.state.selectedImages[0] != 'undefined' ?
+            <LightBox imageUrl={this.state.selectedImages}/> : null}
           <Panel>
-            <img src={this.props.questionsCollection[this.state.questionIndex].imageSrc} alt="..."
+            <img onClick={this.onClickImage} src={this.props.questionsCollection[this.state.questionIndex].imageSrc}
+                 alt="..."
                  className="img-thumbnail"/>
             <Panel.Body>
               <Form>

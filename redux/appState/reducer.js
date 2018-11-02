@@ -17,6 +17,7 @@ const defaultState = {
   modules: [],
   activeModule: null,
   activeSubmodule: null,
+  isOpenLightbox: true,
 }
 
 export default function appState (state = defaultState, action) {
