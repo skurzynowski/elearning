@@ -1,4 +1,29 @@
-.sitebar-admin-wraper
-{
+.sitebar-admin-wraper {
     margin-top: 30px;
+}
+
+.active.list-group-item-heading {
+    background-color: #006036;
+    font-weight: bold;
+}
+.active.list-group-item {
+    background-color: #006036;
+    font-weight: bold;
+}
+.btn-default:hover{
+    background-color: #006036;
+    color: white;
+}
+.list-group-item.active:hover{
+    background-color: #006036;
+    color: white;
+}
+.list-group-item:hover{
+    background-color: #006036;
+    color: white;
+}
+
+.list-group-item:hover{
+    background-color: rgba(0, 96, 54, 0.9);
+    color: white;
 }

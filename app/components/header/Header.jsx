@@ -15,7 +15,7 @@ export default class Header extends Component {
             {/*<CourseTitle />*/}
             {/*<ProgressBar />*/}
             {/*<UserPanel />*/}
-            <Timer />
+            {/*<Timer />*/}
           </Col>
         </Row>
       </Grid>

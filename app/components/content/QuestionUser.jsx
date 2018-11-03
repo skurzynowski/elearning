@@ -7,7 +7,8 @@ import {
   Col,
   Form,
   FormGroup,
-
+  ListGroupItem,
+  ListGroup,
   ControlLabel,
   Button,
   Panel,
@@ -67,19 +68,32 @@ class QuestionUser extends Component {
     let questions = this.props.questionsCollection[this.state.questionIndex].answer
 
     return questions.map(function (data) {
-      if (data.value !== '') {
-        return (
-          <FormGroup key={this.state.selectedIndex + data.key}>
-            <ControlLabel>
-              <Radio onChange={this.onChangeRadio} value={data.key}
-                     checked={this.state.selectedAnswer === data.key} type="radio"
-                     id={data.key + '_id_' + this.state.questionIndex}
-                     name="correctAnswer" inline/>
-              <div style={{fontSize: '16px', display: 'inline'}}>{data.value}</div>
-            </ControlLabel>
-          </FormGroup>)
+        if (data.value !== '') {
+          let html_id = data.key + '_id_' + this.state.questionIndex
+
+          return (
+            <ListGroupItem active={this.activeAnswer(data.key)}>
+              <FormGroup key={this.state.selectedIndex + data.key}>
+                <ControlLabel style={{textAlign: 'left'}} className={'btn btn-block'} htmlFor={html_id}>
+                  <Radio inline style={{textAlign: 'left', display: 'none'}} onChange={this.onChangeRadio}
+                         value={data.key}
+                         checked={this.state.selectedAnswer === data.key} type="radio"
+                         id={html_id}
+                         name="correctAnswer"/>
+                  {data.value}
+                </ControlLabel>
+              </FormGroup>
+            </ListGroupItem>
+          )
+        }
       }
-    }.bind(this))
+
+        .bind(this)
+    )
+  }
+
+  activeAnswer = (key) => {
+    return this.state.selectedAnswer == key
   }
 
   componentWillReceiveProps (nextProps) {
@@ -115,15 +129,14 @@ class QuestionUser extends Component {
   }
   onClickImage = () => {
     this.setState({selectedImages: this.state.selectedImages.concat(this.props.questionsCollection[this.state.questionIndex].imageSrc)})
-    this.props.toggleLightbox();
+    this.props.toggleLightbox()
   }
 
   render () {
     return (
       <Col xs={8} offset={2}>
         <Grid componentClass="content-add-new-course" fluid>
-          {typeof this.state.selectedImages[0] != 'undefined' ?
-            <LightBox imageUrl={this.state.selectedImages}/> : null}
+          {typeof this.state.selectedImages[0] != 'undefined' ? <LightBox imageUrl={this.state.selectedImages}/> : null}
           <Panel>
             <img onClick={this.onClickImage} src={this.props.questionsCollection[this.state.questionIndex].imageSrc}
                  alt="..."
@@ -131,7 +144,9 @@ class QuestionUser extends Component {
             <Panel.Body>
               <Form>
                 <h3>{this.props.questionsCollection[this.state.questionIndex].post_title}</h3>
-                {this.renderQuestions()}
+                <ListGroup>
+                  {this.renderQuestions()}
+                </ListGroup>
                 {this.renderNexQuestionButton()}
                 {this.renderFinishTestButton()}
               </Form>

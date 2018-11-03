@@ -1222,24 +1222,36 @@ function (_Component) {
       var questions = _this.props.questionsCollection[_this.state.questionIndex].answer;
       return questions.map(function (data) {
         if (data.value !== '') {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
+          var html_id = data.key + '_id_' + this.state.questionIndex;
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+            active: this.activeAnswer(data.key)
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
             key: this.state.selectedIndex + data.key
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], {
+            style: {
+              textAlign: 'left'
+            },
+            className: 'btn btn-block',
+            htmlFor: html_id
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
+            inline: true,
+            style: {
+              textAlign: 'left',
+              display: 'none'
+            },
             onChange: this.onChangeRadio,
             value: data.key,
             checked: this.state.selectedAnswer === data.key,
             type: "radio",
-            id: data.key + '_id_' + this.state.questionIndex,
-            name: "correctAnswer",
-            inline: true
-          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            style: {
-              fontSize: '16px',
-              display: 'inline'
-            }
-          }, data.value)));
+            id: html_id,
+            name: "correctAnswer"
+          }), data.value)));
         }
       }.bind(_assertThisInitialized(_assertThisInitialized(_this))));
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "activeAnswer", function (key) {
+      return _this.state.selectedAnswer == key;
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickFinishTest", function () {
@@ -1311,7 +1323,7 @@ function (_Component) {
         src: this.props.questionsCollection[this.state.questionIndex].imageSrc,
         alt: "...",
         className: "img-thumbnail"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.props.questionsCollection[this.state.questionIndex].post_title), this.renderQuestions(), this.renderNexQuestionButton(), this.renderFinishTestButton())))));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.props.questionsCollection[this.state.questionIndex].post_title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroup"], null, this.renderQuestions()), this.renderNexQuestionButton(), this.renderFinishTestButton())))));
     }
   }]);
 
@@ -1974,7 +1986,7 @@ function (_Component) {
         fluid: true
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
         className: "d-flex header-wraper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Timer__WEBPACK_IMPORTED_MODULE_6__["default"], null))));
+      })));
     }
   }]);
 
