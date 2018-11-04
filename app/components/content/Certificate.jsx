@@ -14,39 +14,33 @@ import {
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import StartTestButton from './StartTestButton'
-import jsPDF from 'jspdf'
+import { setAppMode } from '../../../redux/appState/actions'
 
-const imagePlaceholder =
-  'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180'
-
-class WelcomeUser extends Component {
+class Certificate extends Component {
   constructor (props) {
     super(props)
 
     this.state = {}
   }
 
-  renderCourseOptions = () => {
-    return this.props.listOfTests.map(function (data) {
-      return (
-        <option key={data.slug} value={data.slug}>
-          {data.name}
-        </option>
-      )
-    })
+  onClickSave = () => {
+    this.setState({hiddeButton: true})
   }
-
-  onChangeCourse = e => {
-    this.setState({courseSlug: e.target.value})
+  componentDidUpdate = () => {
+    if (this.state.hiddeButton === true) {
+      window.print()
+      this.setState({hiddeButton: false})
+      this.props.setAppMode('result')
+    }
   }
 
   render () {
     return (
-      <Col onClick={this.onClickBody} xs={8} offset={2}>
+      <Col xs={8} offset={2}>
         <Grid componentClass="content-add-new-course" fluid>
           <Panel>
             <Panel.Body>
-              <h3>Witaj w strefie e-learning</h3>
+              <h3>Certyfikat</h3>
               <p>
                 "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -64,7 +58,7 @@ class WelcomeUser extends Component {
                 molestiae consequatur, vel illum qui dolorem eum fugiat quo
                 voluptas nulla pariatur?"
               </p>
-              <StartTestButton/>
+              {this.state.hiddeButton ? null : <Button onClick={this.onClickSave}>Zapisz</Button>}
             </Panel.Body>
           </Panel>
         </Grid>
@@ -73,7 +67,9 @@ class WelcomeUser extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  setAppMode: (list) => dispatch(setAppMode(list)),
+})
 
 const mapStateToProps = state => ({
   listOfTests: state.appState.listOfTests,
@@ -82,4 +78,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WelcomeUser)
+)(Certificate)

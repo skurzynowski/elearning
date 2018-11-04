@@ -63,7 +63,7 @@ class Config {
 			'description'         => __( 'question', 'elearning' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'thumbnail', 'custom-fields' ),
-			'taxonomies'          => array( 'post_tag','exam' ),
+			'taxonomies'          => array( 'post_tag', 'exam' ),
 			'hierarchical'        => false,
 			'public'              => false,
 			'show_ui'             => true,
@@ -114,7 +114,7 @@ class Config {
 			'label'               => __( 'Moduł', 'elearning' ),
 			'description'         => __( 'Moduł szkoleniowy', 'elearning' ),
 			'labels'              => $labels,
-			'supports'            => array( 'title'  ),
+			'supports'            => array( 'title' ),
 			'taxonomies'          => array(),
 			'hierarchical'        => false,
 			'public'              => false,
@@ -173,8 +173,16 @@ class Config {
 			);
 			register_taxonomy( 'exam', array( 'question', 'post' ), $args );
 
-			wp_insert_term( 'Test wstępny', 'exam', array('description'=> "Test wstępny", 'slug' => 'pre-test'));
-			wp_insert_term( 'Test końcowy', 'exam', array('description'=> "Test końcowy", 'slug' => 'post-test'));
+			wp_insert_term( 'Test wstępny', 'exam', array( 'description' => "Test wstępny", 'slug' => 'pre-test' ) );
+			wp_insert_term( 'Test końcowy', 'exam', array( 'description' => "Test końcowy", 'slug' => 'post-test' ) );
 		}
+
+		$this->register_settings();
+	}
+
+	public function register_settings() {
+
+		$args = array(	'page_title' => 'Opcje Elearning',);
+		acf_add_options_page( $args );
 	}
 }

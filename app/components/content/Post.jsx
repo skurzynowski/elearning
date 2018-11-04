@@ -56,7 +56,10 @@ class Post extends Component {
   }
 
   isLastSubmodule = () => {
-    return (typeof this.state.modules[this.state.moduleIndex].fields['module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] != 'undefined')
+   return  (typeof this.state.modules[this.state.moduleIndex].fields['module_content_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == '' ||
+      this.state.modules[this.state.moduleIndex].fields['module_content_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == 'undefined') &&
+     (typeof this.state.modules[this.state.moduleIndex].fields['module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == '' ||
+      this.state.modules[this.state.moduleIndex].fields['module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == 'undefined')
   }
 
   isLastModule = () => {

@@ -51,27 +51,27 @@ class SiteBarAdmin extends Component {
       let tmp_array = []
       tmp_array.push(<ListGroupItem active={this.getActiveModule() == key} header={data.post_title}></ListGroupItem>)
 
-      data.fields.module_title_0 !== undefined ? tmp_array.push(
+      data.fields.module_title_0 !== undefined && data.fields.module_title_0 !== '' ? tmp_array.push(
         <ListGroupItem
           active={this.getActiveSubmodule() == key + '_0'}>1. {data.fields.module_title_0}</ListGroupItem>) : null
 
-      data.fields.module_title_1 !== undefined ? tmp_array.push(
+      data.fields.module_title_1 !== undefined && data.fields.module_title_1 !== '' ? tmp_array.push(
         <ListGroupItem
           active={this.getActiveSubmodule() == key + '_1'}>2. {data.fields.module_title_1}</ListGroupItem>) : null
 
-      data.fields.module_title_2 !== undefined ? tmp_array.push(
+      data.fields.module_title_2 !== undefined &&  data.fields.module_title_2 !== '' ? tmp_array.push(
         <ListGroupItem
           active={this.getActiveSubmodule() == key + '_2'}>3. {data.fields.module_title_2}</ListGroupItem>) : null
 
-      data.fields.module_title_3 !== undefined ? tmp_array.push(
+      data.fields.module_title_3 !== undefined && data.fields.module_title_3 !== ''  ? tmp_array.push(
         <ListGroupItem
           active={this.getActiveSubmodule() == key + '_3'}>4. {data.fields.module_title_3}</ListGroupItem>) : null
 
-      data.fields.module_title_4 !== undefined ? tmp_array.push(
+      data.fields.module_title_4 !== undefined && data.fields.module_title_4 !== '' ? tmp_array.push(
         <ListGroupItem
           active={this.props.activeSubmodule == key + '_4'}>5. {data.fields.module_title_4}</ListGroupItem>) : null
 
-      data.fields.module_title_5 !== undefined ? tmp_array.push(
+      data.fields.module_title_5 !== undefined && data.fields.module_title_5 !== '' ? tmp_array.push(
         <ListGroupItem
           active={this.props.activeSubmodule == key + '_5'}>6. {data.fields.module_title_5}</ListGroupItem>) : null
 

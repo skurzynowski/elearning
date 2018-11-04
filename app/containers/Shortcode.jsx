@@ -20,6 +20,7 @@ import QuestionUser from '../components/content/QuestionUser'
 import TestResult from '../components/content/TestResult'
 import LogInForm from '../components/content/LogInForm'
 import Post from '../components/content/Post'
+import Certificate from '../components/content/Certificate'
 
 class Shortcode extends Component {
 
@@ -34,16 +35,18 @@ class Shortcode extends Component {
     this.props.setFetchWP(fetchWPInstance)
   };
 
+
   render () {
     return (
       <Grid fluid>
         <Row>
           <Col xs={2} lg={2} md={10}>
-            <SiteBarAdmin/>
+            {this.props.appGlobalMode === 'certificate' ? null : <SiteBarAdmin/>}
           </Col>
           <Col xs={10} lg={10} md={10}>
             <Header/>
             {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
+            {this.props.appGlobalMode === 'certificate' ? <Certificate/> : null}
             {this.props.appGlobalMode === 'post' ? <Post/> : null}
             {this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? <QuestionUser/> : null}
             {this.props.appGlobalMode === 'result' ? <TestResult/> : null}
