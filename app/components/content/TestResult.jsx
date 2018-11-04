@@ -21,7 +21,7 @@ import {
   updateAnswers,
   updateQuestionsCollection,
   setCurrentTest,
-  updateListOfTests, setSelectedAnswersDefault,
+  updateListOfTests, setSelectedAnswersDefault, setCertificateDownloaded
 } from '../../../redux/appState/actions'
 import StartTestButton from '../content/StartTestButton'
 import StartModuleButton from '../content/StartModuleButton'
@@ -54,17 +54,18 @@ class TestResult extends Component {
     }
   }
   getCertificateButton = () => {
-    if (this.props.certificateDownloaded || this.props.currentTest == 'post-test' && this.props.testResults.percents >= 75) {
+    if (this.props.certificateDownloaded === true || this.props.currentTest == 'post-test' && this.props.testResults.percents >= 75) {
+      this.props.setCertificateDownloaded(true)
       return <DownloadCertificateButton/>
     }
   }
   getAllertPercents = () => {
     if (this.props.testResults.percents >= 75) {
       var alertClass = 'success'
-      var text = "Gratulacje uzyskałeś niezbędne 75%"
+      var text = 'Gratulacje uzyskałeś niezbędne 75%'
     } else {
       var alertClass = 'danger'
-      var text = "Aby uzyskać certyfikat powinieneś uzyskać 75%"
+      var text = 'Aby uzyskać certyfikat powinieneś uzyskać 75%'
     }
     return (<Alert bsStyle={alertClass}>
         <strong>{this.props.testResults.percents}%</strong> {text}
@@ -108,7 +109,9 @@ class TestResult extends Component {
               {this.getAllertCorrectAnswers()}
               {this.getAllertWrongAnswers()}
               {this.props.currentTest == 'pre-test' ? <StartModuleButton/> : null}
-              {this.state.lastTest ? this.getCertificateButton() : <StartTestButton/>}
+              {this.props.currentTest == 'post-test' ?
+                <StartTestButton finishedElearning={this.props.certificateDownloaded}/> : null}
+              {this.getCertificateButton()}
             </Panel.Body>
           </Panel>
         </Grid>
@@ -122,6 +125,7 @@ const mapDispatchToProps = dispatch => ({
   updateQuestionsCollection: (list) => dispatch(updateQuestionsCollection(list)),
   setAnswersDefault: () => dispatch(setSelectedAnswersDefault()),
   setCurrentTest: (testSlug) => dispatch(setCurrentTest(testSlug)),
+  setCertificateDownloaded: (bool) => dispatch(setCertificateDownloaded(bool)),
 })
 
 const mapStateToProps = state => ({

@@ -73,7 +73,8 @@ export const setActiveSubmodule = (submodule) => ({
   type: 'APPSTATE_SET_ACTIVE_SUBMODULE',
   submodule
 })
-export const  setCertificateDownloaded= () =>{
-  type: 'APPSTATE_SET_CERTIFICATE_DOWNLOADED'
-}
+export const setCertificateDownloaded = (bool) => ({
+  type: 'APPSTATE_SET_CERTIFICATE_DOWNLOADED',
+  bool
+})
 

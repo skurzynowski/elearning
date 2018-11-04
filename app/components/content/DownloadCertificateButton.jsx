@@ -14,7 +14,7 @@ import {
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import {
-  setAppMode, setActiveSubmodule, setActiveModule, setCurrentTest
+  setAppMode, setActiveSubmodule, setActiveModule, setCurrentTest,setCertificateDownloaded
 } from '../../../redux/appState/actions'
 
 class DownloadCertificateButton extends Component {
@@ -38,6 +38,7 @@ const mapDispatchToProps = dispatch => ({
   setActiveSubmodule: list => dispatch(setActiveSubmodule(list)),
   setActiveModule: (module) => dispatch(setActiveModule(module)),
   setCurrentTest: (test) => dispatch(setCurrentTest(test)),
+  setCertificateDownloaded: (bool) => dispatch(setCertificateDownloaded(bool)),
 })
 
 const mapStateToProps = state => ({

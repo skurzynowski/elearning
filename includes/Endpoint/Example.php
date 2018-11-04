@@ -112,6 +112,14 @@ class Example {
 				'args'                => array(),
 			),
 		) );
+		register_rest_route( $namespace, '/certificate/', array(
+			array(
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_certificate' ),
+				'permission_callback' => array( $this, 'example_permissions_check' ),
+				'args'                => array(),
+			),
+		) );
 		register_rest_route( $namespace, '/course/', array(
 			array(
 				'methods'             => \WP_REST_Server::CREATABLE,
@@ -139,6 +147,22 @@ class Example {
 			),
 		) );
 
+	}
+
+	public function get_certificate( $request ) {
+
+		$result = get_field('certyficate', 'option');
+		$current_user = wp_get_current_user();
+
+		$result = str_replace( '{username}', $current_user->user_firstname, $result);
+		$result = str_replace( '{surname}', $current_user->user_lastname, $result);
+		$result = str_replace( '{email}', $current_user->user_email, $result);
+
+		return new \WP_REST_Response( array(
+			'success' => true,
+			'certificate'  => $result,
+
+		), 200 );
 	}
 
 	public function check_answers( $request ) {

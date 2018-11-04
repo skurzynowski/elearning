@@ -737,8 +737,6 @@ function (_Component) {
       _this.setState({
         hiddeButton: true
       });
-
-      _this.props.setCertificateDownloaded();
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentDidUpdate", function () {
@@ -753,7 +751,25 @@ function (_Component) {
       }
     });
 
-    _this.state = {};
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderCertificateContent", function () {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        dangerouslySetInnerHTML: {
+          __html: _this.state.certificateContent
+        }
+      });
+    });
+
+    _this.state = {
+      hiddeButton: false,
+      certificateContent: null
+    };
+
+    _this.props.fetchWP.get('certificate').then(function (json) {
+      return _this.setState({
+        certificateContent: json.certificate
+      });
+    });
+
     return _this;
   }
 
@@ -766,7 +782,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         componentClass: "content-add-new-course",
         fluid: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Certyfikat"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\""), this.state.hiddeButton ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Certyfikat"), this.renderCertificateContent(), this.state.hiddeButton ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         onClick: this.onClickSave
       }, "Zapisz")))));
     }
@@ -779,16 +795,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setAppMode: function setAppMode(list) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_6__["setAppMode"])(list));
-    },
-    setCertificateDownloaded: function setCertificateDownloaded() {
-      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_6__["setCertificateDownloaded"])());
     }
   };
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    listOfTests: state.appState.listOfTests
+    listOfTests: state.appState.listOfTests,
+    fetchWP: state.appState.fetchWP
   };
 };
 
@@ -896,6 +910,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setCurrentTest: function setCurrentTest(test) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setCurrentTest"])(test));
+    },
+    setCertificateDownloaded: function setCertificateDownloaded(bool) {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setCertificateDownloaded"])(bool));
     }
   };
 };
@@ -1794,9 +1811,15 @@ function (_Component) {
   _createClass(StartTestButton, [{
     key: "render",
     value: function render() {
+      if (this.props.finishedElearning == true) {
+        var text = 'Powtórz test';
+      } else {
+        var text = 'Rozpocznij test';
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         onClick: this.getQuestions
-      }, "Rozpocznij test");
+      }, text);
     }
   }]);
 
@@ -1820,7 +1843,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     fetchWP: state.appState.fetchWP,
-    currentTest: state.appState.currentTest
+    currentTest: state.appState.currentTest,
+    globalAppMode: state.appState.globalAppMode
   };
 };
 
@@ -1928,7 +1952,9 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getCertificateButton", function () {
-      if (_this.props.certificateDownloaded || _this.props.currentTest == 'post-test' && _this.props.testResults.percents >= 75) {
+      if (_this.props.certificateDownloaded === true || _this.props.currentTest == 'post-test' && _this.props.testResults.percents >= 75) {
+        _this.props.setCertificateDownloaded(true);
+
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_DownloadCertificateButton__WEBPACK_IMPORTED_MODULE_8__["default"], null);
       }
     });
@@ -1936,10 +1962,10 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertPercents", function () {
       if (_this.props.testResults.percents >= 75) {
         var alertClass = 'success';
-        var text = "Gratulacje uzyskałeś niezbędne 75%";
+        var text = 'Gratulacje uzyskałeś niezbędne 75%';
       } else {
         var alertClass = 'danger';
-        var text = "Aby uzyskać certyfikat powinieneś uzyskać 75%";
+        var text = 'Aby uzyskać certyfikat powinieneś uzyskać 75%';
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {
@@ -1988,7 +2014,9 @@ function (_Component) {
         fluid: true
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Zako\u0144czy\u0142e\u015B test", this.props.currentTest == 'pre-test' ? ' wstępny' : ' podsumowujący', "."), this.getAllertPercents(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ProgressBar"], {
         now: this.props.testResults.percents
-      }), this.getAllertCorrectAnswers(), this.getAllertWrongAnswers(), this.props.currentTest == 'pre-test' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartModuleButton__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null, this.state.lastTest ? this.getCertificateButton() : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartTestButton__WEBPACK_IMPORTED_MODULE_6__["default"], null)))));
+      }), this.getAllertCorrectAnswers(), this.getAllertWrongAnswers(), this.props.currentTest == 'pre-test' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartModuleButton__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null, this.props.currentTest == 'post-test' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartTestButton__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        finishedElearning: this.props.certificateDownloaded
+      }) : null, this.getCertificateButton()))));
     }
   }]);
 
@@ -2008,6 +2036,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setCurrentTest: function setCurrentTest(testSlug) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setCurrentTest"])(testSlug));
+    },
+    setCertificateDownloaded: function setCertificateDownloaded(bool) {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setCertificateDownloaded"])(bool));
     }
   };
 };
@@ -61504,8 +61535,11 @@ var setActiveSubmodule = function setActiveSubmodule(submodule) {
     submodule: submodule
   };
 };
-var setCertificateDownloaded = function setCertificateDownloaded() {
-  type: 'APPSTATE_SET_CERTIFICATE_DOWNLOADED';
+var setCertificateDownloaded = function setCertificateDownloaded(bool) {
+  return {
+    type: 'APPSTATE_SET_CERTIFICATE_DOWNLOADED',
+    bool: bool
+  };
 };
 
 /***/ }),
@@ -61617,7 +61651,7 @@ function appState() {
       return newState;
 
     case 'APPSTATE_SET_CERTIFICATE_DOWNLOADED':
-      newState.certificateDownloaded = true;
+      newState.certificateDownloaded = action.bool;
       return newState;
 
     default:

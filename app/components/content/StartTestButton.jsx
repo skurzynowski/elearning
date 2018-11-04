@@ -29,8 +29,13 @@ class StartTestButton extends Component {
   }
 
   render () {
+    if (this.props.finishedElearning == true) {
+      var text = 'Powtórz test'
+    } else {
+      var text = 'Rozpocznij test'
+    }
     return (
-      <Button onClick={this.getQuestions}>Rozpocznij test</Button>
+      <Button onClick={this.getQuestions}>{text}</Button>
     )
   }
 }
@@ -44,6 +49,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   fetchWP: state.appState.fetchWP,
   currentTest: state.appState.currentTest,
+  globalAppMode: state.appState.globalAppMode,
 })
 
 export default connect(

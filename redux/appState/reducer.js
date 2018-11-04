@@ -93,7 +93,7 @@ export default function appState (state = defaultState, action) {
       return newState
 
     case 'APPSTATE_SET_CERTIFICATE_DOWNLOADED':
-      newState.certificateDownloaded = true
+      newState.certificateDownloaded = action.bool
       return newState
 
     default:
