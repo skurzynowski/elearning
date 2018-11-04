@@ -18,6 +18,7 @@ const defaultState = {
   activeModule: null,
   activeSubmodule: null,
   isOpenLightbox: true,
+  certificateDownloaded: false,
 }
 
 export default function appState (state = defaultState, action) {
@@ -89,6 +90,10 @@ export default function appState (state = defaultState, action) {
 
     case 'APPSTATE_SET_ACTIVE_SUBMODULE':
       newState.activeSubmodule = action.submodule
+      return newState
+
+    case 'APPSTATE_SET_CERTIFICATE_DOWNLOADED':
+      newState.certificateDownloaded = true
       return newState
 
     default:

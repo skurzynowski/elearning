@@ -737,6 +737,8 @@ function (_Component) {
       _this.setState({
         hiddeButton: true
       });
+
+      _this.props.setCertificateDownloaded();
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentDidUpdate", function () {
@@ -777,6 +779,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setAppMode: function setAppMode(list) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_6__["setAppMode"])(list));
+    },
+    setCertificateDownloaded: function setCertificateDownloaded() {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_6__["setCertificateDownloaded"])());
     }
   };
 };
@@ -1923,9 +1928,47 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getCertificateButton", function () {
-      if (_this.props.currentTest == 'post-test' && _this.props.testResults.percents >= 75) {
+      if (_this.props.certificateDownloaded || _this.props.currentTest == 'post-test' && _this.props.testResults.percents >= 75) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_DownloadCertificateButton__WEBPACK_IMPORTED_MODULE_8__["default"], null);
       }
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertPercents", function () {
+      if (_this.props.testResults.percents >= 75) {
+        var alertClass = 'success';
+        var text = "Gratulacje uzyskałeś niezbędne 75%";
+      } else {
+        var alertClass = 'danger';
+        var text = "Aby uzyskać certyfikat powinieneś uzyskać 75%";
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {
+        bsStyle: alertClass
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, _this.props.testResults.percents, "%"), " ", text);
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertCorrectAnswers", function () {
+      if (_this.props.testResults.percents >= 75) {
+        var alertClass = 'success';
+      } else {
+        var alertClass = 'danger';
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {
+        bsStyle: alertClass
+      }, "Poprawne odpowiedzi: ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, _this.props.testResults.correct));
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertWrongAnswers", function () {
+      if (_this.props.testResults.percents >= 75) {
+        var alertClass = 'success';
+      } else {
+        var alertClass = 'danger';
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {
+        bsStyle: alertClass
+      }, "B\u0142\u0119dne odpowiedzi: ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, _this.props.testResults.wrong));
     });
 
     _this.state = {
@@ -1943,11 +1986,9 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         componentClass: "content-test-result",
         fluid: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Gratulacje! Zako\u0144czy\u0142e\u015B test", this.props.currentTest == 'pre-test' ? ' wstępny' : ' podsumowujący', "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "text-left"
-      }, "Wynik testu:", this.props.testResults.percents, "%"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ProgressBar"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Zako\u0144czy\u0142e\u015B test", this.props.currentTest == 'pre-test' ? ' wstępny' : ' podsumowujący', "."), this.getAllertPercents(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ProgressBar"], {
         now: this.props.testResults.percents
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Poprawne odpowiedzi: ", this.props.testResults.correct), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "B\u0142\u0119dne odpowiedzi: ", this.props.testResults.wrong), this.props.currentTest == 'pre-test' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartModuleButton__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null, this.state.lastTest ? this.getCertificateButton() : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartTestButton__WEBPACK_IMPORTED_MODULE_6__["default"], null)))));
+      }), this.getAllertCorrectAnswers(), this.getAllertWrongAnswers(), this.props.currentTest == 'pre-test' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartModuleButton__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null, this.state.lastTest ? this.getCertificateButton() : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartTestButton__WEBPACK_IMPORTED_MODULE_6__["default"], null)))));
     }
   }]);
 
@@ -1975,7 +2016,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     testResults: state.appState.testResults,
     currentTest: state.appState.currentTest,
-    listOfTests: state.appState.listOfTests
+    listOfTests: state.appState.listOfTests,
+    certificateDownloaded: state.appState.certificateDownloaded
   };
 };
 
@@ -61342,7 +61384,7 @@ if (!self.fetch) {
 /*!***********************************!*\
   !*** ./redux/appState/actions.js ***!
   \***********************************/
-/*! exports provided: setDefault, setNumber, setCallback, toggleUserLogginStatus, updateListOfTests, updateQuestionsCollection, setFetchWP, setAppMode, updateAnswers, setTestResults, setCurrentTest, setSelectedAnswersDefault, setActivePost, setModules, setActiveModule, setActiveSubmodule */
+/*! exports provided: setDefault, setNumber, setCallback, toggleUserLogginStatus, updateListOfTests, updateQuestionsCollection, setFetchWP, setAppMode, updateAnswers, setTestResults, setCurrentTest, setSelectedAnswersDefault, setActivePost, setModules, setActiveModule, setActiveSubmodule, setCertificateDownloaded */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61363,6 +61405,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setModules", function() { return setModules; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveModule", function() { return setActiveModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveSubmodule", function() { return setActiveSubmodule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCertificateDownloaded", function() { return setCertificateDownloaded; });
 var setDefault = function setDefault() {
   return {
     type: 'APPSTATE_SET_DEFAULT'
@@ -61461,6 +61504,9 @@ var setActiveSubmodule = function setActiveSubmodule(submodule) {
     submodule: submodule
   };
 };
+var setCertificateDownloaded = function setCertificateDownloaded() {
+  type: 'APPSTATE_SET_CERTIFICATE_DOWNLOADED';
+};
 
 /***/ }),
 
@@ -61493,7 +61539,8 @@ var defaultState = {
   modules: [],
   activeModule: null,
   activeSubmodule: null,
-  isOpenLightbox: true
+  isOpenLightbox: true,
+  certificateDownloaded: false
 };
 function appState() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
@@ -61567,6 +61614,10 @@ function appState() {
 
     case 'APPSTATE_SET_ACTIVE_SUBMODULE':
       newState.activeSubmodule = action.submodule;
+      return newState;
+
+    case 'APPSTATE_SET_CERTIFICATE_DOWNLOADED':
+      newState.certificateDownloaded = true;
       return newState;
 
     default:

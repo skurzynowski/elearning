@@ -11,7 +11,9 @@ import {
   ControlLabel,
   Button,
   Panel,
-  ProgressBar
+  ProgressBar,
+  Alert,
+  Badge
 } from 'react-bootstrap'
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
@@ -52,9 +54,45 @@ class TestResult extends Component {
     }
   }
   getCertificateButton = () => {
-    if( this.props.currentTest == 'post-test' && this.props.testResults.percents >= 75 ){
+    if (this.props.certificateDownloaded || this.props.currentTest == 'post-test' && this.props.testResults.percents >= 75) {
       return <DownloadCertificateButton/>
     }
+  }
+  getAllertPercents = () => {
+    if (this.props.testResults.percents >= 75) {
+      var alertClass = 'success'
+      var text = "Gratulacje uzyskałeś niezbędne 75%"
+    } else {
+      var alertClass = 'danger'
+      var text = "Aby uzyskać certyfikat powinieneś uzyskać 75%"
+    }
+    return (<Alert bsStyle={alertClass}>
+        <strong>{this.props.testResults.percents}%</strong> {text}
+      </Alert>
+    )
+  }
+  getAllertCorrectAnswers = () => {
+    if (this.props.testResults.percents >= 75) {
+      var alertClass = 'success'
+    } else {
+      var alertClass = 'danger'
+    }
+    return (<Alert bsStyle={alertClass}>
+        Poprawne odpowiedzi: <strong>{this.props.testResults.correct}</strong>
+      </Alert>
+    )
+  }
+
+  getAllertWrongAnswers = () => {
+    if (this.props.testResults.percents >= 75) {
+      var alertClass = 'success'
+    } else {
+      var alertClass = 'danger'
+    }
+    return (<Alert bsStyle={alertClass}>
+        Błędne odpowiedzi: <strong>{this.props.testResults.wrong}</strong>
+      </Alert>
+    )
   }
 
   render () {
@@ -63,12 +101,12 @@ class TestResult extends Component {
         <Grid componentClass="content-test-result" fluid>
           <Panel>
             <Panel.Body>
-              <h3>Gratulacje! Zakończyłeś
+              <h3>Zakończyłeś
                 test{this.props.currentTest == 'pre-test' ? ' wstępny' : ' podsumowujący'}.</h3>
-              <div className="text-left">Wynik testu:{this.props.testResults.percents}%</div>
+              {this.getAllertPercents()}
               <ProgressBar now={this.props.testResults.percents}/>
-              <p>Poprawne odpowiedzi: {this.props.testResults.correct}</p>
-              <p>Błędne odpowiedzi: {this.props.testResults.wrong}</p>
+              {this.getAllertCorrectAnswers()}
+              {this.getAllertWrongAnswers()}
               {this.props.currentTest == 'pre-test' ? <StartModuleButton/> : null}
               {this.state.lastTest ? this.getCertificateButton() : <StartTestButton/>}
             </Panel.Body>
@@ -90,6 +128,7 @@ const mapStateToProps = state => ({
   testResults: state.appState.testResults,
   currentTest: state.appState.currentTest,
   listOfTests: state.appState.listOfTests,
+  certificateDownloaded: state.appState.certificateDownloaded,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TestResult)

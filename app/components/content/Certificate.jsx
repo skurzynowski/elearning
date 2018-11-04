@@ -14,7 +14,7 @@ import {
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import StartTestButton from './StartTestButton'
-import { setAppMode } from '../../../redux/appState/actions'
+import { setAppMode, setCertificateDownloaded } from '../../../redux/appState/actions'
 
 class Certificate extends Component {
   constructor (props) {
@@ -25,6 +25,7 @@ class Certificate extends Component {
 
   onClickSave = () => {
     this.setState({hiddeButton: true})
+    this.props.setCertificateDownloaded()
   }
   componentDidUpdate = () => {
     if (this.state.hiddeButton === true) {
@@ -69,6 +70,7 @@ class Certificate extends Component {
 
 const mapDispatchToProps = dispatch => ({
   setAppMode: (list) => dispatch(setAppMode(list)),
+  setCertificateDownloaded: () => dispatch(setCertificateDownloaded())
 })
 
 const mapStateToProps = state => ({
