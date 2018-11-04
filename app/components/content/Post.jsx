@@ -56,18 +56,22 @@ class Post extends Component {
   }
 
   isLastSubmodule = () => {
-   return  (typeof this.state.modules[this.state.moduleIndex].fields['module_content_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == '' ||
-      this.state.modules[this.state.moduleIndex].fields['module_content_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == 'undefined') &&
-     (typeof this.state.modules[this.state.moduleIndex].fields['module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == '' ||
-      this.state.modules[this.state.moduleIndex].fields['module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == 'undefined')
+    return (typeof this.state.modules[this.state.moduleIndex].fields['module_content_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == 'undefined' ||
+       this.state.modules[this.state.moduleIndex].fields['module_content_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == '') &&
+      ( typeof this.state.modules[this.state.moduleIndex].fields['module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == 'undefined' ||
+        this.state.modules[this.state.moduleIndex].fields['module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] == '')
   }
 
   isLastModule = () => {
-    return (typeof this.state.modules[this.state.moduleIndex + parseInt(1)] == 'undefined')
+    var module_index = this.state.moduleIndex + parseInt(1)
+    return (typeof this.state.modules[module_index] == 'undefined') || (
+      (this.state.modules[module_index].fields['module_content_0'] == '' ||
+        this.state.modules[module_index].fields['module_title_0'] == '')
+    )
   }
 
   renderNextButton = () => {
-    if (this.isLastSubmodule()) {
+    if (!this.isLastSubmodule()) {
       return <Button onClick={this.onClickNextSubmoduleButton} bsSize="large">Dalej</Button>
     } else {
       if (this.isLastModule()) {
