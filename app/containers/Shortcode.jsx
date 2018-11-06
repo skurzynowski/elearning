@@ -18,7 +18,6 @@ import AdminControlBar from "../components/content/AdminControlBar";
 import WelcomeUser from "../components/content/WelcomeUser";
 import QuestionUser from "../components/content/QuestionUser";
 import TestResult from "../components/content/TestResult";
-import LogInForm from "../components/content/LogInForm";
 import Post from "../components/content/Post";
 import Certificate from "../components/content/Certificate";
 import Timer from "../components/content/Timer";
