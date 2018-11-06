@@ -151,16 +151,16 @@ class Example {
 
 	public function get_certificate( $request ) {
 
-		$result = get_field('certyficate', 'option');
+		$result       = get_field( 'certyficate', 'option' );
 		$current_user = wp_get_current_user();
 
-		$result = str_replace( '{username}', $current_user->user_firstname, $result);
-		$result = str_replace( '{surname}', $current_user->user_lastname, $result);
-		$result = str_replace( '{email}', $current_user->user_email, $result);
+		$result = str_replace( '{username}', $current_user->user_firstname, $result );
+		$result = str_replace( '{surname}', $current_user->user_lastname, $result );
+		$result = str_replace( '{email}', $current_user->user_email, $result );
 
 		return new \WP_REST_Response( array(
-			'success' => true,
-			'certificate'  => $result,
+			'success'     => true,
+			'certificate' => $result,
 
 		), 200 );
 	}
@@ -329,7 +329,14 @@ class Example {
 		) );
 		$posts = $posts->get_posts();
 		shuffle( $posts );
-		$posts = array_slice( $posts, 1, 3 );
+
+		if ( 'pre-test' === $slug_id ) {
+			$limit = get_field( 'pre_test_limit_questions', 'option' ) ?? 3;
+		} else {
+			$limit = get_field( 'post_test_limit_questions', 'option' ) ?? 3;
+		}
+
+		$posts = array_slice( $posts, 1, $limit );
 		$posts = array_map( function ( $data ) {
 			$post_id        = $data->ID;
 			$custom         = get_post_custom( $post_id );
