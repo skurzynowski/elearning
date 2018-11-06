@@ -13,11 +13,8 @@ import {
 } from "react-bootstrap";
 import fetchWp from "../../utils/fetchWP";
 import { connect } from "react-redux";
-import {
-  updateQuestionsCollection,
-  updateListOfTests,
-  setAppMode
-} from "../../../redux/appState/actions";
+import StartTestButton from "./StartTestButton";
+import jsPDF from "jspdf";
 
 const imagePlaceholder =
   "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
@@ -43,16 +40,9 @@ class WelcomeUser extends Component {
     this.setState({ courseSlug: e.target.value });
   };
 
-  getQuestions = () => {
-    this.props.fetchWP
-      .get("question/" + this.props.currentTest)
-      .then(json => this.props.updateQuestionsCollection(json.question))
-      .then(this.props.setAppMode("test"));
-  };
-
   render() {
     return (
-      <Col xs={8} offset={2}>
+      <Col onClick={this.onClickBody} xs={8} offset={2}>
         <Grid componentClass="content-add-new-course" fluid>
           <Panel>
             <Panel.Body>
@@ -74,9 +64,7 @@ class WelcomeUser extends Component {
                 molestiae consequatur, vel illum qui dolorem eum fugiat quo
                 voluptas nulla pariatur?"
               </p>
-              <Button className="btn-primary" onClick={this.getQuestions}>
-                Rozpocznij test
-              </Button>
+              <StartTestButton />
             </Panel.Body>
           </Panel>
         </Grid>
@@ -85,18 +73,10 @@ class WelcomeUser extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  updateListOfTests: list => dispatch(updateListOfTests(list)),
-  updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),
-  setAppMode: list => dispatch(setAppMode(list))
-});
+const mapDispatchToProps = dispatch => ({});
 
 const mapStateToProps = state => ({
-  courseTitle: state.appState.courseTitle,
-  listOfTests: state.appState.listOfTests,
-  questionsCollection: state.appState.questionsCollection,
-  fetchWP: state.appState.fetchWP,
-  currentTest: state.appState.currentTest
+  listOfTests: state.appState.listOfTests
 });
 
 export default connect(

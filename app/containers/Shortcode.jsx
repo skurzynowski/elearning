@@ -4,6 +4,7 @@ import { Grid, Row, Col } from "react-bootstrap";
 import Header from "../components/header/Header";
 import { connect } from "react-redux";
 import {
+  setCurrentTest,
   toggleUserLogginStatus,
   setFetchWP,
   updateListOfTests,
@@ -18,6 +19,8 @@ import WelcomeUser from "../components/content/WelcomeUser";
 import QuestionUser from "../components/content/QuestionUser";
 import TestResult from "../components/content/TestResult";
 import LogInForm from "../components/content/LogInForm";
+import Post from "../components/content/Post";
+import Certificate from "../components/content/Certificate";
 import Timer from "../components/content/Timer";
 
 class Shortcode extends Component {
@@ -29,15 +32,6 @@ class Shortcode extends Component {
       restNonce: this.props.wpObject.api_nonce
     });
 
-    this.props.setAppMode(
-      this.props.wpObject.userLoggedIn == 1 ? "welcome" : "notLoggedIn"
-    );
-    if (
-      this.props.wpObject.listOfTests !== null &&
-      this.props.wpObject.listOfTests.length > 0
-    ) {
-      this.props.updateListOfTests(this.props.wpObject.listOfTests);
-    }
     this.props.setFetchWP(fetchWPInstance);
   }
 
@@ -46,7 +40,7 @@ class Shortcode extends Component {
       <Grid fluid>
         <Row>
           <Col xs={2} lg={2} md={10}>
-            {this.props.appGlobalMode === "notLoggedIn" ? null : (
+            {this.props.appGlobalMode === "certificate" ? null : (
               <SiteBarAdmin />
             )}
           </Col>
@@ -91,11 +85,11 @@ const mapDispatchToProps = dispatch => ({
   toggleUserLogginStatus: status => dispatch(toggleUserLogginStatus(status)),
   setFetchWP: fetchWP => dispatch(setFetchWP(fetchWP)),
   updateListOfTests: list => dispatch(updateListOfTests(list)),
-  setAppMode: mode => dispatch(setAppMode(mode))
+  setAppMode: mode => dispatch(setAppMode(mode)),
+  setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug))
 });
 
 const mapStateToProps = state => ({
-  isUserLoggedIn: state.appState.isUserLoggedIn,
   appGlobalMode: state.appState.appGlobalMode,
   questionsCollection: state.appState.questionsCollection
 });

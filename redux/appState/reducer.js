@@ -10,9 +10,15 @@ const defaultState = {
   appGlobalMode: 'welcome',
   questionsCollection: [],
   fetchWP: {},
-  currentTest: 'test-o-zdrowiu-czlowieka',
+  currentTest: 'pre-test',
   selectedAnswers: [],
   testResults: [],
+  activePost: [],
+  modules: [],
+  activeModule: null,
+  activeSubmodule: null,
+  isOpenLightbox: true,
+  certificateDownloaded: false,
 }
 
 export default function appState (state = defaultState, action) {
@@ -62,6 +68,33 @@ export default function appState (state = defaultState, action) {
       newState.testResults = action.results
       return newState
 
+    case 'APPSTATE_SET_CURRENT_TEST':
+      newState.currentTest = action.testSlug
+      return newState
+    case 'APPSTATE_SET_ANSWERS_DEFAULT':
+      newState.selectedAnswers = []
+      return newState
+
+    case 'APPSTATE_SET_ACTIVE_POST':
+      newState.activePost = action.post
+      newState.appGlobalMode = 'post'
+      return newState
+
+    case 'APPSTATE_SET_MODULES':
+      newState.modules = action.modules
+      return newState
+
+    case 'APPSTATE_SET_ACTIVE_MODULE':
+      newState.activeModule = action.module
+      return newState
+
+    case 'APPSTATE_SET_ACTIVE_SUBMODULE':
+      newState.activeSubmodule = action.submodule
+      return newState
+
+    case 'APPSTATE_SET_CERTIFICATE_DOWNLOADED':
+      newState.certificateDownloaded = action.bool
+      return newState
 
     default:
       return state

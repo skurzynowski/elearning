@@ -11,9 +11,9 @@ export default class Header extends Component {
       <Grid fluid>
         <Row>
           <Col className="d-flex header-wraper">
-            <CourseTitle />
-            <ProgressBar />
-            <UserPanel />
+            {/*<CourseTitle />*/}
+            {/*<ProgressBar />*/}
+            {/*<UserPanel />*/}
           </Col>
         </Row>
       </Grid>

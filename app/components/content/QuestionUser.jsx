@@ -7,6 +7,8 @@ import {
   Col,
   Form,
   FormGroup,
+  ListGroupItem,
+  ListGroup,
   ControlLabel,
   Button,
   Panel,
@@ -19,8 +21,11 @@ import {
   updateQuestionsCollection,
   updateListOfTests,
   setAppMode,
-  setTestResults
+  setTestResults,
+  setCurrentTest
 } from "../../../redux/appState/actions";
+
+import LightBox from "./LightBox";
 
 const imagePlaceholder =
   "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
@@ -33,7 +38,8 @@ class QuestionUser extends Component {
       questionIndex: 0,
       questionsCollection: this.props.questionsCollection,
       selectedAnswer: "",
-      finishBtnClicked: false
+      finishBtnClicked: false,
+      selectedImages: []
     };
   }
 
@@ -73,25 +79,38 @@ class QuestionUser extends Component {
     return questions.map(
       function(data) {
         if (data.value !== "") {
+          let html_id = data.key + "_id_" + this.state.questionIndex;
+
           return (
-            <FormGroup key={this.state.selectedIndex + data.key}>
-              <div className="d-flex justify-content-start">
-                <Radio
-                  onChange={this.onChangeRadio}
-                  value={data.key}
-                  checked={this.state.selectedAnswer === data.key}
-                  type="radio"
-                  id={data.key + "_id_" + this.state.questionIndex}
-                  name="correctAnswer"
-                  inline
-                />
-                <h6>{data.value}</h6>
-              </div>
-            </FormGroup>
+            <ListGroupItem active={this.activeAnswer(data.key)}>
+              <FormGroup key={this.state.selectedIndex + data.key}>
+                <ControlLabel
+                  style={{ textAlign: "left" }}
+                  className={"btn btn-block"}
+                  htmlFor={html_id}
+                >
+                  <Radio
+                    inline
+                    style={{ textAlign: "left", display: "none" }}
+                    onChange={this.onChangeRadio}
+                    value={data.key}
+                    checked={this.state.selectedAnswer === data.key}
+                    type="radio"
+                    id={html_id}
+                    name="correctAnswer"
+                  />
+                  {data.value}
+                </ControlLabel>
+              </FormGroup>
+            </ListGroupItem>
           );
         }
       }.bind(this)
     );
+  };
+
+  activeAnswer = key => {
+    return this.state.selectedAnswer == key;
   };
 
   componentWillReceiveProps(nextProps) {
@@ -150,13 +169,25 @@ class QuestionUser extends Component {
       );
     }
   };
+  onClickImage = () => {
+    this.setState({
+      selectedImages: this.state.selectedImages.concat(
+        this.props.questionsCollection[this.state.questionIndex].imageSrc
+      )
+    });
+    this.props.toggleLightbox();
+  };
 
   render() {
     return (
       <Col xs={8} offset={2}>
         <Grid componentClass="content-add-new-course" fluid>
+          {typeof this.state.selectedImages[0] != "undefined" ? (
+            <LightBox imageUrl={this.state.selectedImages} />
+          ) : null}
           <Panel>
             <img
+              onClick={this.onClickImage}
               src={
                 this.props.questionsCollection[this.state.questionIndex]
                   .imageSrc
@@ -172,7 +203,7 @@ class QuestionUser extends Component {
                       .post_title
                   }
                 </h3>
-                {this.renderQuestions()}
+                <ListGroup>{this.renderQuestions()}</ListGroup>
                 {this.renderNexQuestionButton()}
                 {this.renderFinishTestButton()}
               </Form>
@@ -189,13 +220,16 @@ const mapDispatchToProps = dispatch => ({
   updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),
   updateAnswers: answers => dispatch(updateAnswers(answers)),
   setAppMode: mode => dispatch(setAppMode(mode)),
-  setTestResults: results => dispatch(setTestResults(results))
+  setTestResults: results => dispatch(setTestResults(results)),
+  setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug))
 });
 
 const mapStateToProps = state => ({
   questionsCollection: state.appState.questionsCollection,
   fetchWP: state.appState.fetchWP,
-  selectedAnswers: state.appState.selectedAnswers
+  selectedAnswers: state.appState.selectedAnswers,
+  listOfTests: state.appState.listOfTests,
+  currentTest: state.appState.currentTest
 });
 
 export default connect(
