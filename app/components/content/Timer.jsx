@@ -1,11 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import {
+  FormControl,
+  Grid,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  ControlLabel,
+  Button,
+  Panel,
+  Radio
+} from "react-bootstrap";
 
 class Timer extends React.Component {
   constructor() {
     super();
-    this.state = { time: {}, seconds: 600 };
+    this.state = { time: {}, seconds: 600, counter: 1 };
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
@@ -68,16 +80,46 @@ class Timer extends React.Component {
     });
   };
 
-  render() {
+  showQuestionNumber = () => {
+    return <span>Pytanie X z {this.props.questionsCollection.length}</span>;
+  };
+
+  clock = () => {
     return (
-      <div>
-        <h3 style={{ margin: "30px" }}>
+      <React.Fragment>
+        <span>
           {this.addLeadingZeros(this.state.time.m)}:{this.addLeadingZeros(
             this.state.time.s
           )}
-        </h3>
+        </span>
         {this.startTimer()}
-      </div>
+      </React.Fragment>
+    );
+  };
+
+  render() {
+    const panelStyle = {
+      display: "flex",
+      justifyContent: "space-between",
+      margin: "10px 0",
+      fontSize: "24px"
+    };
+
+    const divStyle = {
+      height: "5px",
+      width: "100%",
+      background: "tomato",
+      marginBottom: "20px"
+    };
+
+    return (
+      <Col xs={8} offset={2}>
+        <div style={panelStyle}>
+          {this.showQuestionNumber()}
+          {this.clock()}
+        </div>
+        <div style={divStyle} />
+      </Col>
     );
   }
 }

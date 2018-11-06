@@ -4,7 +4,6 @@ import { Grid, Row, Col } from "react-bootstrap";
 import CourseTitle from "./CourseTitle";
 import ProgressBar from "./ProgressBar";
 import UserPanel from "./UserPanel";
-import Timer from "./Timer";
 
 export default class Header extends Component {
   render() {
@@ -15,7 +14,6 @@ export default class Header extends Component {
             <CourseTitle />
             <ProgressBar />
             <UserPanel />
-            <Timer />
           </Col>
         </Row>
       </Grid>

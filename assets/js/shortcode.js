@@ -1147,6 +1147,177 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
+/***/ "./app/components/content/Timer.jsx":
+/*!******************************************!*\
+  !*** ./app/components/content/Timer.jsx ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+var Timer =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Timer, _React$Component);
+
+  function Timer() {
+    var _this;
+
+    _classCallCheck(this, Timer);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Timer).call(this));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "secondsToTime", function (secs) {
+      var divisor_for_minutes = secs % (60 * 60);
+      var minutes = Math.floor(divisor_for_minutes / 60);
+      var divisor_for_seconds = divisor_for_minutes % 60;
+      var seconds = Math.ceil(divisor_for_seconds);
+      var obj = {
+        m: minutes,
+        s: seconds
+      };
+      return obj;
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentDidMount", function () {
+      var timeLeftVar = _this.secondsToTime(_this.state.seconds);
+
+      _this.setState({
+        time: timeLeftVar
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "startTimer", function () {
+      if (_this.props.questionsCollection.length > 0 && _this.timer == 0 && _this.state.seconds > 0) {
+        _this.timer = setInterval(_this.countDown, 1000);
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "countDown", function () {
+      var seconds = _this.state.seconds - 1;
+
+      _this.setState({
+        time: _this.secondsToTime(seconds),
+        seconds: seconds
+      });
+
+      if (_this.props.testResults.percents >= 0 || seconds == 0) {
+        clearInterval(_this.timer);
+
+        _this.disableCheckboxes();
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "addLeadingZeros", function (value) {
+      value = String(value);
+
+      while (value.length < 2) {
+        value = "0" + value;
+      }
+
+      return value;
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "disableCheckboxes", function () {
+      var checkboxes = document.querySelectorAll(".radio-inline input");
+      checkboxes.forEach(function (checkbox) {
+        checkbox.disabled = true;
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "showQuestionNumber", function () {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Pytanie X z ", _this.props.questionsCollection.length);
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "clock", function () {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, _this.addLeadingZeros(_this.state.time.m), ":", _this.addLeadingZeros(_this.state.time.s)), _this.startTimer());
+    });
+
+    _this.state = {
+      time: {},
+      seconds: 600,
+      counter: 1
+    };
+    _this.timer = 0;
+    _this.startTimer = _this.startTimer.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.countDown = _this.countDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(Timer, [{
+    key: "render",
+    value: function render() {
+      var panelStyle = {
+        display: "flex",
+        justifyContent: "space-between",
+        margin: "10px 0",
+        fontSize: "24px"
+      };
+      var divStyle = {
+        height: "5px",
+        width: "100%",
+        background: "tomato",
+        marginBottom: "20px"
+      };
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
+        xs: 8,
+        offset: 2
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: panelStyle
+      }, this.showQuestionNumber(), this.clock()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: divStyle
+      }));
+    }
+  }]);
+
+  return Timer;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var mapDispatchToProps = {};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    questionsCollection: state.appState.questionsCollection,
+    testResults: state.appState.testResults
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(Timer));
+
+/***/ }),
+
 /***/ "./app/components/content/WelcomeUser.jsx":
 /*!************************************************!*\
   !*** ./app/components/content/WelcomeUser.jsx ***!
@@ -1239,6 +1410,7 @@ function (_Component) {
         componentClass: "content-add-new-course",
         fluid: true
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Witaj w strefie e-learning"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+        className: "btn-primary",
         onClick: this.getQuestions
       }, "Rozpocznij test")))));
     }
@@ -1366,7 +1538,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CourseTitle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CourseTitle */ "./app/components/header/CourseTitle.jsx");
 /* harmony import */ var _ProgressBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProgressBar */ "./app/components/header/ProgressBar.jsx");
 /* harmony import */ var _UserPanel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./UserPanel */ "./app/components/header/UserPanel.jsx");
-/* harmony import */ var _Timer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Timer */ "./app/components/header/Timer.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1384,7 +1555,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -1411,7 +1581,7 @@ function (_Component) {
         fluid: true
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
         className: "d-flex header-wraper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CourseTitle__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProgressBar__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserPanel__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Timer__WEBPACK_IMPORTED_MODULE_6__["default"], null))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CourseTitle__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProgressBar__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserPanel__WEBPACK_IMPORTED_MODULE_5__["default"], null))));
     }
   }]);
 
@@ -1518,151 +1688,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(ProgressBarTest));
-
-/***/ }),
-
-/***/ "./app/components/header/Timer.jsx":
-/*!*****************************************!*\
-  !*** ./app/components/header/Timer.jsx ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-var Timer =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Timer, _React$Component);
-
-  function Timer() {
-    var _this;
-
-    _classCallCheck(this, Timer);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Timer).call(this));
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "secondsToTime", function (secs) {
-      var divisor_for_minutes = secs % (60 * 60);
-      var minutes = Math.floor(divisor_for_minutes / 60);
-      var divisor_for_seconds = divisor_for_minutes % 60;
-      var seconds = Math.ceil(divisor_for_seconds);
-      var obj = {
-        m: minutes,
-        s: seconds
-      };
-      return obj;
-    });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentDidMount", function () {
-      var timeLeftVar = _this.secondsToTime(_this.state.seconds);
-
-      _this.setState({
-        time: timeLeftVar
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "startTimer", function () {
-      if (_this.props.questionsCollection.length > 0 && _this.timer == 0 && _this.state.seconds > 0) {
-        _this.timer = setInterval(_this.countDown, 1000);
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "countDown", function () {
-      var seconds = _this.state.seconds - 1;
-
-      _this.setState({
-        time: _this.secondsToTime(seconds),
-        seconds: seconds
-      });
-
-      if (_this.props.testResults.percents >= 0 || seconds == 0) {
-        clearInterval(_this.timer);
-
-        _this.disableCheckboxes();
-      }
-    });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "addLeadingZeros", function (value) {
-      value = String(value);
-
-      while (value.length < 2) {
-        value = "0" + value;
-      }
-
-      return value;
-    });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "disableCheckboxes", function () {
-      var checkboxes = document.querySelectorAll(".radio-inline input");
-      checkboxes.forEach(function (checkbox) {
-        checkbox.disabled = true;
-      });
-    });
-
-    _this.state = {
-      time: {},
-      seconds: 600
-    };
-    _this.timer = 0;
-    _this.startTimer = _this.startTimer.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.countDown = _this.countDown.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    return _this;
-  }
-
-  _createClass(Timer, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-        style: {
-          margin: "30px"
-        }
-      }, this.addLeadingZeros(this.state.time.m), ":", this.addLeadingZeros(this.state.time.s)), this.startTimer());
-    }
-  }]);
-
-  return Timer;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-var mapDispatchToProps = {};
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    questionsCollection: state.appState.questionsCollection,
-    testResults: state.appState.testResults
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(Timer));
 
 /***/ }),
 
@@ -1861,6 +1886,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/content/QuestionUser */ "./app/components/content/QuestionUser.jsx");
 /* harmony import */ var _components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/content/TestResult */ "./app/components/content/TestResult.jsx");
 /* harmony import */ var _components_content_LogInForm__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/content/LogInForm */ "./app/components/content/LogInForm.jsx");
+/* harmony import */ var _components_content_Timer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/content/Timer */ "./app/components/content/Timer.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1895,6 +1921,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Shortcode =
 /*#__PURE__*/
 function (_Component) {
@@ -1911,7 +1938,7 @@ function (_Component) {
       restNonce: _this.props.wpObject.api_nonce
     });
 
-    _this.props.setAppMode(_this.props.wpObject.userLoggedIn == 1 ? 'welcome' : 'notLoggedIn');
+    _this.props.setAppMode(_this.props.wpObject.userLoggedIn == 1 ? "welcome" : "notLoggedIn");
 
     if (_this.props.wpObject.listOfTests !== null && _this.props.wpObject.listOfTests.length > 0) {
       _this.props.updateListOfTests(_this.props.wpObject.listOfTests);
@@ -1931,14 +1958,14 @@ function (_Component) {
         xs: 2,
         lg: 2,
         md: 10
-      }, this.props.appGlobalMode === 'notLoggedIn' ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_sitebar_SiteBarAdmin__WEBPACK_IMPORTED_MODULE_6__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+      }, this.props.appGlobalMode === "notLoggedIn" ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_sitebar_SiteBarAdmin__WEBPACK_IMPORTED_MODULE_6__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
         xs: 10,
         lg: 10,
         md: 10
-      }, this.props.appGlobalMode === 'notLoggedIn' ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), this.props.appGlobalMode === 'notLoggedIn' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_LogInForm__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }, this.props.appGlobalMode === "notLoggedIn" ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), this.props.appGlobalMode === "notLoggedIn" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_LogInForm__WEBPACK_IMPORTED_MODULE_14__["default"], {
         registerUrl: this.props.wpObject.registerUrl,
         loginUrl: this.props.wpObject.loginUrl
-      }) : null, this.props.wpObject.isAdmin == 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AdminControlBar__WEBPACK_IMPORTED_MODULE_10__["default"], null) : null, this.props.appGlobalMode === 'welcome' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === 'result' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null, this.props.appGlobalMode === 'add_question' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewQuestion__WEBPACK_IMPORTED_MODULE_8__["default"], null) : null, this.props.appGlobalMode === 'add_course' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewCourse__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null)));
+      }) : null, this.props.wpObject.isAdmin == 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AdminControlBar__WEBPACK_IMPORTED_MODULE_10__["default"], null) : null, this.props.appGlobalMode === "welcome" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 || this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Timer__WEBPACK_IMPORTED_MODULE_15__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null, this.props.appGlobalMode === "add_question" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewQuestion__WEBPACK_IMPORTED_MODULE_8__["default"], null) : null, this.props.appGlobalMode === "add_course" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewCourse__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null)));
     }
   }]);
 

@@ -74,7 +74,9 @@ class WelcomeUser extends Component {
                 molestiae consequatur, vel illum qui dolorem eum fugiat quo
                 voluptas nulla pariatur?"
               </p>
-              <Button onClick={this.getQuestions}>Rozpocznij test</Button>
+              <Button className="btn-primary" onClick={this.getQuestions}>
+                Rozpocznij test
+              </Button>
             </Panel.Body>
           </Panel>
         </Grid>
