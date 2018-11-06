@@ -75,9 +75,9 @@ class Timer extends React.Component {
 
   disableCheckboxes = () => {
     // let checkboxes = document.querySelectorAll(".radio-inline input");
-    checkboxes.forEach(checkbox => {
-      checkbox.disabled = true;
-    });
+    // checkboxes.forEach(checkbox => {
+    //   checkbox.disabled = true;
+    // });
   };
 
   showQuestionNumber = () => {
@@ -113,7 +113,7 @@ class Timer extends React.Component {
     };
 
     return (
-      <Col xs={8} offset={2}>
+      <Col>
         <div style={panelStyle}>
           {this.showQuestionNumber()}
           {this.clock()}

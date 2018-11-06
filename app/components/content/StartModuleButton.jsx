@@ -30,7 +30,7 @@ class StartModuleButton extends Component {
 
   render() {
     return (
-      <Button className="btn-primary" onClick={this.startModule}>
+      <Button bsStyle="primary" onClick={this.startModule}>
         Rozpocznij naukę
       </Button>
     );

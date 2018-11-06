@@ -59,7 +59,7 @@ class Certificate extends Component {
               <h3>Certyfikat</h3>
               {this.renderCertificateContent()}
               {this.state.hiddeButton ? null : (
-                <Button onClick={this.onClickSave}>Zapisz</Button>
+                <Button bsStyle="primary" onClick={this.onClickSave}>Zapisz</Button>
               )}
             </Panel.Body>
           </Panel>

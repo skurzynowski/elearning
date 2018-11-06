@@ -139,7 +139,7 @@ class QuestionUser extends Component {
     ) {
       return (
         <FormGroup>
-          <Button onClick={this.onClickFinishTest}>Zakończ test</Button>
+          <Button bsStyle="primary" onClick={this.onClickFinishTest}>Zakończ test</Button>
         </FormGroup>
       );
     }
@@ -149,7 +149,7 @@ class QuestionUser extends Component {
     ) {
       return (
         <FormGroup>
-          <Button onClick={this.onClickFinishTest} disabled>
+          <Button bsStyle="primary" onClick={this.onClickFinishTest} disabled>
             Zakończ test
           </Button>
         </FormGroup>
@@ -164,7 +164,7 @@ class QuestionUser extends Component {
     ) {
       return (
         <FormGroup>
-          <Button onClick={this.onClickNextQuestion}>Następne pytanie</Button>
+          <Button bsStyle="primary" onClick={this.onClickNextQuestion}>Następne pytanie</Button>
         </FormGroup>
       );
     }
@@ -180,7 +180,7 @@ class QuestionUser extends Component {
 
   render() {
     return (
-      <Col xs={8} offset={2}>
+      <Col>
         <Grid componentClass="content-add-new-course">
           {typeof this.state.selectedImages[0] != "undefined" ? (
             <LightBox imageUrl={this.state.selectedImages} />

@@ -90,20 +90,20 @@ class Post extends Component {
   renderNextButton = () => {
     if (!this.isLastSubmodule()) {
       return (
-        <Button onClick={this.onClickNextSubmoduleButton} bsSize="large">
+        <Button bsStyle="primary" onClick={this.onClickNextSubmoduleButton} bsSize="large">
           Dalej
         </Button>
       );
     } else {
       if (this.isLastModule()) {
         return (
-          <Button onClick={this.onClickStartLastTest} bsSize="large">
+          <Button bsStyle="primary" onClick={this.onClickStartLastTest} bsSize="large">
             Test końcowy
           </Button>
         );
       } else {
         return (
-          <Button onClick={this.onClickNextModuleButton} bsSize="large">
+          <Button bsStyle="primary" onClick={this.onClickNextModuleButton} bsSize="large">
             Następny moduł
           </Button>
         );
@@ -113,7 +113,7 @@ class Post extends Component {
 
   render() {
     return (
-      <Col xs={8} offset={2}>
+      <Col>
         <Grid componentClass="content-post">
           {typeof this.state.modules[this.state.moduleIndex].post_title !=
           "undefined" ? (

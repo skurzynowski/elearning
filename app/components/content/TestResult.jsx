@@ -110,7 +110,7 @@ class TestResult extends Component {
 
   render() {
     return (
-      <Col xs={8} offset={2}>
+      <Col>
         <Grid componentClass="content-test-result">
           <Panel>
             <Panel.Body>

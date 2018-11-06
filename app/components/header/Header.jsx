@@ -10,10 +10,8 @@ export default class Header extends Component {
     return (
       <Grid fluid>
         <Row>
-          <Col className="d-flex header-wraper">
-            {/*<CourseTitle />*/}
-            {/*<ProgressBar />*/}
-            {/*<UserPanel />*/}
+          <Col className="col-sm-offset-6 col-sm-6">
+            <ProgressBar />
           </Col>
         </Row>
       </Grid>

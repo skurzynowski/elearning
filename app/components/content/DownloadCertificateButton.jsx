@@ -28,7 +28,7 @@ class DownloadCertificateButton extends Component {
 
   render () {
     return (
-      <Button onClick={this.downloadCertyficate}>Pobierz certyfikat</Button>
+      <Button bsStyle="primary" onClick={this.downloadCertyficate}>Pobierz certyfikat</Button>
     )
   }
 }
