@@ -775,7 +775,9 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        xs: 8,
+        xs: 10,
+        lg: 10,
+        md: 10,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         componentClass: "content-add-new-course"
@@ -1317,6 +1319,7 @@ function (_Component) {
         if (data.value !== "") {
           var html_id = data.key + "_id_" + this.state.questionIndex;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+            key: "quest_" + data.key,
             active: this.activeAnswer(data.key)
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
             key: this.state.selectedIndex + data.key
@@ -1536,6 +1539,8 @@ function (_Component) {
       _this.props.setActiveSubmodule("0_0");
 
       _this.props.setCurrentTest(null);
+
+      _this.props.setAnswersDefault();
     });
 
     return _this;
@@ -1567,6 +1572,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setCurrentTest: function setCurrentTest(test) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setCurrentTest"])(test));
+    },
+    setAnswersDefault: function setAnswersDefault() {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setSelectedAnswersDefault"])());
     }
   };
 };
@@ -1647,10 +1655,12 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getQuestions", function () {
       _this.props.setAnswersDefault();
 
-      _this.props.fetchWP.get("question/" + _this.props.currentTest).then(function (json) {
+      _this.props.fetchWP.get('question/' + _this.props.currentTest).then(function (json) {
         return _this.props.updateQuestionsCollection(json.question);
-      }).then(_this.props.setAppMode("test"));
+      }).then(_this.props.setAppMode('test'));
     });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentWillReceiveProps", function (newProps) {});
 
     return _this;
   }
@@ -1658,12 +1668,7 @@ function (_Component) {
   _createClass(StartTestButton, [{
     key: "render",
     value: function render() {
-      if (this.props.finishedElearning == true) {
-        var text = "Powtórz test";
-      } else {
-        var text = "Rozpocznij test";
-      }
-
+      var text = this.props.currentTest == 'post-test' && this.props.selectedAnswers.length === this.props.questionsCollection.length ? 'Powtórz test' : 'Rozpocznij test';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         className: "btn-primary",
         onClick: this.getQuestions
@@ -1689,11 +1694,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {
+  var _ref;
+
+  return _ref = {
     fetchWP: state.appState.fetchWP,
     currentTest: state.appState.currentTest,
     globalAppMode: state.appState.globalAppMode
-  };
+  }, _defineProperty(_ref, "currentTest", state.appState.currentTest), _defineProperty(_ref, "selectedAnswers", state.appState.selectedAnswers), _defineProperty(_ref, "questionsCollection", state.appState.questionsCollection), _ref;
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps, mapDispatchToProps)(StartTestButton));
@@ -1777,8 +1784,6 @@ function (_Component) {
       if (nextProps == _this.props) {
         return;
       }
-
-      _this.props.setAnswersDefault();
 
       var currentTestSlug = _this.props.currentTest;
 
@@ -1986,7 +1991,7 @@ function (_React$Component) {
         seconds: seconds
       });
 
-      if (_this.props.testResults.percents >= 0 || seconds == 0) {
+      if (_this.props.selectedAnswers.length === _this.props.questionsCollection.length || seconds == 0) {
         clearInterval(_this.timer);
 
         _this.disableCheckboxes();
@@ -1997,7 +2002,7 @@ function (_React$Component) {
       value = String(value);
 
       while (value.length < 2) {
-        value = "0" + value;
+        value = '0' + value;
       }
 
       return value;
@@ -2009,8 +2014,14 @@ function (_React$Component) {
       // });
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentWillReceiveProps", function (newProps) {
+      console.log("timer", newProps);
+    });
+
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "showQuestionNumber", function () {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Pytanie ", _this.props.selectedAnswers.length + 1, " z ", _this.props.questionsCollection.length);
+      var currentQuestion = _this.props.selectedAnswers.length < 1 ? 1 : _this.props.selectedAnswers.length + 1;
+      currentQuestion = currentQuestion >= _this.props.questionsCollection.length ? _this.props.questionsCollection.length : currentQuestion;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Pytanie ", currentQuestion, " z ", _this.props.questionsCollection.length);
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "clock", function () {
@@ -2020,7 +2031,8 @@ function (_React$Component) {
     _this.state = {
       time: {},
       seconds: 600,
-      counter: 1
+      counter: 1,
+      currentQuestionNumber: 1
     };
     _this.timer = 0;
     _this.startTimer = _this.startTimer.bind(_assertThisInitialized(_assertThisInitialized(_this)));
@@ -2032,18 +2044,20 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var panelStyle = {
-        display: "flex",
-        justifyContent: "space-between",
-        margin: "10px 0",
-        fontSize: "24px"
+        display: 'flex',
+        justifyContent: 'space-between',
+        margin: '10px 0',
+        fontSize: '24px'
       };
       var divStyle = {
-        height: "5px",
-        width: "100%",
-        background: "tomato",
-        marginBottom: "20px"
+        height: '5px',
+        width: '100%',
+        background: 'tomato',
+        marginBottom: '20px'
       };
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
+        key: this.props.questionsCollection[0].ID
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         style: panelStyle
       }, this.showQuestionNumber(), this.clock()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         style: divStyle
@@ -2756,10 +2770,7 @@ function (_Component) {
         className: "col-lg-10 col-md-9 col-xs-12"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
         className: "col-xs-12 col-sm-8 col-sm-offset-2"
-      }, this.props.appGlobalMode === 'notLoggedIn' ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), this.props.appGlobalMode === 'notLoggedIn' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LogInForm, {
-        registerUrl: this.props.wpObject.registerUrl,
-        loginUrl: this.props.wpObject.loginUrl
-      }) : null, this.props.wpObject.isAdmin == 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AdminControlBar__WEBPACK_IMPORTED_MODULE_10__["default"], null) : null, this.props.appGlobalMode === 'welcome' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 || this.props.appGlobalMode === 'result' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Timer__WEBPACK_IMPORTED_MODULE_16__["default"], null) : null, this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === 'result' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null, this.props.appGlobalMode === 'post' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Post__WEBPACK_IMPORTED_MODULE_14__["default"], null) : null, this.props.appGlobalMode === 'add_question' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewQuestion__WEBPACK_IMPORTED_MODULE_8__["default"], null) : null, this.props.appGlobalMode === 'add_course' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewCourse__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null)))));
+      }, this.props.appGlobalMode === 'certificate' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Certificate__WEBPACK_IMPORTED_MODULE_15__["default"], null) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), this.props.appGlobalMode === 'welcome' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 || this.props.appGlobalMode === 'result' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Timer__WEBPACK_IMPORTED_MODULE_16__["default"], null) : null, this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === 'result' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null, this.props.appGlobalMode === 'post' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Post__WEBPACK_IMPORTED_MODULE_14__["default"], null) : null, this.props.appGlobalMode === 'add_question' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewQuestion__WEBPACK_IMPORTED_MODULE_8__["default"], null) : null, this.props.appGlobalMode === 'add_course' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewCourse__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null)))));
     }
   }]);
 

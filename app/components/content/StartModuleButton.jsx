@@ -17,8 +17,8 @@ import {
   setAppMode,
   setActiveSubmodule,
   setActiveModule,
-  setCurrentTest
-} from "../../../redux/appState/actions";
+  setCurrentTest, setSelectedAnswersDefault
+} from '../../../redux/appState/actions'
 
 class StartModuleButton extends Component {
   startModule = () => {
@@ -26,6 +26,7 @@ class StartModuleButton extends Component {
     this.props.setActiveModule(parseInt(0));
     this.props.setActiveSubmodule("0_0");
     this.props.setCurrentTest(null);
+    this.props.setAnswersDefault();
   };
 
   render() {
@@ -41,7 +42,8 @@ const mapDispatchToProps = dispatch => ({
   setAppMode: list => dispatch(setAppMode(list)),
   setActiveSubmodule: list => dispatch(setActiveSubmodule(list)),
   setActiveModule: module => dispatch(setActiveModule(module)),
-  setCurrentTest: test => dispatch(setCurrentTest(test))
+  setCurrentTest: test => dispatch(setCurrentTest(test)),
+  setAnswersDefault: () => dispatch(setSelectedAnswersDefault())
 });
 
 const mapStateToProps = state => ({

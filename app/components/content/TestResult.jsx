@@ -43,7 +43,6 @@ class TestResult extends Component {
     if (nextProps == this.props) {
       return;
     }
-    this.props.setAnswersDefault();
     let currentTestSlug = this.props.currentTest;
     let currentTest = this.props.listOfTests.filter(
       function(data) {

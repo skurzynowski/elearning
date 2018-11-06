@@ -52,7 +52,7 @@ class Certificate extends Component {
 
   render() {
     return (
-      <Col xs={8} offset={2}>
+      <Col xs={10} lg={10} md={10} offset={2}>
         <Grid componentClass="content-add-new-course">
           <Panel>
             <Panel.Body>

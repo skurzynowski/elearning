@@ -82,7 +82,7 @@ class QuestionUser extends Component {
           let html_id = data.key + "_id_" + this.state.questionIndex;
 
           return (
-            <ListGroupItem active={this.activeAnswer(data.key)}>
+            <ListGroupItem key={"quest_" + data.key} active={this.activeAnswer(data.key)}>
               <FormGroup key={this.state.selectedIndex + data.key}>
                 <ControlLabel
                   style={{ textAlign: "left" }}

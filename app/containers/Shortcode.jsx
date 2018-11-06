@@ -46,14 +46,10 @@ class Shortcode extends Component {
           <Col className="col-lg-10 col-md-9 col-xs-12">
             <Row>
               <Col className="col-xs-12 col-sm-8 col-sm-offset-2">
-                {this.props.appGlobalMode === 'notLoggedIn' ? null : <Header/>}
-                {this.props.appGlobalMode === 'notLoggedIn' ? (
-                  <LogInForm
-                    registerUrl={this.props.wpObject.registerUrl}
-                    loginUrl={this.props.wpObject.loginUrl}
-                  />
-                ) : null}
-                {this.props.wpObject.isAdmin == 1 ? <AdminControlBar/> : null}
+                {this.props.appGlobalMode === 'certificate' ? <Certificate/> : (
+                  <Header/>
+                )}
+                {}
                 {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
                 {(this.props.appGlobalMode === 'test' &&
                   this.props.questionsCollection.length > 0) ||
