@@ -877,7 +877,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180';
+var imagePlaceholder = "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
 
 var QuestionUser =
 /*#__PURE__*/
@@ -906,7 +906,7 @@ function (_Component) {
 
       _this.setState({
         questionIndex: _this.state.questionIndex + 1,
-        selectedAnswer: ''
+        selectedAnswer: ""
       });
     });
 
@@ -928,7 +928,7 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderQuestions", function () {
       var questions = _this.props.questionsCollection[_this.state.questionIndex].answer;
       return questions.map(function (data) {
-        if (data.value !== '') {
+        if (data.value !== "") {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
             key: this.state.selectedIndex + data.key
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -938,7 +938,7 @@ function (_Component) {
             value: data.key,
             checked: this.state.selectedAnswer === data.key,
             type: "radio",
-            id: data.key + '_id_' + this.state.questionIndex,
+            id: data.key + "_id_" + this.state.questionIndex,
             name: "correctAnswer",
             inline: true
           }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", null, data.value)));
@@ -953,15 +953,22 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderFinishTestButton", function () {
-      if (_this.props.questionsCollection.length - 1 === _this.state.questionIndex) {
+      if (_this.state.selectedAnswer !== "" && _this.props.questionsCollection.length - 1 === _this.state.questionIndex) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
           onClick: _this.onClickFinishTest
+        }, "Zako\u0144cz test"));
+      }
+
+      if (_this.props.questionsCollection.length - 1 === _this.state.questionIndex) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+          onClick: _this.onClickFinishTest,
+          disabled: true
         }, "Zako\u0144cz test"));
       }
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderNexQuestionButton", function () {
-      if (_this.state.selectedAnswer !== '' && _this.props.questionsCollection.length - 2 >= _this.state.questionIndex) {
+      if (_this.state.selectedAnswer !== "" && _this.props.questionsCollection.length - 2 >= _this.state.questionIndex) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
           onClick: _this.onClickNextQuestion
         }, "Nast\u0119pne pytanie"));
@@ -971,7 +978,7 @@ function (_Component) {
     _this.state = {
       questionIndex: 0,
       questionsCollection: _this.props.questionsCollection,
-      selectedAnswer: '',
+      selectedAnswer: "",
       finishBtnClicked: false
     };
     return _this;
@@ -983,11 +990,11 @@ function (_Component) {
       var _this2 = this;
 
       if (nextProps.selectedAnswers !== this.props.selectedAnswers && this.state.finishBtnClicked === true) {
-        this.props.fetchWP.post('check/result', {
+        this.props.fetchWP.post("check/result", {
           selectedAnswers: JSON.stringify(nextProps.selectedAnswers)
         }).then(function (json) {
           return _this2.props.setTestResults(json.result);
-        }).then(this.props.setAppMode('result'));
+        }).then(this.props.setAppMode("result"));
       }
     }
   }, {
@@ -1585,7 +1592,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "startTimer", function () {
-      if (_this.timer == 0 && _this.state.seconds > 0) {
+      if (_this.props.questionsCollection.length > 0 && _this.timer == 0 && _this.state.seconds > 0) {
         _this.timer = setInterval(_this.countDown, 1000);
       }
     });
@@ -1598,8 +1605,10 @@ function (_React$Component) {
         seconds: seconds
       });
 
-      if (seconds == 0) {
+      if (_this.props.testResults.percents >= 0 || seconds == 0) {
         clearInterval(_this.timer);
+
+        _this.disableCheckboxes();
       }
     });
 
@@ -1611,6 +1620,13 @@ function (_React$Component) {
       }
 
       return value;
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "disableCheckboxes", function () {
+      var checkboxes = document.querySelectorAll(".radio-inline input");
+      checkboxes.forEach(function (checkbox) {
+        checkbox.disabled = true;
+      });
     });
 
     _this.state = {
@@ -1630,9 +1646,7 @@ function (_React$Component) {
         style: {
           margin: "30px"
         }
-      }, this.addLeadingZeros(this.state.time.m), ":", this.addLeadingZeros(this.state.time.s), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.startTimer
-      }, "Start")));
+      }, this.addLeadingZeros(this.state.time.m), ":", this.addLeadingZeros(this.state.time.s)), this.startTimer());
     }
   }]);
 
@@ -1643,7 +1657,8 @@ var mapDispatchToProps = {};
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    setAppMode: state.appState.setAppMode
+    questionsCollection: state.appState.questionsCollection,
+    testResults: state.appState.testResults
   };
 };
 

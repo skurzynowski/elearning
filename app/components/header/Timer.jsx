@@ -31,7 +31,11 @@ class Timer extends React.Component {
   };
 
   startTimer = () => {
-    if (this.timer == 0 && this.state.seconds > 0) {
+    if (
+      this.props.questionsCollection.length > 0 &&
+      this.timer == 0 &&
+      this.state.seconds > 0
+    ) {
       this.timer = setInterval(this.countDown, 1000);
     }
   };
@@ -43,8 +47,9 @@ class Timer extends React.Component {
       seconds: seconds
     });
 
-    if (seconds == 0) {
+    if (this.props.testResults.percents >= 0 || seconds == 0) {
       clearInterval(this.timer);
+      this.disableCheckboxes();
     }
   };
 
@@ -56,6 +61,13 @@ class Timer extends React.Component {
     return value;
   };
 
+  disableCheckboxes = () => {
+    let checkboxes = document.querySelectorAll(".radio-inline input");
+    checkboxes.forEach(checkbox => {
+      checkbox.disabled = true;
+    });
+  };
+
   render() {
     return (
       <div>
@@ -63,8 +75,8 @@ class Timer extends React.Component {
           {this.addLeadingZeros(this.state.time.m)}:{this.addLeadingZeros(
             this.state.time.s
           )}
-          <button onClick={this.startTimer}>Start</button>
         </h3>
+        {this.startTimer()}
       </div>
     );
   }
@@ -73,7 +85,8 @@ class Timer extends React.Component {
 const mapDispatchToProps = {};
 
 const mapStateToProps = state => ({
-  setAppMode: state.appState.setAppMode
+  questionsCollection: state.appState.questionsCollection,
+  testResults: state.appState.testResults
 });
 
 export default connect(
