@@ -18,7 +18,6 @@ import AdminControlBar from "../components/content/AdminControlBar";
 import WelcomeUser from "../components/content/WelcomeUser";
 import QuestionUser from "../components/content/QuestionUser";
 import TestResult from "../components/content/TestResult";
-import LogInForm from "../components/content/LogInForm";
 import Post from "../components/content/Post";
 import Certificate from "../components/content/Certificate";
 import Timer from "../components/content/Timer";
@@ -45,14 +44,6 @@ class Shortcode extends Component {
             )}
           </Col>
           <Col xs={10} lg={10} md={10}>
-            {this.props.appGlobalMode === "notLoggedIn" ? null : <Header />}
-            {this.props.appGlobalMode === "notLoggedIn" ? (
-              <LogInForm
-                registerUrl={this.props.wpObject.registerUrl}
-                loginUrl={this.props.wpObject.loginUrl}
-              />
-            ) : null}
-            {this.props.wpObject.isAdmin == 1 ? <AdminControlBar /> : null}
             {this.props.appGlobalMode === "welcome" ? <WelcomeUser /> : null}
             {(this.props.appGlobalMode === "test" &&
               this.props.questionsCollection.length > 0) ||
@@ -63,12 +54,12 @@ class Shortcode extends Component {
             this.props.questionsCollection.length > 0 ? (
               <QuestionUser />
             ) : null}
+            {this.props.appGlobalMode === "post" ? (
+              <Post />
+            ) : null}
             {this.props.appGlobalMode === "result" ? <TestResult /> : null}
             {this.props.appGlobalMode === "add_question" ? (
               <AddNewQuestion />
-            ) : null}
-            {this.props.appGlobalMode === "add_course" ? (
-              <AddNewCourse />
             ) : null}
           </Col>
         </Row>

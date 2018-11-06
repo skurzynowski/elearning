@@ -74,14 +74,14 @@ class Timer extends React.Component {
   };
 
   disableCheckboxes = () => {
-    let checkboxes = document.querySelectorAll(".radio-inline input");
+    // let checkboxes = document.querySelectorAll(".radio-inline input");
     checkboxes.forEach(checkbox => {
       checkbox.disabled = true;
     });
   };
 
   showQuestionNumber = () => {
-    return <span>Pytanie X z {this.props.questionsCollection.length}</span>;
+    return <span>Pytanie {this.props.selectedAnswers.length + 1} z {this.props.questionsCollection.length}</span>;
   };
 
   clock = () => {
@@ -128,7 +128,8 @@ const mapDispatchToProps = {};
 
 const mapStateToProps = state => ({
   questionsCollection: state.appState.questionsCollection,
-  testResults: state.appState.testResults
+  testResults: state.appState.testResults,
+  selectedAnswers: state.appState.selectedAnswers
 });
 
 export default connect(

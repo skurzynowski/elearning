@@ -1036,165 +1036,6 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
-/***/ "./app/components/content/LogInForm.jsx":
-/*!**********************************************!*\
-  !*** ./app/components/content/LogInForm.jsx ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _redux_appState_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../redux/appState/actions */ "./redux/appState/actions.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-
-
-var LogInForm =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(LogInForm, _Component);
-
-  function LogInForm(props) {
-    var _this;
-
-    _classCallCheck(this, LogInForm);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(LogInForm).call(this, props));
-    _this.state = {
-      testTitle: '',
-      description: ''
-    };
-    return _this;
-  }
-
-  _createClass(LogInForm, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        xs: 8,
-        offset: 2
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        componentClass: "content-add-new-course",
-        fluid: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Please log in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: this.props.loginUrl
-      }, "Log in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
-        row: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], {
-        sm: 2
-      }, "Email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        sm: 10
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
-        type: "email",
-        name: "email",
-        id: "exampleEmail",
-        placeholder: "with a placeholder"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
-        row: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], {
-        sm: 2
-      }, "Imi\u0119"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        sm: 10
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
-        type: "email",
-        name: "text",
-        id: "exampleEmail",
-        placeholder: "with a placeholder"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
-        row: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], {
-        sm: 2
-      }, "Nazwisko"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        sm: 10
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
-        type: "email",
-        name: "text",
-        id: "exampleEmail",
-        placeholder: "with a placeholder"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
-        row: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], {
-        sm: 2
-      }, "Has\u0142o"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        sm: 10
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
-        type: "password",
-        name: "password",
-        id: "examplePassword",
-        placeholder: "password placeholder"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
-        row: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], {
-        sm: 2
-      }, "Powtorz has\u0142o"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        sm: 10
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
-        type: "password",
-        name: "password",
-        id: "examplePassword",
-        placeholder: "password placeholder"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
-        check: true,
-        row: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        sm: {
-          size: 10,
-          offset: 2
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], null, "Submit"))))))));
-    }
-  }]);
-
-  return LogInForm;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    updateListOfTests: function updateListOfTests(list) {
-      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_4__["updateListOfTests"])(list));
-    }
-  };
-};
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    courseTitle: state.appState.courseTitle,
-    listOfTests: state.appState.listOfTests,
-    fetchWP: state.appState.fetchWP
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(LogInForm));
-
-/***/ }),
-
 /***/ "./app/components/content/Post.jsx":
 /*!*****************************************!*\
   !*** ./app/components/content/Post.jsx ***!
@@ -1424,7 +1265,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var imagePlaceholder = "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
+var imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180';
 
 var QuestionUser =
 /*#__PURE__*/
@@ -1453,7 +1294,7 @@ function (_Component) {
 
       _this.setState({
         questionIndex: _this.state.questionIndex + 1,
-        selectedAnswer: ""
+        selectedAnswer: ''
       });
     });
 
@@ -1475,23 +1316,23 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderQuestions", function () {
       var questions = _this.props.questionsCollection[_this.state.questionIndex].answer;
       return questions.map(function (data) {
-        if (data.value !== "") {
-          var html_id = data.key + "_id_" + this.state.questionIndex;
+        if (data.value !== '') {
+          var html_id = data.key + '_id_' + this.state.questionIndex;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
             active: this.activeAnswer(data.key)
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
             key: this.state.selectedIndex + data.key
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], {
             style: {
-              textAlign: "left"
+              textAlign: 'left'
             },
-            className: "btn btn-block",
+            className: 'btn btn-block',
             htmlFor: html_id
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
             inline: true,
             style: {
-              textAlign: "left",
-              display: "none"
+              textAlign: 'left',
+              display: 'none'
             },
             onChange: this.onChangeRadio,
             value: data.key,
@@ -1515,7 +1356,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderFinishTestButton", function () {
-      if (_this.state.selectedAnswer !== "" && _this.props.questionsCollection.length - 1 === _this.state.questionIndex) {
+      if (_this.state.selectedAnswer !== '' && _this.props.questionsCollection.length - 1 === _this.state.questionIndex) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
           onClick: _this.onClickFinishTest
         }, "Zako\u0144cz test"));
@@ -1530,25 +1371,25 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderNexQuestionButton", function () {
-      if (_this.state.selectedAnswer !== "" && _this.props.questionsCollection.length - 2 >= _this.state.questionIndex) {
+      if (_this.state.selectedAnswer !== '' && _this.props.questionsCollection.length - 2 >= _this.state.questionIndex) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
           onClick: _this.onClickNextQuestion
         }, "Nast\u0119pne pytanie"));
       }
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickImage", function () {
-      _this.setState({
-        selectedImages: _this.state.selectedImages.concat(_this.props.questionsCollection[_this.state.questionIndex].imageSrc)
-      });
-
-      _this.props.toggleLightbox();
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickImage", function () {// this.setState({
+      //   selectedImages: this.state.selectedImages.concat(
+      //     this.props.questionsCollection[this.state.questionIndex].imageSrc
+      //   )
+      // });
+      // this.props.toggleLightbox();
     });
 
     _this.state = {
       questionIndex: 0,
       questionsCollection: _this.props.questionsCollection,
-      selectedAnswer: "",
+      selectedAnswer: '',
       finishBtnClicked: false,
       selectedImages: []
     };
@@ -1561,11 +1402,11 @@ function (_Component) {
       var _this2 = this;
 
       if (nextProps.selectedAnswers !== this.props.selectedAnswers && this.state.finishBtnClicked === true) {
-        this.props.fetchWP.post("check/result", {
+        this.props.fetchWP.post('check/result', {
           selectedAnswers: JSON.stringify(nextProps.selectedAnswers)
         }).then(function (json) {
           return _this2.props.setTestResults(json.result);
-        }).then(this.props.setAppMode("result"));
+        }).then(this.props.setAppMode('result'));
       }
     }
   }, {
@@ -1577,7 +1418,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         componentClass: "content-add-new-course",
         fluid: true
-      }, typeof this.state.selectedImages[0] != "undefined" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LightBox__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, typeof this.state.selectedImages[0] != 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LightBox__WEBPACK_IMPORTED_MODULE_6__["default"], {
         imageUrl: this.state.selectedImages
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         onClick: this.onClickImage,
@@ -2168,14 +2009,14 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "disableCheckboxes", function () {
-      var checkboxes = document.querySelectorAll(".radio-inline input");
+      // let checkboxes = document.querySelectorAll(".radio-inline input");
       checkboxes.forEach(function (checkbox) {
         checkbox.disabled = true;
       });
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "showQuestionNumber", function () {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Pytanie X z ", _this.props.questionsCollection.length);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Pytanie ", _this.props.selectedAnswers.length + 1, " z ", _this.props.questionsCollection.length);
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "clock", function () {
@@ -2227,7 +2068,8 @@ var mapDispatchToProps = {};
 var mapStateToProps = function mapStateToProps(state) {
   return {
     questionsCollection: state.appState.questionsCollection,
-    testResults: state.appState.testResults
+    testResults: state.appState.testResults,
+    selectedAnswers: state.appState.selectedAnswers
   };
 };
 
@@ -2857,10 +2699,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/content/WelcomeUser */ "./app/components/content/WelcomeUser.jsx");
 /* harmony import */ var _components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/content/QuestionUser */ "./app/components/content/QuestionUser.jsx");
 /* harmony import */ var _components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/content/TestResult */ "./app/components/content/TestResult.jsx");
-/* harmony import */ var _components_content_LogInForm__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/content/LogInForm */ "./app/components/content/LogInForm.jsx");
-/* harmony import */ var _components_content_Post__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/content/Post */ "./app/components/content/Post.jsx");
-/* harmony import */ var _components_content_Certificate__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/content/Certificate */ "./app/components/content/Certificate.jsx");
-/* harmony import */ var _components_content_Timer__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/content/Timer */ "./app/components/content/Timer.jsx");
+/* harmony import */ var _components_content_Post__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/content/Post */ "./app/components/content/Post.jsx");
+/* harmony import */ var _components_content_Certificate__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/content/Certificate */ "./app/components/content/Certificate.jsx");
+/* harmony import */ var _components_content_Timer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/content/Timer */ "./app/components/content/Timer.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2878,7 +2719,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -2932,10 +2772,7 @@ function (_Component) {
         xs: 10,
         lg: 10,
         md: 10
-      }, this.props.appGlobalMode === "notLoggedIn" ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), this.props.appGlobalMode === "notLoggedIn" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_LogInForm__WEBPACK_IMPORTED_MODULE_14__["default"], {
-        registerUrl: this.props.wpObject.registerUrl,
-        loginUrl: this.props.wpObject.loginUrl
-      }) : null, this.props.wpObject.isAdmin == 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AdminControlBar__WEBPACK_IMPORTED_MODULE_10__["default"], null) : null, this.props.appGlobalMode === "welcome" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 || this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Timer__WEBPACK_IMPORTED_MODULE_17__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null, this.props.appGlobalMode === "add_question" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewQuestion__WEBPACK_IMPORTED_MODULE_8__["default"], null) : null, this.props.appGlobalMode === "add_course" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewCourse__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null)));
+      }, this.props.appGlobalMode === "welcome" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 || this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Timer__WEBPACK_IMPORTED_MODULE_16__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === "post" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Post__WEBPACK_IMPORTED_MODULE_14__["default"], null) : null, this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null, this.props.appGlobalMode === "add_question" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewQuestion__WEBPACK_IMPORTED_MODULE_8__["default"], null) : null)));
     }
   }]);
 
