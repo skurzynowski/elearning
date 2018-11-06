@@ -39,37 +39,40 @@ class Shortcode extends Component {
     return (
       <Grid fluid>
         <Row>
-          <Col xs={2} lg={2} md={10}>
+          <Col className="col-lg-2 col-md-3 col-xs-12">
             {this.props.appGlobalMode === "certificate" ? null : (
               <SiteBarAdmin />
             )}
           </Col>
-          <Col xs={10} lg={10} md={10}>
-            {this.props.appGlobalMode === "notLoggedIn" ? null : <Header />}
-            {this.props.appGlobalMode === "notLoggedIn" ? (
-              <LogInForm
-                registerUrl={this.props.wpObject.registerUrl}
-                loginUrl={this.props.wpObject.loginUrl}
-              />
-            ) : null}
-            {this.props.wpObject.isAdmin == 1 ? <AdminControlBar /> : null}
-            {this.props.appGlobalMode === "welcome" ? <WelcomeUser /> : null}
-            {(this.props.appGlobalMode === "test" &&
-              this.props.questionsCollection.length > 0) ||
-            this.props.appGlobalMode === "result" ? (
-              <Timer />
-            ) : null}
-            {this.props.appGlobalMode === "test" &&
-            this.props.questionsCollection.length > 0 ? (
-              <QuestionUser />
-            ) : null}
-            {this.props.appGlobalMode === "result" ? <TestResult /> : null}
-            {this.props.appGlobalMode === "add_question" ? (
-              <AddNewQuestion />
-            ) : null}
-            {this.props.appGlobalMode === "add_course" ? (
-              <AddNewCourse />
-            ) : null}
+          <Col className="col-lg-10 col-md-9 col-xs-12">
+            <Row />
+            <Row className="col-xs-12 col-sm-8 col-sm-offset-2">
+              {this.props.appGlobalMode === "notLoggedIn" ? null : <Header />}
+              {this.props.appGlobalMode === "notLoggedIn" ? (
+                <LogInForm
+                  registerUrl={this.props.wpObject.registerUrl}
+                  loginUrl={this.props.wpObject.loginUrl}
+                />
+              ) : null}
+              {this.props.wpObject.isAdmin == 1 ? <AdminControlBar /> : null}
+              {this.props.appGlobalMode === "welcome" ? <WelcomeUser /> : null}
+              {(this.props.appGlobalMode === "test" &&
+                this.props.questionsCollection.length > 0) ||
+              this.props.appGlobalMode === "result" ? (
+                <Timer />
+              ) : null}
+              {this.props.appGlobalMode === "test" &&
+              this.props.questionsCollection.length > 0 ? (
+                <QuestionUser />
+              ) : null}
+              {this.props.appGlobalMode === "result" ? <TestResult /> : null}
+              {this.props.appGlobalMode === "add_question" ? (
+                <AddNewQuestion />
+              ) : null}
+              {this.props.appGlobalMode === "add_course" ? (
+                <AddNewCourse />
+              ) : null}
+            </Row>
           </Col>
         </Row>
       </Grid>

@@ -181,7 +181,7 @@ class QuestionUser extends Component {
   render() {
     return (
       <Col xs={8} offset={2}>
-        <Grid componentClass="content-add-new-course" fluid>
+        <Grid componentClass="content-add-new-course">
           {typeof this.state.selectedImages[0] != "undefined" ? (
             <LightBox imageUrl={this.state.selectedImages} />
           ) : null}

@@ -153,7 +153,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickBtnAddCourse", function (e) {
-      _this.props.fetchWP.post('course', {
+      _this.props.fetchWP.post("course", {
         course: JSON.stringify({
           title: _this.state.testTitle,
           description: _this.state.description
@@ -162,18 +162,18 @@ function (_Component) {
         _this.props.updateListOfTests(json.tests);
 
         _this.setState({
-          testTitle: ''
+          testTitle: ""
         });
 
         _this.setState({
-          description: ''
+          description: ""
         });
       });
     });
 
     _this.state = {
-      testTitle: '',
-      description: ''
+      testTitle: "",
+      description: ""
     };
     return _this;
   }
@@ -185,8 +185,7 @@ function (_Component) {
         xs: 8,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        componentClass: "content-add-new-course",
-        fluid: true
+        componentClass: "content-add-new-course"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, "Dodaj kurs:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Tytu\u0142 testu"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
         onChange: this.onChangeTitle,
         value: this.state.testTitle,
@@ -270,7 +269,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180';
+var imagePlaceholder = "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
 
 var AddNewQuestion =
 /*#__PURE__*/
@@ -312,7 +311,7 @@ function (_Component) {
       _this.props.updateListOfTests(tests);
 
       _this.setState({
-        testTitle: ''
+        testTitle: ""
       });
     });
 
@@ -350,10 +349,10 @@ function (_Component) {
       newQuestion.attachmentId = _this.state.attachmentId;
       questions = questions.concat(newQuestion);
 
-      _this.props.fetchWP.post('question', {
+      _this.props.fetchWP.post("question", {
         question: JSON.stringify(newQuestion)
       }).then(function () {
-        return _this.props.fetchWP.get('course').then(function (json) {
+        return _this.props.fetchWP.get("course").then(function (json) {
           return _this.props.updateListOfTests(json.tests);
         });
       });
@@ -382,17 +381,17 @@ function (_Component) {
 
 
       var frame = wp.media({
-        title: 'Wybierz obrazek dla pytania',
+        title: "Wybierz obrazek dla pytania",
         button: {
-          text: 'Wybierz'
+          text: "Wybierz"
         },
         multiple: false // Set to true to allow multiple files to be selected
 
       });
       frame.open();
-      frame.on('select', function () {
+      frame.on("select", function () {
         // Get media attachment details from the frame state
-        var attachment = frame.state().get('selection').first().toJSON();
+        var attachment = frame.state().get("selection").first().toJSON();
         this.setState({
           imageSrc: attachment.url,
           attachmentId: attachment.id
@@ -401,13 +400,13 @@ function (_Component) {
     });
 
     _this.state = {
-      question: '',
-      answers: ['', '', '', '', '', ''],
-      photoUrl: '',
-      correctAnswer: 'option0',
-      imageSrc: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180',
-      courseSlug: 'test-1',
-      attachmentId: ''
+      question: "",
+      answers: ["", "", "", "", "", ""],
+      photoUrl: "",
+      correctAnswer: "option0",
+      imageSrc: "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+      courseSlug: "test-1",
+      attachmentId: ""
     };
     return _this;
   }
@@ -415,12 +414,12 @@ function (_Component) {
   _createClass(AddNewQuestion, [{
     key: "imageExists",
     value: function imageExists(image_url) {
-      if ('' === image_url) {
+      if ("" === image_url) {
         return false;
       }
 
       var http = new XMLHttpRequest();
-      http.open('HEAD', image_url, false);
+      http.open("HEAD", image_url, false);
       http.send();
       return http.status != 404;
     }
@@ -431,8 +430,7 @@ function (_Component) {
         xs: 8,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        componentClass: "content-add-new-course",
-        fluid: true
+        componentClass: "content-add-new-course"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, "Dodaj pytanie:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Image"], {
         src: this.state.imageSrc,
         rounded: true
@@ -459,7 +457,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
         onChange: this.onChangeRadio,
         value: "option0",
-        checked: this.state.correctAnswer === 'option0',
+        checked: this.state.correctAnswer === "option0",
         name: "correctAnswer",
         className: "align-self-center"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Tre\u015B\u0107 odpowiedzi 2:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -473,7 +471,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
         onChange: this.onChangeRadio,
         value: "option1",
-        checked: this.state.correctAnswer === 'option1',
+        checked: this.state.correctAnswer === "option1",
         id: "secondAnswer",
         name: "correctAnswer",
         className: "align-self-center"
@@ -488,7 +486,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
         onChange: this.onChangeRadio,
         value: "option2",
-        checked: this.state.correctAnswer === 'option2',
+        checked: this.state.correctAnswer === "option2",
         id: "thirdAnswer",
         name: "correctAnswer",
         className: "align-self-center"
@@ -503,7 +501,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
         onChange: this.onChangeRadio,
         value: "option3",
-        checked: this.state.correctAnswer === 'option3',
+        checked: this.state.correctAnswer === "option3",
         className: "align-self-center",
         name: "correctAnswer",
         id: "fourthAnswer"
@@ -518,7 +516,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
         onChange: this.onChangeRadio,
         value: "option4",
-        checked: this.state.correctAnswer === 'option4',
+        checked: this.state.correctAnswer === "option4",
         className: "align-self-center",
         name: "correctAnswer",
         id: "fifthAnswer"
@@ -533,7 +531,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
         onChange: this.onChangeRadio,
         value: "option5",
-        checked: this.state.correctAnswer === 'option5',
+        checked: this.state.correctAnswer === "option5",
         className: "align-self-center",
         name: "correctAnswer",
         id: "sixthAnswer"
@@ -747,7 +745,7 @@ function (_Component) {
           hiddeButton: false
         });
 
-        _this.props.setAppMode('result');
+        _this.props.setAppMode("result");
       }
     });
 
@@ -764,7 +762,7 @@ function (_Component) {
       certificateContent: null
     };
 
-    _this.props.fetchWP.get('certificate').then(function (json) {
+    _this.props.fetchWP.get("certificate").then(function (json) {
       return _this.setState({
         certificateContent: json.certificate
       });
@@ -780,8 +778,7 @@ function (_Component) {
         xs: 8,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        componentClass: "content-add-new-course",
-        fluid: true
+        componentClass: "content-add-new-course"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Certyfikat"), this.renderCertificateContent(), this.state.hiddeButton ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         onClick: this.onClickSave
       }, "Zapisz")))));
@@ -1088,8 +1085,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(LogInForm).call(this, props));
     _this.state = {
-      testTitle: '',
-      description: ''
+      testTitle: "",
+      description: ""
     };
     return _this;
   }
@@ -1101,8 +1098,7 @@ function (_Component) {
         xs: 8,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        componentClass: "content-add-new-course",
-        fluid: true
+        componentClass: "content-add-new-course"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Please log in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: this.props.loginUrl
       }, "Log in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
@@ -1260,7 +1256,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickNextSubmoduleButton", function () {
-      _this.props.setActiveSubmodule(_this.state.moduleIndex + '_' + parseInt(_this.state.subModuleIndex + 1));
+      _this.props.setActiveSubmodule(_this.state.moduleIndex + "_" + parseInt(_this.state.subModuleIndex + 1));
 
       _this.setState({
         subModuleIndex: _this.state.subModuleIndex + 1
@@ -1273,7 +1269,7 @@ function (_Component) {
 
       _this.props.setActiveModule(newModuleIndex);
 
-      _this.props.setActiveSubmodule(newModuleIndex + '_0');
+      _this.props.setActiveSubmodule(newModuleIndex + "_0");
 
       _this.setState({
         subModuleIndex: 0,
@@ -1286,18 +1282,18 @@ function (_Component) {
 
       _this.props.setActiveModule(null);
 
-      _this.props.setCurrentTest('post-test');
+      _this.props.setCurrentTest("post-test");
 
-      _this.props.setAppMode('test');
+      _this.props.setAppMode("test");
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "isLastSubmodule", function () {
-      return (typeof _this.state.modules[_this.state.moduleIndex].fields['module_content_' + (parseInt(_this.state.subModuleIndex) + parseInt(1))] == 'undefined' || _this.state.modules[_this.state.moduleIndex].fields['module_content_' + (parseInt(_this.state.subModuleIndex) + parseInt(1))] == '') && (typeof _this.state.modules[_this.state.moduleIndex].fields['module_title_' + (parseInt(_this.state.subModuleIndex) + parseInt(1))] == 'undefined' || _this.state.modules[_this.state.moduleIndex].fields['module_title_' + (parseInt(_this.state.subModuleIndex) + parseInt(1))] == '');
+      return (typeof _this.state.modules[_this.state.moduleIndex].fields["module_content_" + (parseInt(_this.state.subModuleIndex) + parseInt(1))] == "undefined" || _this.state.modules[_this.state.moduleIndex].fields["module_content_" + (parseInt(_this.state.subModuleIndex) + parseInt(1))] == "") && (typeof _this.state.modules[_this.state.moduleIndex].fields["module_title_" + (parseInt(_this.state.subModuleIndex) + parseInt(1))] == "undefined" || _this.state.modules[_this.state.moduleIndex].fields["module_title_" + (parseInt(_this.state.subModuleIndex) + parseInt(1))] == "");
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "isLastModule", function () {
       var module_index = _this.state.moduleIndex + parseInt(1);
-      return typeof _this.state.modules[module_index] == 'undefined' || _this.state.modules[module_index].fields['module_content_0'] == '' || _this.state.modules[module_index].fields['module_title_0'] == '';
+      return typeof _this.state.modules[module_index] == "undefined" || _this.state.modules[module_index].fields["module_content_0"] == "" || _this.state.modules[module_index].fields["module_title_0"] == "";
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderNextButton", function () {
@@ -1337,11 +1333,10 @@ function (_Component) {
         xs: 8,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        componentClass: "content-post",
-        fluid: true
-      }, typeof this.state.modules[this.state.moduleIndex].post_title != 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.state.modules[this.state.moduleIndex].post_title) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, typeof this.state.modules[this.state.moduleIndex].fields['module_title_' + this.state.subModuleIndex] != 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, this.state.modules[this.state.moduleIndex].fields['module_title_' + this.state.subModuleIndex]) : null, typeof this.state.modules[this.state.moduleIndex].fields['module_content_' + this.state.subModuleIndex] != 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, {
+        componentClass: "content-post"
+      }, typeof this.state.modules[this.state.moduleIndex].post_title != "undefined" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.state.modules[this.state.moduleIndex].post_title) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, typeof this.state.modules[this.state.moduleIndex].fields["module_title_" + this.state.subModuleIndex] != "undefined" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, this.state.modules[this.state.moduleIndex].fields["module_title_" + this.state.subModuleIndex]) : null, typeof this.state.modules[this.state.moduleIndex].fields["module_content_" + this.state.subModuleIndex] != "undefined" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, {
         dangerouslySetInnerHTML: {
-          __html: this.state.modules[this.state.moduleIndex].fields['module_content_' + this.state.subModuleIndex]
+          __html: this.state.modules[this.state.moduleIndex].fields["module_content_" + this.state.subModuleIndex]
         }
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, this.renderNextButton()))));
     }
@@ -1575,8 +1570,7 @@ function (_Component) {
         xs: 8,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        componentClass: "content-add-new-course",
-        fluid: true
+        componentClass: "content-add-new-course"
       }, typeof this.state.selectedImages[0] != "undefined" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LightBox__WEBPACK_IMPORTED_MODULE_6__["default"], {
         imageUrl: this.state.selectedImages
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -1691,11 +1685,11 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(StartModuleButton)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "startModule", function () {
-      _this.props.setAppMode('post');
+      _this.props.setAppMode("post");
 
       _this.props.setActiveModule(parseInt(0));
 
-      _this.props.setActiveSubmodule('0_0');
+      _this.props.setActiveSubmodule("0_0");
 
       _this.props.setCurrentTest(null);
     });
@@ -1707,6 +1701,7 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+        className: "btn-primary",
         onClick: this.startModule
       }, "Rozpocznij nauk\u0119");
     }
@@ -1808,9 +1803,9 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getQuestions", function () {
       _this.props.setAnswersDefault();
 
-      _this.props.fetchWP.get('question/' + _this.props.currentTest).then(function (json) {
+      _this.props.fetchWP.get("question/" + _this.props.currentTest).then(function (json) {
         return _this.props.updateQuestionsCollection(json.question);
-      }).then(_this.props.setAppMode('test'));
+      }).then(_this.props.setAppMode("test"));
     });
 
     return _this;
@@ -1820,12 +1815,13 @@ function (_Component) {
     key: "render",
     value: function render() {
       if (this.props.finishedElearning == true) {
-        var text = 'Powtórz test';
+        var text = "Powtórz test";
       } else {
-        var text = 'Rozpocznij test';
+        var text = "Rozpocznij test";
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+        className: "btn-primary",
         onClick: this.getQuestions
       }, text);
     }
@@ -1917,7 +1913,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180';
+var imagePlaceholder = "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
 
 var TestResult =
 /*#__PURE__*/
@@ -1960,7 +1956,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getCertificateButton", function () {
-      if (_this.props.certificateDownloaded === true || _this.props.currentTest == 'post-test' && _this.props.testResults.percents >= 75) {
+      if (_this.props.certificateDownloaded === true || _this.props.currentTest == "post-test" && _this.props.testResults.percents >= 75) {
         _this.props.setCertificateDownloaded(true);
 
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_DownloadCertificateButton__WEBPACK_IMPORTED_MODULE_8__["default"], null);
@@ -1969,11 +1965,11 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertPercents", function () {
       if (_this.props.testResults.percents >= 75) {
-        var alertClass = 'success';
-        var text = 'Gratulacje uzyskałeś niezbędne 75%';
+        var alertClass = "success";
+        var text = "Gratulacje uzyskałeś niezbędne 75%";
       } else {
-        var alertClass = 'danger';
-        var text = 'Aby uzyskać certyfikat powinieneś uzyskać 75%';
+        var alertClass = "danger";
+        var text = "Aby uzyskać certyfikat powinieneś uzyskać 75%";
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {
@@ -1983,9 +1979,9 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertCorrectAnswers", function () {
       if (_this.props.testResults.percents >= 75) {
-        var alertClass = 'success';
+        var alertClass = "success";
       } else {
-        var alertClass = 'danger';
+        var alertClass = "danger";
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {
@@ -1995,9 +1991,9 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertWrongAnswers", function () {
       if (_this.props.testResults.percents >= 75) {
-        var alertClass = 'success';
+        var alertClass = "success";
       } else {
-        var alertClass = 'danger';
+        var alertClass = "danger";
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {
@@ -2018,11 +2014,10 @@ function (_Component) {
         xs: 8,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        componentClass: "content-test-result",
-        fluid: true
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Zako\u0144czy\u0142e\u015B test", this.props.currentTest == 'pre-test' ? ' wstępny' : ' podsumowujący', "."), this.getAllertPercents(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ProgressBar"], {
+        componentClass: "content-test-result"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Zako\u0144czy\u0142e\u015B test", this.props.currentTest == "pre-test" ? " wstępny" : " podsumowujący", "."), this.getAllertPercents(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ProgressBar"], {
         now: this.props.testResults.percents
-      }), this.getAllertCorrectAnswers(), this.getAllertWrongAnswers(), this.props.currentTest == 'pre-test' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartModuleButton__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null, this.props.currentTest == 'post-test' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartTestButton__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }), this.getAllertCorrectAnswers(), this.getAllertWrongAnswers(), this.props.currentTest == "pre-test" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartModuleButton__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null, this.props.currentTest == "post-test" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartTestButton__WEBPACK_IMPORTED_MODULE_6__["default"], {
         finishedElearning: this.props.certificateDownloaded
       }) : null, this.getCertificateButton()))));
     }
@@ -2322,8 +2317,7 @@ function (_Component) {
         xs: 8,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        componentClass: "content-add-new-course",
-        fluid: true
+        componentClass: "content-add-new-course"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Witaj w strefie e-learning"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_StartTestButton__WEBPACK_IMPORTED_MODULE_5__["default"], null)))));
     }
   }]);
@@ -2731,7 +2725,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "fetchModules", function () {
-      _this.props.fetchWP.get('modules').then(function (json) {
+      _this.props.fetchWP.get("modules").then(function (json) {
         _this.setState({
           adminList: json.modules
         });
@@ -2755,23 +2749,23 @@ function (_Component) {
           active: this.getActiveModule() == key,
           header: data.post_title
         }));
-        data.fields.module_title_0 !== undefined && data.fields.module_title_0 !== '' ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.getActiveSubmodule() == key + '_0'
+        data.fields.module_title_0 !== undefined && data.fields.module_title_0 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+          active: this.getActiveSubmodule() == key + "_0"
         }, "1. ", data.fields.module_title_0)) : null;
-        data.fields.module_title_1 !== undefined && data.fields.module_title_1 !== '' ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.getActiveSubmodule() == key + '_1'
+        data.fields.module_title_1 !== undefined && data.fields.module_title_1 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+          active: this.getActiveSubmodule() == key + "_1"
         }, "2. ", data.fields.module_title_1)) : null;
-        data.fields.module_title_2 !== undefined && data.fields.module_title_2 !== '' ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.getActiveSubmodule() == key + '_2'
+        data.fields.module_title_2 !== undefined && data.fields.module_title_2 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+          active: this.getActiveSubmodule() == key + "_2"
         }, "3. ", data.fields.module_title_2)) : null;
-        data.fields.module_title_3 !== undefined && data.fields.module_title_3 !== '' ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.getActiveSubmodule() == key + '_3'
+        data.fields.module_title_3 !== undefined && data.fields.module_title_3 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+          active: this.getActiveSubmodule() == key + "_3"
         }, "4. ", data.fields.module_title_3)) : null;
-        data.fields.module_title_4 !== undefined && data.fields.module_title_4 !== '' ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.props.activeSubmodule == key + '_4'
+        data.fields.module_title_4 !== undefined && data.fields.module_title_4 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+          active: this.props.activeSubmodule == key + "_4"
         }, "5. ", data.fields.module_title_4)) : null;
-        data.fields.module_title_5 !== undefined && data.fields.module_title_5 !== '' ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.props.activeSubmodule == key + '_5'
+        data.fields.module_title_5 !== undefined && data.fields.module_title_5 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
+          active: this.props.activeSubmodule == key + "_5"
         }, "6. ", data.fields.module_title_5)) : null;
         return tmp_array;
       }.bind(_assertThisInitialized(_assertThisInitialized(_this))));
@@ -2779,7 +2773,7 @@ function (_Component) {
 
     _this.state = {
       adminList: [],
-      test: '123',
+      test: "123",
       endpointData: [],
       activeSubmodule: false
     };
@@ -2798,10 +2792,10 @@ function (_Component) {
         className: "sitebar-admin-course-list"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
         header: "Test wst\u0119pny",
-        active: this.props.currentTest == 'pre-test'
+        active: this.props.currentTest == "pre-test"
       }), this.fillList(this.state.adminList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
         header: "Test ko\u0144cowy",
-        active: this.props.currentTest == 'post-test'
+        active: this.props.currentTest == "post-test"
       })));
     }
   }]);
@@ -2925,17 +2919,15 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         fluid: true
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        xs: 2,
-        lg: 2,
-        md: 10
+        className: "col-lg-2 col-md-3 col-xs-12"
       }, this.props.appGlobalMode === "certificate" ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_sitebar_SiteBarAdmin__WEBPACK_IMPORTED_MODULE_6__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        xs: 10,
-        lg: 10,
-        md: 10
+        className: "col-lg-10 col-md-9 col-xs-12"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], {
+        className: "col-xs-12 col-sm-8 col-sm-offset-2"
       }, this.props.appGlobalMode === "notLoggedIn" ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_header_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), this.props.appGlobalMode === "notLoggedIn" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_LogInForm__WEBPACK_IMPORTED_MODULE_14__["default"], {
         registerUrl: this.props.wpObject.registerUrl,
         loginUrl: this.props.wpObject.loginUrl
-      }) : null, this.props.wpObject.isAdmin == 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AdminControlBar__WEBPACK_IMPORTED_MODULE_10__["default"], null) : null, this.props.appGlobalMode === "welcome" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 || this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Timer__WEBPACK_IMPORTED_MODULE_17__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null, this.props.appGlobalMode === "add_question" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewQuestion__WEBPACK_IMPORTED_MODULE_8__["default"], null) : null, this.props.appGlobalMode === "add_course" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewCourse__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null)));
+      }) : null, this.props.wpObject.isAdmin == 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AdminControlBar__WEBPACK_IMPORTED_MODULE_10__["default"], null) : null, this.props.appGlobalMode === "welcome" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_WelcomeUser__WEBPACK_IMPORTED_MODULE_11__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 || this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_Timer__WEBPACK_IMPORTED_MODULE_17__["default"], null) : null, this.props.appGlobalMode === "test" && this.props.questionsCollection.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_QuestionUser__WEBPACK_IMPORTED_MODULE_12__["default"], null) : null, this.props.appGlobalMode === "result" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_TestResult__WEBPACK_IMPORTED_MODULE_13__["default"], null) : null, this.props.appGlobalMode === "add_question" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewQuestion__WEBPACK_IMPORTED_MODULE_8__["default"], null) : null, this.props.appGlobalMode === "add_course" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_content_AddNewCourse__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null))));
     }
   }]);
 

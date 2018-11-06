@@ -43,7 +43,7 @@ class WelcomeUser extends Component {
   render() {
     return (
       <Col onClick={this.onClickBody} xs={8} offset={2}>
-        <Grid componentClass="content-add-new-course" fluid>
+        <Grid componentClass="content-add-new-course">
           <Panel>
             <Panel.Body>
               <h3>Witaj w strefie e-learning</h3>
