@@ -416,6 +416,6 @@ class Example {
 	 * @return WP_Error|bool
 	 */
 	public function example_permissions_check( $request ) {
-		return current_user_can( 'manage_options' );
+		return current_user_can( 'read' );
 	}
 }

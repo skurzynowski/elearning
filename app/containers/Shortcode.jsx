@@ -36,16 +36,16 @@ class Shortcode extends Component {
 
   render () {
     return (
-      <Grid fluid>
+      <Grid>
         <Row>
-          <Col className="col-lg-2 col-md-3 col-xs-12">
+          <Col className="col-md-3 col-xs-12">
             {this.props.appGlobalMode === 'certificate' ? null : (
               <SiteBarAdmin/>
             )}
           </Col>
-          <Col className="col-lg-10 col-md-9 col-xs-12">
+          <Col className="col-md-9 col-xs-12">
             <Row>
-              <Col className="col-xs-12 col-sm-8 col-sm-offset-2">
+              <Col>
                 {this.props.appGlobalMode === 'certificate' ? <Certificate/> : (
                   <Header/>
                 )}

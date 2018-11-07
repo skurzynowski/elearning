@@ -111,12 +111,6 @@ class Timer extends React.Component {
       fontSize: '24px'
     }
 
-    const divStyle = {
-      height: '5px',
-      width: '100%',
-      background: 'tomato',
-      marginBottom: '20px'
-    }
 
     return (
       <Col key={this.props.questionsCollection[0].ID}>
@@ -124,7 +118,6 @@ class Timer extends React.Component {
           {this.showQuestionNumber()}
           {this.clock()}
         </div>
-        <div style={divStyle}/>
       </Col>
     )
   }

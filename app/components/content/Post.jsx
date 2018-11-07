@@ -34,14 +34,12 @@ class Post extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (this.props.activeSubmodule !== nextProps.activeSubmodule) {
-      this.setState({ moduleIndex: nextProps.activeSubmodule[0],subModuleIndex: nextProps.activeSubmodule[2]})
+      this.setState({moduleIndex: nextProps.activeModule, subModuleIndex: nextProps.activeSubmodule[2]})
     }
   }
 
-  componentDidUpdate = prevProps => {
-    if (this.props.activePost === prevProps.activePost) {
-      return
-    }
+  componentDidMount () {
+    this.setState({moduleIndex: this.props.activeModule, subModuleIndex: this.props.activeSubmodule[2]})
   }
 
   onClickNextSubmoduleButton = () => {
@@ -68,29 +66,17 @@ class Post extends Component {
 
   isLastSubmodule = () => {
     return (
-      (typeof this.state.modules[this.state.moduleIndex].fields[
-        'module_content_' + (parseInt(this.state.subModuleIndex) + parseInt(1))
-          ] == 'undefined' ||
-        this.state.modules[this.state.moduleIndex].fields[
-        'module_content_' +
-        (parseInt(this.state.subModuleIndex) + parseInt(1))
-          ] == '') &&
-      (typeof this.state.modules[this.state.moduleIndex].fields[
-        'module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))
-          ] == 'undefined' ||
-        this.state.modules[this.state.moduleIndex].fields[
-        'module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))
-          ] == '')
+      (!this.state.modules[this.state.moduleIndex].fields[
+        'module_content_' + (parseInt(this.state.subModuleIndex) + parseInt(1))] ||
+        !this.state.modules[this.state.moduleIndex].fields[
+        'module_title_' + (parseInt(this.state.subModuleIndex) + parseInt(1))])
     )
   }
 
   isLastModule = () => {
-    var module_index = this.state.moduleIndex + parseInt(1)
-    return (
-      typeof this.state.modules[module_index] == 'undefined' ||
-      (this.state.modules[module_index].fields['module_content_0'] == '' ||
-        this.state.modules[module_index].fields['module_title_0'] == '')
-    )
+    var module_index =  parseInt( this.state.moduleIndex )+ parseInt(1)
+    return (!this.state.modules[module_index] || typeof this.state.modules[module_index] === 'undefined')
+
   }
 
   renderNextButton = () => {
@@ -121,8 +107,7 @@ class Post extends Component {
     return (
       <Col>
         <Grid componentClass="content-post">
-          {typeof this.state.modules[this.state.moduleIndex].post_title !=
-          'undefined' ? (
+          {!!this.state.modules[this.state.moduleIndex].post_title ? (
             <h3>{this.state.modules[this.state.moduleIndex].post_title}</h3>
           ) : null}
           <Panel>
@@ -168,6 +153,7 @@ const mapStateToProps = state => ({
   fetchWP: state.appState.fetchWP,
   modules: state.appState.modules,
   activeSubmodule: state.appState.activeSubmodule,
+  activeModule: state.appState.activeModule,
 })
 
 export default connect(
