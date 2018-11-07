@@ -2547,6 +2547,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var SiteBarAdmin =
 /*#__PURE__*/
 function (_Component) {
@@ -2590,30 +2591,54 @@ function (_Component) {
       return _this.props.activeModule;
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "setActiveElem", function (k, elem) {
+      console.log(k + elem); // this.props.setActiveSubmodule(k + elem);
+    });
+
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "fillList", function (modules) {
       return modules.map(function (data, key) {
+        var _this2 = this;
+
         var tmp_array = [];
         tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
           active: this.getActiveModule() == key,
           header: data.post_title
         }));
         data.fields.module_title_0 !== undefined && data.fields.module_title_0 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.getActiveSubmodule() == key + "_0"
+          active: this.getActiveSubmodule() == key + "_0",
+          onClick: function onClick(e) {
+            return _this2.setActiveElem(key, "_0");
+          }
         }, "1. ", data.fields.module_title_0)) : null;
         data.fields.module_title_1 !== undefined && data.fields.module_title_1 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.getActiveSubmodule() == key + "_1"
+          active: this.getActiveSubmodule() == key + "_1",
+          onClick: function onClick(e) {
+            return _this2.setActiveElem(key, "_1");
+          }
         }, "2. ", data.fields.module_title_1)) : null;
         data.fields.module_title_2 !== undefined && data.fields.module_title_2 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.getActiveSubmodule() == key + "_2"
+          active: this.getActiveSubmodule() == key + "_2",
+          onClick: function onClick(e) {
+            return _this2.setActiveElem(key, "_2");
+          }
         }, "3. ", data.fields.module_title_2)) : null;
         data.fields.module_title_3 !== undefined && data.fields.module_title_3 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.getActiveSubmodule() == key + "_3"
+          active: this.getActiveSubmodule() == key + "_3",
+          onClick: function onClick(e) {
+            return _this2.setActiveElem(key, "_3");
+          }
         }, "4. ", data.fields.module_title_3)) : null;
         data.fields.module_title_4 !== undefined && data.fields.module_title_4 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.props.activeSubmodule == key + "_4"
+          active: this.props.activeSubmodule == key + "_4",
+          onClick: function onClick(e) {
+            return _this2.setActiveElem(key, "_4");
+          }
         }, "5. ", data.fields.module_title_4)) : null;
         data.fields.module_title_5 !== undefined && data.fields.module_title_5 !== "" ? tmp_array.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-          active: this.props.activeSubmodule == key + "_5"
+          active: this.props.activeSubmodule == key + "_5",
+          onClick: function onClick(e) {
+            return _this2.setActiveElem(key, "_5");
+          }
         }, "6. ", data.fields.module_title_5)) : null;
         return tmp_array;
       }.bind(_assertThisInitialized(_assertThisInitialized(_this))));
@@ -2665,8 +2690,7 @@ var mapStateToProps = function mapStateToProps(state) {
     listOfTests: state.appState.listOfTests,
     currentTest: state.appState.currentTest,
     fetchWP: state.appState.fetchWP,
-    activeModule: state.appState.activeModule,
-    activeSubmodule: state.appState.activeSubmodule
+    activeModule: state.appState.activeModule
   };
 };
 

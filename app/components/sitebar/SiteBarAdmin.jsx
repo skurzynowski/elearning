@@ -3,6 +3,12 @@ import PropTypes from "prop-types";
 import { Grid, Row, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import { connect } from "react-redux";
 import { setActivePost, setModules } from "../../../redux/appState/actions";
+import {
+  setActiveModule,
+  setAppMode,
+  setCurrentTest,
+  setActiveSubmodule
+} from "../../../redux/appState/actions";
 
 class SiteBarAdmin extends Component {
   constructor(props) {
@@ -43,6 +49,11 @@ class SiteBarAdmin extends Component {
     return this.props.activeModule;
   };
 
+  setActiveElem = (k, elem) => {
+    console.log(k + elem);
+    // this.props.setActiveSubmodule(k + elem);
+  };
+
   fillList = modules => {
     return modules.map(
       function(data, key) {
@@ -57,7 +68,10 @@ class SiteBarAdmin extends Component {
         data.fields.module_title_0 !== undefined &&
         data.fields.module_title_0 !== ""
           ? tmp_array.push(
-              <ListGroupItem active={this.getActiveSubmodule() == key + "_0"}>
+              <ListGroupItem
+                active={this.getActiveSubmodule() == key + "_0"}
+                onClick={e => this.setActiveElem(key, "_0")}
+              >
                 1. {data.fields.module_title_0}
               </ListGroupItem>
             )
@@ -66,7 +80,10 @@ class SiteBarAdmin extends Component {
         data.fields.module_title_1 !== undefined &&
         data.fields.module_title_1 !== ""
           ? tmp_array.push(
-              <ListGroupItem active={this.getActiveSubmodule() == key + "_1"}>
+              <ListGroupItem
+                active={this.getActiveSubmodule() == key + "_1"}
+                onClick={e => this.setActiveElem(key, "_1")}
+              >
                 2. {data.fields.module_title_1}
               </ListGroupItem>
             )
@@ -75,7 +92,10 @@ class SiteBarAdmin extends Component {
         data.fields.module_title_2 !== undefined &&
         data.fields.module_title_2 !== ""
           ? tmp_array.push(
-              <ListGroupItem active={this.getActiveSubmodule() == key + "_2"}>
+              <ListGroupItem
+                active={this.getActiveSubmodule() == key + "_2"}
+                onClick={e => this.setActiveElem(key, "_2")}
+              >
                 3. {data.fields.module_title_2}
               </ListGroupItem>
             )
@@ -84,7 +104,10 @@ class SiteBarAdmin extends Component {
         data.fields.module_title_3 !== undefined &&
         data.fields.module_title_3 !== ""
           ? tmp_array.push(
-              <ListGroupItem active={this.getActiveSubmodule() == key + "_3"}>
+              <ListGroupItem
+                active={this.getActiveSubmodule() == key + "_3"}
+                onClick={e => this.setActiveElem(key, "_3")}
+              >
                 4. {data.fields.module_title_3}
               </ListGroupItem>
             )
@@ -93,7 +116,10 @@ class SiteBarAdmin extends Component {
         data.fields.module_title_4 !== undefined &&
         data.fields.module_title_4 !== ""
           ? tmp_array.push(
-              <ListGroupItem active={this.props.activeSubmodule == key + "_4"}>
+              <ListGroupItem
+                active={this.props.activeSubmodule == key + "_4"}
+                onClick={e => this.setActiveElem(key, "_4")}
+              >
                 5. {data.fields.module_title_4}
               </ListGroupItem>
             )
@@ -102,7 +128,10 @@ class SiteBarAdmin extends Component {
         data.fields.module_title_5 !== undefined &&
         data.fields.module_title_5 !== ""
           ? tmp_array.push(
-              <ListGroupItem active={this.props.activeSubmodule == key + "_5"}>
+              <ListGroupItem
+                active={this.props.activeSubmodule == key + "_5"}
+                onClick={e => this.setActiveElem(key, "_5")}
+              >
                 6. {data.fields.module_title_5}
               </ListGroupItem>
             )
@@ -141,8 +170,7 @@ const mapStateToProps = state => ({
   listOfTests: state.appState.listOfTests,
   currentTest: state.appState.currentTest,
   fetchWP: state.appState.fetchWP,
-  activeModule: state.appState.activeModule,
-  activeSubmodule: state.appState.activeSubmodule
+  activeModule: state.appState.activeModule
 });
 
 export default connect(
