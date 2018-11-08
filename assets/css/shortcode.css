@@ -27,3 +27,9 @@
     background-color: rgba(0, 96, 54, 0.9);
     color: white;
 }
+.question-number{
+    margin-right: 15px;
+}
+.label-question{
+    font-size: 20px;
+}

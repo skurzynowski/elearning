@@ -92,12 +92,12 @@ class SiteBarAdmin extends Component {
       <div className="sitebar-admin-wraper">
         <ListGroup className="sitebar-admin-course-list">
           <ListGroupItem
-            header="Test wstępny"
+            header="Pretest"
             active={(isTest || isWelcome) && this.props.currentTest == 'pre-test'}
           />
           {this.fillList(this.state.adminList)}
           <ListGroupItem
-            header="Test końcowy"
+            header="Test egzaminacyjny"
             active={isTest && this.props.currentTest == 'post-test'}
           />
         </ListGroup>

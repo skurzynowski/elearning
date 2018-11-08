@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   FormControl,
   Grid,
@@ -13,9 +13,9 @@ import {
   Button,
   Panel,
   Radio
-} from "react-bootstrap";
-import fetchWp from "../../utils/fetchWP";
-import { connect } from "react-redux";
+} from 'react-bootstrap'
+import fetchWp from '../../utils/fetchWP'
+import { connect } from 'react-redux'
 import {
   updateAnswers,
   updateQuestionsCollection,
@@ -23,125 +23,123 @@ import {
   setAppMode,
   setTestResults,
   setCurrentTest
-} from "../../../redux/appState/actions";
+} from '../../../redux/appState/actions'
 
-import LightBox from "./LightBox";
+import LightBox from './LightBox'
 
 const imagePlaceholder =
-  "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
+  'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180'
 
 class QuestionUser extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       questionIndex: 0,
       questionsCollection: this.props.questionsCollection,
-      selectedAnswer: "",
+      selectedAnswer: '',
       finishBtnClicked: false,
       selectedImages: []
-    };
+    }
   }
 
   updateAnswers = () => {
-    let answers = this.props.selectedAnswers;
+    let answers = this.props.selectedAnswers
     answers = answers.concat({
       questionId: this.props.questionsCollection[this.state.questionIndex].ID,
       answer: this.state.selectedAnswer
-    });
+    })
 
-    this.props.updateAnswers(answers);
-  };
+    this.props.updateAnswers(answers)
+  }
   onClickNextQuestion = () => {
-    this.updateAnswers();
+    this.updateAnswers()
     this.setState({
       questionIndex: this.state.questionIndex + 1,
-      selectedAnswer: ""
-    });
-  };
+      selectedAnswer: ''
+    })
+  }
   renderCourseOptions = () => {
-    return this.props.listOfTests.map(function(data) {
+    return this.props.listOfTests.map(function (data) {
       return (
         <option key={data.slug} value={data.slug}>
           {data.name}
         </option>
-      );
-    });
-  };
+      )
+    })
+  }
 
   onChangeRadio = e => {
-    this.setState({ selectedAnswer: e.target.value });
-  };
+    this.setState({selectedAnswer: e.target.value})
+  }
   renderQuestions = () => {
     let questions = this.props.questionsCollection[this.state.questionIndex]
-      .answer;
-
+      .answer
+    this.counterQuestion = 0
     return questions.map(
-      function(data) {
-        if (data.value !== "") {
-          let html_id = data.key + "_id_" + this.state.questionIndex;
-
+      function (data, index) {
+        if (data.value !== '') {
+          let html_id = data.key + '_id_' + this.state.questionIndex
+          this.counterQuestion++
           return (
-            <ListGroupItem key={"quest_" + data.key} active={this.activeAnswer(data.key)}>
-              <FormGroup key={this.state.selectedIndex + data.key}>
+            <ListGroupItem key={'quest_' + data.key} active={this.activeAnswer(data.key)}>
+                <Radio
+                  inline
+                  style={{textAlign: 'left', display: 'none'}}
+                  onChange={this.onChangeRadio}
+                  value={data.key}
+                  checked={this.state.selectedAnswer === data.key}
+                  type="radio"
+                  id={html_id}
+                  name="correctAnswer"
+                />
                 <ControlLabel
-                  style={{ textAlign: "left" }}
-                  className={"btn btn-block"}
+                  style={{textAlign: 'left'}}
+                  className={'btn btn-block label-question'}
                   htmlFor={html_id}
                 >
-                  <Radio
-                    inline
-                    style={{ textAlign: "left", display: "none" }}
-                    onChange={this.onChangeRadio}
-                    value={data.key}
-                    checked={this.state.selectedAnswer === data.key}
-                    type="radio"
-                    id={html_id}
-                    name="correctAnswer"
-                  />
-                  {data.value}
+                  <span className="question-number">{this.counterQuestion}.</span> {data.value}
                 </ControlLabel>
-              </FormGroup>
             </ListGroupItem>
-          );
+          )
         }
       }.bind(this)
-    );
-  };
+    )
+  }
 
   activeAnswer = key => {
-    return this.state.selectedAnswer == key;
-  };
+    return this.state.selectedAnswer == key
+  }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (
       nextProps.selectedAnswers !== this.props.selectedAnswers &&
       this.state.finishBtnClicked === true
     ) {
       this.props.fetchWP
-        .post("check/result", {
+        .post('check/result', {
           selectedAnswers: JSON.stringify(nextProps.selectedAnswers)
         })
         .then(json => this.props.setTestResults(json.result))
-        .then(this.props.setAppMode("result"));
+        .then(this.props.setAppMode('result'))
     }
   }
 
   onClickFinishTest = () => {
-    this.state.finishBtnClicked = true;
-    this.updateAnswers();
-  };
+    this.state.finishBtnClicked = true
+    this.updateAnswers()
+  }
 
   renderFinishTestButton = () => {
     if (
-      this.state.selectedAnswer !== "" &&
+      this.state.selectedAnswer !== '' &&
       this.props.questionsCollection.length - 1 === this.state.questionIndex
     ) {
       return (
         <FormGroup>
           <Button bsStyle="primary" onClick={this.onClickFinishTest}>Zakończ test</Button>
         </FormGroup>
-      );
+      )
     }
     if (
       this.props.questionsCollection.length - 1 ===
@@ -153,22 +151,22 @@ class QuestionUser extends Component {
             Zakończ test
           </Button>
         </FormGroup>
-      );
+      )
     }
-  };
+  }
 
   renderNexQuestionButton = () => {
     if (
-      this.state.selectedAnswer !== "" &&
+      this.state.selectedAnswer !== '' &&
       this.props.questionsCollection.length - 2 >= this.state.questionIndex
     ) {
       return (
         <FormGroup>
           <Button bsStyle="primary" onClick={this.onClickNextQuestion}>Następne pytanie</Button>
         </FormGroup>
-      );
+      )
     }
-  };
+  }
   onClickImage = () => {
     // this.setState({
     //   selectedImages: this.state.selectedImages.concat(
@@ -176,14 +174,14 @@ class QuestionUser extends Component {
     //   )
     // });
     // this.props.toggleLightbox();
-  };
+  }
 
-  render() {
+  render () {
     return (
       <Col>
         <Grid componentClass="content-add-new-course">
-          {typeof this.state.selectedImages[0] != "undefined" ? (
-            <LightBox imageUrl={this.state.selectedImages} />
+          {typeof this.state.selectedImages[0] != 'undefined' ? (
+            <LightBox imageUrl={this.state.selectedImages}/>
           ) : null}
           <Panel>
             <img
@@ -211,7 +209,7 @@ class QuestionUser extends Component {
           </Panel>
         </Grid>
       </Col>
-    );
+    )
   }
 }
 
@@ -222,7 +220,7 @@ const mapDispatchToProps = dispatch => ({
   setAppMode: mode => dispatch(setAppMode(mode)),
   setTestResults: results => dispatch(setTestResults(results)),
   setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug))
-});
+})
 
 const mapStateToProps = state => ({
   questionsCollection: state.appState.questionsCollection,
@@ -230,9 +228,9 @@ const mapStateToProps = state => ({
   selectedAnswers: state.appState.selectedAnswers,
   listOfTests: state.appState.listOfTests,
   currentTest: state.appState.currentTest
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(QuestionUser);
+)(QuestionUser)

@@ -1279,7 +1279,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var imagePlaceholder = "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
+var imagePlaceholder = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180';
 
 var QuestionUser =
 /*#__PURE__*/
@@ -1308,7 +1308,7 @@ function (_Component) {
 
       _this.setState({
         questionIndex: _this.state.questionIndex + 1,
-        selectedAnswer: ""
+        selectedAnswer: ''
       });
     });
 
@@ -1329,25 +1329,19 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderQuestions", function () {
       var questions = _this.props.questionsCollection[_this.state.questionIndex].answer;
-      return questions.map(function (data) {
-        if (data.value !== "") {
-          var html_id = data.key + "_id_" + this.state.questionIndex;
+      _this.counterQuestion = 0;
+      return questions.map(function (data, index) {
+        if (data.value !== '') {
+          var html_id = data.key + '_id_' + this.state.questionIndex;
+          this.counterQuestion++;
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-            key: "quest_" + data.key,
+            key: 'quest_' + data.key,
             active: this.activeAnswer(data.key)
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], {
-            key: this.state.selectedIndex + data.key
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], {
-            style: {
-              textAlign: "left"
-            },
-            className: "btn btn-block",
-            htmlFor: html_id
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Radio"], {
             inline: true,
             style: {
-              textAlign: "left",
-              display: "none"
+              textAlign: 'left',
+              display: 'none'
             },
             onChange: this.onChangeRadio,
             value: data.key,
@@ -1355,7 +1349,15 @@ function (_Component) {
             type: "radio",
             id: html_id,
             name: "correctAnswer"
-          }), data.value)));
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], {
+            style: {
+              textAlign: 'left'
+            },
+            className: 'btn btn-block label-question',
+            htmlFor: html_id
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "question-number"
+          }, this.counterQuestion, "."), " ", data.value));
         }
       }.bind(_assertThisInitialized(_assertThisInitialized(_this))));
     });
@@ -1371,7 +1373,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderFinishTestButton", function () {
-      if (_this.state.selectedAnswer !== "" && _this.props.questionsCollection.length - 1 === _this.state.questionIndex) {
+      if (_this.state.selectedAnswer !== '' && _this.props.questionsCollection.length - 1 === _this.state.questionIndex) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
           bsStyle: "primary",
           onClick: _this.onClickFinishTest
@@ -1388,7 +1390,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderNexQuestionButton", function () {
-      if (_this.state.selectedAnswer !== "" && _this.props.questionsCollection.length - 2 >= _this.state.questionIndex) {
+      if (_this.state.selectedAnswer !== '' && _this.props.questionsCollection.length - 2 >= _this.state.questionIndex) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
           bsStyle: "primary",
           onClick: _this.onClickNextQuestion
@@ -1407,7 +1409,7 @@ function (_Component) {
     _this.state = {
       questionIndex: 0,
       questionsCollection: _this.props.questionsCollection,
-      selectedAnswer: "",
+      selectedAnswer: '',
       finishBtnClicked: false,
       selectedImages: []
     };
@@ -1420,11 +1422,11 @@ function (_Component) {
       var _this2 = this;
 
       if (nextProps.selectedAnswers !== this.props.selectedAnswers && this.state.finishBtnClicked === true) {
-        this.props.fetchWP.post("check/result", {
+        this.props.fetchWP.post('check/result', {
           selectedAnswers: JSON.stringify(nextProps.selectedAnswers)
         }).then(function (json) {
           return _this2.props.setTestResults(json.result);
-        }).then(this.props.setAppMode("result"));
+        }).then(this.props.setAppMode('result'));
       }
     }
   }, {
@@ -1432,7 +1434,7 @@ function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         componentClass: "content-add-new-course"
-      }, typeof this.state.selectedImages[0] != "undefined" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LightBox__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, typeof this.state.selectedImages[0] != 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LightBox__WEBPACK_IMPORTED_MODULE_6__["default"], {
         imageUrl: this.state.selectedImages
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         onClick: this.onClickImage,
@@ -2663,10 +2665,10 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroup"], {
         className: "sitebar-admin-course-list"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-        header: "Test wst\u0119pny",
+        header: "Pretest",
         active: (isTest || isWelcome) && this.props.currentTest == 'pre-test'
       }), this.fillList(this.state.adminList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ListGroupItem"], {
-        header: "Test ko\u0144cowy",
+        header: "Test egzaminacyjny",
         active: isTest && this.props.currentTest == 'post-test'
       })));
     }
