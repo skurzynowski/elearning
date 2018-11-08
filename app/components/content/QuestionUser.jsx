@@ -22,7 +22,8 @@ import {
   updateListOfTests,
   setAppMode,
   setTestResults,
-  setCurrentTest
+  setCurrentTest,
+  setProgress
 } from '../../../redux/appState/actions'
 
 import LightBox from './LightBox'
@@ -53,6 +54,7 @@ class QuestionUser extends Component {
     this.props.updateAnswers(answers)
   }
   onClickNextQuestion = () => {
+    this.props.setProgress(this.props.progress + 1)
     this.updateAnswers()
     this.setState({
       questionIndex: this.state.questionIndex + 1,
@@ -83,23 +85,23 @@ class QuestionUser extends Component {
           this.counterQuestion++
           return (
             <ListGroupItem key={'quest_' + data.key} active={this.activeAnswer(data.key)}>
-                <Radio
-                  inline
-                  style={{textAlign: 'left', display: 'none'}}
-                  onChange={this.onChangeRadio}
-                  value={data.key}
-                  checked={this.state.selectedAnswer === data.key}
-                  type="radio"
-                  id={html_id}
-                  name="correctAnswer"
-                />
-                <ControlLabel
-                  style={{textAlign: 'left'}}
-                  className={'btn btn-block label-question'}
-                  htmlFor={html_id}
-                >
-                  <span className="question-number">{this.counterQuestion}.</span> {data.value}
-                </ControlLabel>
+              <Radio
+                inline
+                style={{textAlign: 'left', display: 'none'}}
+                onChange={this.onChangeRadio}
+                value={data.key}
+                checked={this.state.selectedAnswer === data.key}
+                type="radio"
+                id={html_id}
+                name="correctAnswer"
+              />
+              <ControlLabel
+                style={{textAlign: 'left'}}
+                className={'btn btn-block label-question'}
+                htmlFor={html_id}
+              >
+                <span className="question-number">{this.counterQuestion}.</span> {data.value}
+              </ControlLabel>
             </ListGroupItem>
           )
         }
@@ -118,6 +120,7 @@ class QuestionUser extends Component {
     ) {
       this.props.fetchWP
         .post('check/result', {
+          test: this.props.currentTest === 'pre-test' ? JSON.stringify('pretest') : JSON.stringify('egzamin'),
           selectedAnswers: JSON.stringify(nextProps.selectedAnswers)
         })
         .then(json => this.props.setTestResults(json.result))
@@ -128,6 +131,7 @@ class QuestionUser extends Component {
   onClickFinishTest = () => {
     this.state.finishBtnClicked = true
     this.updateAnswers()
+    this.props.setProgress(this.props.progress + 1)
   }
 
   renderFinishTestButton = () => {
@@ -219,7 +223,8 @@ const mapDispatchToProps = dispatch => ({
   updateAnswers: answers => dispatch(updateAnswers(answers)),
   setAppMode: mode => dispatch(setAppMode(mode)),
   setTestResults: results => dispatch(setTestResults(results)),
-  setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug))
+  setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug)),
+  setProgress: progress => dispatch(setProgress(progress))
 })
 
 const mapStateToProps = state => ({
@@ -227,7 +232,8 @@ const mapStateToProps = state => ({
   fetchWP: state.appState.fetchWP,
   selectedAnswers: state.appState.selectedAnswers,
   listOfTests: state.appState.listOfTests,
-  currentTest: state.appState.currentTest
+  currentTest: state.appState.currentTest,
+  progress: state.appState.progress,
 })
 
 export default connect(

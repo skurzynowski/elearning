@@ -167,6 +167,7 @@ class Example {
 
 	public function check_answers( $request ) {
 		$quiz_results = json_decode( $request['selectedAnswers'] );
+		$test_type    = json_decode( $request['test'] );
 
 		$tmp = array();
 
@@ -181,6 +182,8 @@ class Example {
 
 		$percents = floor( count( $correct_answers ) / count( $tmp ) * 100 );
 
+		$this->updateScoreInBackend( $test_type, $percents );
+
 		$result = array(
 			'percents' => $percents,
 			'correct'  => count( $correct_answers ),
@@ -193,6 +196,22 @@ class Example {
 			'result'  => $result,
 
 		), 200 );
+	}
+
+	public function updateScoreInBackend( string $testType, int $score ) {
+		if ( function_exists( 'get_current_user' ) && function_exists( 'add_row' ) ) {
+			$current_user = wp_get_current_user();
+			$user_name    = ucfirst( $current_user->user_firstname );
+			$user_surname = ucfirst( $current_user->user_lastname );
+			$row          = array(
+				"date"      => current_time( 'd/m/Y' ),
+				"user"      => $user_name . ' ' . $user_surname,
+				"test_type" => $testType,
+				"score"     => $score,
+			);
+
+			add_row( 'test_results', $row, 'options' );
+		}
 	}
 
 	public function get_courses( $request ) {

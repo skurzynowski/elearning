@@ -137,7 +137,6 @@ class Config {
 
 	// Register Custom Taxonomy
 	function custom_taxonomy() {
-
 		if ( ! function_exists( 'custom_taxonomy' ) ) {
 			$labels = array(
 				'name'                       => _x( 'Testy', 'Taxonomy General Name', 'text_domain' ),
@@ -182,8 +181,8 @@ class Config {
 
 	public function register_settings() {
 
-		if (function_exists("acf_add_options_page")){
-			$args = array(	'page_title' => 'Opcje Elearning',);
+		if ( function_exists( "acf_add_options_page" ) ) {
+			$args = array( 'page_title' => 'Opcje Elearning', );
 			acf_add_options_page( $args );
 		}
 

@@ -19,6 +19,9 @@ const defaultState = {
   activeSubmodule: null,
   isOpenLightbox: true,
   certificateDownloaded: false,
+  moduleKeys: [],
+  sumQuestions: 0,
+  progress: 0,
 }
 
 export default function appState (state = defaultState, action) {
@@ -94,6 +97,16 @@ export default function appState (state = defaultState, action) {
 
     case 'APPSTATE_SET_CERTIFICATE_DOWNLOADED':
       newState.certificateDownloaded = action.bool
+      return newState
+    case 'APPSTATE_SET_MODULE_KEYS':
+      newState.moduleKeys = action.keys
+      return newState
+
+    case 'APPSTATE_SET_SUM_QUESTIONS':
+      newState.sumQuestions = action.sum
+      return newState
+    case 'APPSTATE_SET_PROGRESS':
+      newState.progress = action.value
       return newState
 
     default:

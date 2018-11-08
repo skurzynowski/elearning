@@ -7,7 +7,8 @@ import {
   setActiveSubmodule,
   setActiveModule,
   setAppMode,
-  setModules
+  setModules,
+  setModuleKeys,
 } from '../../../redux/appState/actions'
 
 class SiteBarAdmin extends Component {
@@ -18,10 +19,26 @@ class SiteBarAdmin extends Component {
       adminList: [],
       test: '123',
       endpointData: [],
-      activeSubmodule: false
+      activeSubmodule: false,
     }
 
     this.fetchModules()
+  }
+
+  componentDidMount () {
+  }
+
+  getAllModules = (modules) => {
+    return modules.reduce(
+      function (acumulator,data, key) {
+        let tmp_array = []
+        for (let i = 0; i < 6; i++) {
+          let elementName = 'module_title_' + i
+          let submodulNumber = key + '_' + i
+          !!data.fields[elementName] && tmp_array.push(submodulNumber)
+        }
+        return acumulator.concat(tmp_array)
+      },[])
   }
 
   componentWillReceiveProps = nextProps => {
@@ -41,6 +58,7 @@ class SiteBarAdmin extends Component {
     this.props.fetchWP.get('modules').then(json => {
       this.setState({adminList: json.modules})
       this.props.setModules(json.modules)
+      this.props.setModuleKeys( this.getAllModules(json.modules))
     })
   }
 
@@ -112,6 +130,7 @@ const mapDispatchToProps = dispatch => ({
   setActiveSubmodule: submodule => dispatch(setActiveSubmodule(submodule)),
   setActiveModule: module => dispatch(setActiveModule(module)),
   setAppMode: mode => dispatch(setAppMode(mode)),
+  setModuleKeys: keys => dispatch(setModuleKeys(keys)),
 })
 
 const mapStateToProps = state => ({
@@ -121,6 +140,7 @@ const mapStateToProps = state => ({
   activeModule: state.appState.activeModule,
   activeSubmodule: state.appState.activeSubmodule,
   appGlobalMode: state.appState.appGlobalMode,
+  moduleKeys: state.appState.moduleKeys,
 })
 
 export default connect(

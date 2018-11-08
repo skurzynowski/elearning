@@ -18,7 +18,8 @@ import {
   setActiveModule,
   setAppMode,
   setCurrentTest,
-  setActiveSubmodule
+  setActiveSubmodule,
+  setProgress
 } from '../../../redux/appState/actions'
 
 class Post extends Component {
@@ -28,7 +29,8 @@ class Post extends Component {
       activePost: {},
       modules: this.props.modules,
       subModuleIndex: 0,
-      moduleIndex: 0
+      moduleIndex: 0,
+      filteredStates: [],
     }
   }
 
@@ -61,6 +63,7 @@ class Post extends Component {
     this.props.setActiveSubmodule(null)
     this.props.setActiveModule(null)
     this.props.setCurrentTest('post-test')
+    this.props.setProgress(this.props.progress + this.props.moduleKeys.length)
     this.props.setAppMode('test')
   }
 
@@ -74,11 +77,26 @@ class Post extends Component {
   }
 
   isLastModule = () => {
-    var module_index =  parseInt( this.state.moduleIndex )+ parseInt(1)
+    var module_index = parseInt(this.state.moduleIndex) + parseInt(1)
     return (!this.state.modules[module_index] || typeof this.state.modules[module_index] === 'undefined')
 
   }
 
+  onClickPreviousModule = () => {
+    let indexOfActiveSubmodule = this.props.moduleKeys.indexOf(this.props.activeSubmodule)
+    this.props.setActiveSubmodule(this.props.moduleKeys[indexOfActiveSubmodule - 1])
+    this.props.setActiveModule(this.props.moduleKeys[indexOfActiveSubmodule - 1][0])
+  }
+  renderPreviousButton = () => {
+    if (this.props.activeSubmodule == '0_0') {
+      return
+    }
+    return (
+      <Button bsStyle="primary" onClick={this.onClickPreviousModule} bsSize="large">
+        Wstecz
+      </Button>
+    )
+  }
   renderNextButton = () => {
     if (!this.isLastSubmodule()) {
       return (
@@ -133,7 +151,10 @@ class Post extends Component {
                 }}
               />
             ) : null}
-            <Panel.Body>{this.renderNextButton()}</Panel.Body>
+            <Panel.Body>
+              {this.renderPreviousButton()}
+              {this.renderNextButton()}
+            </Panel.Body>
           </Panel>
         </Grid>
       </Col>
@@ -145,7 +166,8 @@ const mapDispatchToProps = dispatch => ({
   setAppMode: mode => dispatch(setAppMode(mode)),
   setCurrentTest: test => dispatch(setCurrentTest(test)),
   setActiveModule: module => dispatch(setActiveModule(module)),
-  setActiveSubmodule: module => dispatch(setActiveSubmodule(module))
+  setActiveSubmodule: module => dispatch(setActiveSubmodule(module)),
+  setProgress: progress => dispatch(setProgress(progress)),
 })
 
 const mapStateToProps = state => ({
@@ -154,6 +176,8 @@ const mapStateToProps = state => ({
   modules: state.appState.modules,
   activeSubmodule: state.appState.activeSubmodule,
   activeModule: state.appState.activeModule,
+  moduleKeys: state.appState.moduleKeys,
+  progress: state.appState.progress,
 })
 
 export default connect(

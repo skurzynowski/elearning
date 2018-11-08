@@ -6,11 +6,13 @@ import { ProgressBar } from 'react-bootstrap'
 
 class ProgressBarTest extends Component {
   countProgres = () => {
-    if (!isNaN(this.props.questionsCollection.length) && this.props.questionsCollection.length > 0 && !isNaN(this.props.selectedAnswers.length) && this.props.selectedAnswers.length > 0) {
-      return Math.floor((this.props.selectedAnswers.length / this.props.questionsCollection.length) * 100)
-    } else {
-      return 0
+    let allQuestions = this.props.sumQuestions
+    let allModules = this.props.moduleKeys.length
+    let progress = this.props.progress && parseInt(((this.props.progress / (parseInt(allModules) + parseInt(allQuestions))) * 100))
+    if (progress > 100) {
+      return 100
     }
+    return progress
   }
 
   render () {
@@ -23,11 +25,12 @@ class ProgressBarTest extends Component {
   }
 }
 
-const mapDispatchToProps = ({})
-
 const mapStateToProps = state => ({
   questionsCollection: state.appState.questionsCollection,
   selectedAnswers: state.appState.selectedAnswers,
+  sumQuestions: state.appState.sumQuestions,
+  progress: state.appState.progress,
+  moduleKeys: state.appState.moduleKeys,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProgressBarTest)
+export default connect(mapStateToProps)(ProgressBarTest)

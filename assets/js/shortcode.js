@@ -1124,6 +1124,8 @@ function (_Component) {
 
       _this.props.setCurrentTest('post-test');
 
+      _this.props.setProgress(_this.props.progress + _this.props.moduleKeys.length);
+
       _this.props.setAppMode('test');
     });
 
@@ -1134,6 +1136,26 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "isLastModule", function () {
       var module_index = parseInt(_this.state.moduleIndex) + parseInt(1);
       return !_this.state.modules[module_index] || typeof _this.state.modules[module_index] === 'undefined';
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickPreviousModule", function () {
+      var indexOfActiveSubmodule = _this.props.moduleKeys.indexOf(_this.props.activeSubmodule);
+
+      _this.props.setActiveSubmodule(_this.props.moduleKeys[indexOfActiveSubmodule - 1]);
+
+      _this.props.setActiveModule(_this.props.moduleKeys[indexOfActiveSubmodule - 1][0]);
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderPreviousButton", function () {
+      if (_this.props.activeSubmodule == '0_0') {
+        return;
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+        bsStyle: "primary",
+        onClick: _this.onClickPreviousModule,
+        bsSize: "large"
+      }, "Wstecz");
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderNextButton", function () {
@@ -1164,7 +1186,8 @@ function (_Component) {
       activePost: {},
       modules: _this.props.modules,
       subModuleIndex: 0,
-      moduleIndex: 0
+      moduleIndex: 0,
+      filteredStates: []
     };
     return _this;
   }
@@ -1196,7 +1219,7 @@ function (_Component) {
         dangerouslySetInnerHTML: {
           __html: this.state.modules[this.state.moduleIndex].fields['module_content_' + this.state.subModuleIndex]
         }
-      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, this.renderNextButton()))));
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, this.renderPreviousButton(), this.renderNextButton()))));
     }
   }]);
 
@@ -1216,6 +1239,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setActiveSubmodule: function setActiveSubmodule(module) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_6__["setActiveSubmodule"])(module));
+    },
+    setProgress: function setProgress(progress) {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_6__["setProgress"])(progress));
     }
   };
 };
@@ -1226,7 +1252,9 @@ var mapStateToProps = function mapStateToProps(state) {
     fetchWP: state.appState.fetchWP,
     modules: state.appState.modules,
     activeSubmodule: state.appState.activeSubmodule,
-    activeModule: state.appState.activeModule
+    activeModule: state.appState.activeModule,
+    moduleKeys: state.appState.moduleKeys,
+    progress: state.appState.progress
   };
 };
 
@@ -1304,6 +1332,8 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickNextQuestion", function () {
+      _this.props.setProgress(_this.props.progress + 1);
+
       _this.updateAnswers();
 
       _this.setState({
@@ -1370,6 +1400,8 @@ function (_Component) {
       _this.state.finishBtnClicked = true;
 
       _this.updateAnswers();
+
+      _this.props.setProgress(_this.props.progress + 1);
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderFinishTestButton", function () {
@@ -1423,6 +1455,7 @@ function (_Component) {
 
       if (nextProps.selectedAnswers !== this.props.selectedAnswers && this.state.finishBtnClicked === true) {
         this.props.fetchWP.post('check/result', {
+          test: this.props.currentTest === 'pre-test' ? JSON.stringify('pretest') : JSON.stringify('egzamin'),
           selectedAnswers: JSON.stringify(nextProps.selectedAnswers)
         }).then(function (json) {
           return _this2.props.setTestResults(json.result);
@@ -1467,6 +1500,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setCurrentTest: function setCurrentTest(testSlug) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setCurrentTest"])(testSlug));
+    },
+    setProgress: function setProgress(progress) {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setProgress"])(progress));
     }
   };
 };
@@ -1477,7 +1513,8 @@ var mapStateToProps = function mapStateToProps(state) {
     fetchWP: state.appState.fetchWP,
     selectedAnswers: state.appState.selectedAnswers,
     listOfTests: state.appState.listOfTests,
-    currentTest: state.appState.currentTest
+    currentTest: state.appState.currentTest,
+    progress: state.appState.progress
   };
 };
 
@@ -2400,11 +2437,15 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ProgressBarTest)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "countProgres", function () {
-      if (!isNaN(_this.props.questionsCollection.length) && _this.props.questionsCollection.length > 0 && !isNaN(_this.props.selectedAnswers.length) && _this.props.selectedAnswers.length > 0) {
-        return Math.floor(_this.props.selectedAnswers.length / _this.props.questionsCollection.length * 100);
-      } else {
-        return 0;
+      var allQuestions = _this.props.sumQuestions;
+      var allModules = _this.props.moduleKeys.length;
+      var progress = _this.props.progress && parseInt(_this.props.progress / (parseInt(allModules) + parseInt(allQuestions)) * 100);
+
+      if (progress > 100) {
+        return 100;
       }
+
+      return progress;
     });
 
     return _this;
@@ -2426,16 +2467,17 @@ function (_Component) {
   return ProgressBarTest;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-var mapDispatchToProps = {};
-
 var mapStateToProps = function mapStateToProps(state) {
   return {
     questionsCollection: state.appState.questionsCollection,
-    selectedAnswers: state.appState.selectedAnswers
+    selectedAnswers: state.appState.selectedAnswers,
+    sumQuestions: state.appState.sumQuestions,
+    progress: state.appState.progress,
+    moduleKeys: state.appState.moduleKeys
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(ProgressBarTest));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps)(ProgressBarTest));
 
 /***/ }),
 
@@ -2567,6 +2609,20 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SiteBarAdmin).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllModules", function (modules) {
+      return modules.reduce(function (acumulator, data, key) {
+        var tmp_array = [];
+
+        for (var i = 0; i < 6; i++) {
+          var elementName = 'module_title_' + i;
+          var submodulNumber = key + '_' + i;
+          !!data.fields[elementName] && tmp_array.push(submodulNumber);
+        }
+
+        return acumulator.concat(tmp_array);
+      }, []);
+    });
+
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentWillReceiveProps", function (nextProps) {
       if (nextProps.activeSubmodule != _this.props.activeSubmodule || _this.props.globalAppMode !== _this.props.globalAppMode) {
         // this.setState({adminList:[]})
@@ -2591,6 +2647,8 @@ function (_Component) {
         });
 
         _this.props.setModules(json.modules);
+
+        _this.props.setModuleKeys(_this.getAllModules(json.modules));
       });
     });
 
@@ -2656,6 +2714,9 @@ function (_Component) {
   }
 
   _createClass(SiteBarAdmin, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
     key: "render",
     value: function render() {
       var isTest = this.props.appGlobalMode === 'test';
@@ -2693,6 +2754,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setAppMode: function setAppMode(mode) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_4__["setAppMode"])(mode));
+    },
+    setModuleKeys: function setModuleKeys(keys) {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_4__["setModuleKeys"])(keys));
     }
   };
 };
@@ -2704,7 +2768,8 @@ var mapStateToProps = function mapStateToProps(state) {
     fetchWP: state.appState.fetchWP,
     activeModule: state.appState.activeModule,
     activeSubmodule: state.appState.activeSubmodule,
-    appGlobalMode: state.appState.appGlobalMode
+    appGlobalMode: state.appState.appGlobalMode,
+    moduleKeys: state.appState.moduleKeys
   };
 };
 
@@ -2794,6 +2859,8 @@ function (_Component) {
 
     _this.props.setFetchWP(fetchWPInstance);
 
+    _this.props.setSumOfQuestions(_this.props.wpObject.sumOfQuestions);
+
     return _this;
   }
 
@@ -2831,6 +2898,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setCurrentTest: function setCurrentTest(testSlug) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setCurrentTest"])(testSlug));
+    },
+    setSumOfQuestions: function setSumOfQuestions(sum) {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setSumOfQuestions"])(sum));
     }
   };
 };
@@ -61342,7 +61412,7 @@ if (!self.fetch) {
 /*!***********************************!*\
   !*** ./redux/appState/actions.js ***!
   \***********************************/
-/*! exports provided: setDefault, setNumber, setCallback, toggleUserLogginStatus, updateListOfTests, updateQuestionsCollection, setFetchWP, setAppMode, updateAnswers, setTestResults, setCurrentTest, setSelectedAnswersDefault, setActivePost, setModules, setActiveModule, setActiveSubmodule, setCertificateDownloaded */
+/*! exports provided: setDefault, setNumber, setCallback, toggleUserLogginStatus, updateListOfTests, updateQuestionsCollection, setFetchWP, setAppMode, updateAnswers, setTestResults, setCurrentTest, setSelectedAnswersDefault, setActivePost, setModules, setActiveModule, setActiveSubmodule, setCertificateDownloaded, setModuleKeys, setSumOfQuestions, setProgress */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61364,6 +61434,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveModule", function() { return setActiveModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveSubmodule", function() { return setActiveSubmodule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCertificateDownloaded", function() { return setCertificateDownloaded; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setModuleKeys", function() { return setModuleKeys; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSumOfQuestions", function() { return setSumOfQuestions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setProgress", function() { return setProgress; });
 var setDefault = function setDefault() {
   return {
     type: 'APPSTATE_SET_DEFAULT'
@@ -61468,6 +61541,24 @@ var setCertificateDownloaded = function setCertificateDownloaded(bool) {
     bool: bool
   };
 };
+var setModuleKeys = function setModuleKeys(keys) {
+  return {
+    type: 'APPSTATE_SET_MODULE_KEYS',
+    keys: keys
+  };
+};
+var setSumOfQuestions = function setSumOfQuestions(sum) {
+  return {
+    type: 'APPSTATE_SET_SUM_QUESTIONS',
+    sum: sum
+  };
+};
+var setProgress = function setProgress(value) {
+  return {
+    type: 'APPSTATE_SET_PROGRESS',
+    value: value
+  };
+};
 
 /***/ }),
 
@@ -61481,7 +61572,22 @@ var setCertificateDownloaded = function setCertificateDownloaded(bool) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return appState; });
-var defaultState = {
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+var defaultState = _defineProperty({
   isUserLoggedIn: false,
   isUserAdmin: false,
   courseTitle: 'This is default title',
@@ -61501,8 +61607,11 @@ var defaultState = {
   activeModule: null,
   activeSubmodule: null,
   isOpenLightbox: true,
-  certificateDownloaded: false
-};
+  certificateDownloaded: false,
+  moduleKeys: [],
+  sumQuestions: 0
+}, "progress", 0);
+
 function appState() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -61579,6 +61688,18 @@ function appState() {
 
     case 'APPSTATE_SET_CERTIFICATE_DOWNLOADED':
       newState.certificateDownloaded = action.bool;
+      return newState;
+
+    case 'APPSTATE_SET_MODULE_KEYS':
+      newState.moduleKeys = action.keys;
+      return newState;
+
+    case 'APPSTATE_SET_SUM_QUESTIONS':
+      newState.sumQuestions = action.sum;
+      return newState;
+
+    case 'APPSTATE_SET_PROGRESS':
+      newState.progress = action.value;
       return newState;
 
     default:

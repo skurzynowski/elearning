@@ -94,11 +94,17 @@ class Shortcode {
 		wp_enqueue_script( 'wp-api' );
 
 		$page_url = get_post()->guid;
+		if ( function_exists( 'get_field' ) ) {
+			$preQuestions  = get_field( 'pre_test_limit_questions', 'options' );
+			$postQuestions = get_field( 'pre_test_limit_questions','options');
+			$sum = $postQuestions + $postQuestions;
+		}
 
 		$object = shortcode_atts( array(
-			'title'        => 'Hello world',
-			'api_nonce'    => wp_create_nonce( 'wp_rest' ),
-			'api_url'      => rest_url( $this->plugin_slug . '/v1/' ),
+			'title'     => 'Hello world',
+			'api_nonce' => wp_create_nonce( 'wp_rest' ),
+			'api_url'   => rest_url( $this->plugin_slug . '/v1/' ),
+			'sumOfQuestions' => $sum??0,
 		), $atts, 'wp-reactivate' );
 
 		wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );

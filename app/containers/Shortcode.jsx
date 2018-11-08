@@ -8,7 +8,8 @@ import {
   toggleUserLogginStatus,
   setFetchWP,
   updateListOfTests,
-  setAppMode
+  setAppMode,
+  setSumOfQuestions
 } from '../../redux/appState/actions'
 import SiteBarAdmin from '../components/sitebar/SiteBarAdmin'
 import AddNewCourse from '../components/content/AddNewCourse'
@@ -32,6 +33,7 @@ class Shortcode extends Component {
     })
 
     this.props.setFetchWP(fetchWPInstance)
+    this.props.setSumOfQuestions(this.props.wpObject.sumOfQuestions);
   }
 
   render () {
@@ -86,7 +88,8 @@ const mapDispatchToProps = dispatch => ({
   setFetchWP: fetchWP => dispatch(setFetchWP(fetchWP)),
   updateListOfTests: list => dispatch(updateListOfTests(list)),
   setAppMode: mode => dispatch(setAppMode(mode)),
-  setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug))
+  setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug)),
+  setSumOfQuestions: sum => dispatch(setSumOfQuestions(sum)),
 })
 
 const mapStateToProps = state => ({

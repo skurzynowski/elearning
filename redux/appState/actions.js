@@ -77,4 +77,16 @@ export const setCertificateDownloaded = (bool) => ({
   type: 'APPSTATE_SET_CERTIFICATE_DOWNLOADED',
   bool
 })
+export const setModuleKeys = (keys) => ({
+  type: 'APPSTATE_SET_MODULE_KEYS',
+  keys
+})
+export const setSumOfQuestions = (sum) => ({
+  type: 'APPSTATE_SET_SUM_QUESTIONS',
+  sum
 
+})
+export const setProgress = (value) => ({
+  type: 'APPSTATE_SET_PROGRESS',
+  value
+})
