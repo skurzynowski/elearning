@@ -92,7 +92,7 @@ class Post extends Component {
       return
     }
     return (
-      <Button bsStyle="primary" onClick={this.onClickPreviousModule} bsSize="large">
+      <Button bsStyle="primary" className="btn-left" onClick={this.onClickPreviousModule} bsSize="large">
         Wstecz
       </Button>
     )
