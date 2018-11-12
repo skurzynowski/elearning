@@ -11,13 +11,13 @@ import {
   Button,
   Panel
 } from "react-bootstrap";
-import fetchWp from "../../utils/fetchWP";
+import fetchWp from "../../../utils/fetchWP";
 import { connect } from "react-redux";
-import StartTestButton from "./StartTestButton";
+import StartTestButton from "../StartTestButton/StartTestButton";
 import {
   setAppMode,
   setCertificateDownloaded
-} from "../../../redux/appState/actions";
+} from "../../../../redux/appState/actions";
 
 class Certificate extends Component {
   constructor(props) {
@@ -59,7 +59,9 @@ class Certificate extends Component {
               <h3>Certyfikat</h3>
               {this.renderCertificateContent()}
               {this.state.hiddeButton ? null : (
-                <Button bsStyle="primary" onClick={this.onClickSave}>Zapisz</Button>
+                <Button bsStyle="primary" onClick={this.onClickSave}>
+                  Zapisz
+                </Button>
               )}
             </Panel.Body>
           </Panel>

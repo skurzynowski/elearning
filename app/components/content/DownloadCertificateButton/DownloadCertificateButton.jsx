@@ -11,28 +11,28 @@ import {
   Button,
   Panel
 } from "react-bootstrap";
-import fetchWp from "../../utils/fetchWP";
+import fetchWp from "../../../utils/fetchWP";
 import { connect } from "react-redux";
 import {
   setAppMode,
   setActiveSubmodule,
   setActiveModule,
-  setCurrentTest, setSelectedAnswersDefault
-} from '../../../redux/appState/actions'
+  setCurrentTest,
+  setCertificateDownloaded
+} from "../../../../redux/appState/actions";
 
-class StartModuleButton extends Component {
-  startModule = () => {
-    this.props.setAppMode("post");
-    this.props.setActiveModule(parseInt(0));
-    this.props.setActiveSubmodule("0_0");
+class DownloadCertificateButton extends Component {
+  downloadCertyficate = () => {
+    this.props.setAppMode("certificate");
+    this.props.setActiveModule(parseInt(null));
+    this.props.setActiveSubmodule(null);
     this.props.setCurrentTest(null);
-    this.props.setAnswersDefault();
   };
 
   render() {
     return (
-      <Button bsStyle="primary" onClick={this.startModule}>
-        Rozpocznij naukę
+      <Button bsStyle="primary" onClick={this.downloadCertyficate}>
+        Pobierz certyfikat
       </Button>
     );
   }
@@ -43,7 +43,7 @@ const mapDispatchToProps = dispatch => ({
   setActiveSubmodule: list => dispatch(setActiveSubmodule(list)),
   setActiveModule: module => dispatch(setActiveModule(module)),
   setCurrentTest: test => dispatch(setCurrentTest(test)),
-  setAnswersDefault: () => dispatch(setSelectedAnswersDefault())
+  setCertificateDownloaded: bool => dispatch(setCertificateDownloaded(bool))
 });
 
 const mapStateToProps = state => ({
@@ -54,4 +54,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StartModuleButton);
+)(DownloadCertificateButton);

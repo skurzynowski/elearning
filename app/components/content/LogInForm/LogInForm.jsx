@@ -13,7 +13,7 @@ import {
   Button
 } from "react-bootstrap";
 import { connect } from "react-redux";
-import { updateListOfTests } from "../../../redux/appState/actions";
+import { updateListOfTests } from "../../../../redux/appState/actions";
 
 class LogInForm extends Component {
   constructor(props) {

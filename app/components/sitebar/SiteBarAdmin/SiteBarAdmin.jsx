@@ -9,7 +9,7 @@ import {
   setAppMode,
   setModules,
   setModuleKeys
-} from "../../../redux/appState/actions";
+} from "../../../../redux/appState/actions";
 
 class SiteBarAdmin extends Component {
   constructor(props) {

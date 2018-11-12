@@ -14,7 +14,7 @@ import {
   Alert,
   Badge
 } from "react-bootstrap";
-import fetchWp from "../../utils/fetchWP";
+import fetchWp from "../../../utils/fetchWP";
 import { connect } from "react-redux";
 import {
   updateAnswers,
@@ -23,10 +23,10 @@ import {
   updateListOfTests,
   setSelectedAnswersDefault,
   setCertificateDownloaded
-} from "../../../redux/appState/actions";
-import StartTestButton from "../content/StartTestButton";
-import StartModuleButton from "../content/StartModuleButton";
-import DownloadCertificateButton from "../content/DownloadCertificateButton";
+} from "../../../../redux/appState/actions";
+import StartTestButton from "../StartTestButton/StartTestButton";
+import StartModuleButton from "../StartModuleButton/StartModuleButton";
+import DownloadCertificateButton from "../DownloadCertificateButton/DownloadCertificateButton";
 
 const imagePlaceholder =
   "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";

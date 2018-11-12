@@ -11,9 +11,9 @@ import {
   Button,
   Panel
 } from "react-bootstrap";
-import fetchWp from "../../utils/fetchWP";
+import fetchWp from "../../../utils/fetchWP";
 import { connect } from "react-redux";
-import StartTestButton from "./StartTestButton";
+import StartTestButton from "../StartTestButton/StartTestButton";
 import jsPDF from "jspdf";
 
 const imagePlaceholder =

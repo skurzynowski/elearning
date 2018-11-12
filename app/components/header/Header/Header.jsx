@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Grid, Row, Col } from "react-bootstrap";
-import CourseTitle from "./CourseTitle";
-import ProgressBar from "./ProgressBar";
-import UserPanel from "./UserPanel";
+import CourseTitle from "../CourseTitle/CourseTitle";
+import ProgressBar from "../ProgressBar/ProgressBar";
+import UserPanel from "../UserPanel/UserPanel";
 
 export default class Header extends Component {
   render() {

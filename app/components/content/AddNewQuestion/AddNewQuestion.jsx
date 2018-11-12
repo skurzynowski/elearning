@@ -13,12 +13,12 @@ import {
   Image,
   Radio
 } from "react-bootstrap";
-import fetchWp from "../../utils/fetchWP";
+import fetchWp from "../../../utils/fetchWP";
 import { connect } from "react-redux";
 import {
   updateQuestionsCollection,
   updateListOfTests
-} from "../../../redux/appState/actions";
+} from "../../../../redux/appState/actions";
 
 const imagePlaceholder =
   "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
