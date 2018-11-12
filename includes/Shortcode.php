@@ -27,6 +27,20 @@ class Shortcode {
 	protected static $instance = null;
 
 	/**
+	 * Initialize the plugin by setting localization and loading public scripts
+	 * and styles.
+	 *
+	 * @since     1.0.0
+	 */
+	private function __construct() {
+		$plugin            = Plugin::get_instance();
+		$this->plugin_slug = $plugin->get_plugin_slug();
+		$this->version     = $plugin->get_plugin_version();
+
+		add_shortcode( 'wp-reactivate', array( $this, 'shortcode' ) );
+	}
+
+	/**
 	 * Return an instance of this class.
 	 *
 	 * @since     1.0.0
@@ -45,24 +59,9 @@ class Shortcode {
 	}
 
 	/**
-	 * Initialize the plugin by setting localization and loading public scripts
-	 * and styles.
-	 *
-	 * @since     1.0.0
-	 */
-	private function __construct() {
-		$plugin = Plugin::get_instance();
-		$this->plugin_slug = $plugin->get_plugin_slug();
-		$this->version = $plugin->get_plugin_version();
-
-		add_shortcode( 'wp-reactivate', array( $this, 'shortcode' ) );
-	}
-
-
-	/**
 	 * Handle WP actions and filters.
 	 *
-	 * @since 	1.0.0
+	 * @since    1.0.0
 	 */
 	private function do_hooks() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_scripts' ) );
@@ -74,8 +73,14 @@ class Shortcode {
 	 * @since     1.0.0
 	 */
 	public function register_frontend_scripts() {
-		wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/shortcode.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
-		wp_register_style( $this->plugin_slug . '-shortcode-style', plugins_url( 'assets/css/shortcode.css', dirname( __FILE__ ) ), $this->version );
+		wp_register_script( $this->plugin_slug . '-shortcode-script',
+			plugins_url( 'assets/js/shortcode.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
+		wp_register_style( $this->plugin_slug . '-shortcode-style',
+			plugins_url( 'assets/css/shortcode.css', dirname( __FILE__ ) ), $this->version );
+	}
+
+	public function cmp( $a, $b ) {
+		return strcmp( $a->term_id, $b->term_id );
 	}
 
 	public function shortcode( $atts ) {
@@ -84,15 +89,28 @@ class Shortcode {
 
 		$object_name = 'wpr_object_' . uniqid();
 
+
+		wp_enqueue_media();
+		wp_enqueue_script( 'wp-api' );
+
+		$page_url = get_post()->guid;
+		if ( function_exists( 'get_field' ) ) {
+			$preQuestions  = get_field( 'pre_test_limit_questions', 'options' );
+			$postQuestions = get_field( 'pre_test_limit_questions','options');
+			$sum = $postQuestions + $postQuestions;
+		}
+
 		$object = shortcode_atts( array(
-			'title'       => 'Hello world',
-			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-			'api_url'	  => rest_url( $this->plugin_slug . '/v1/' ),
+			'title'     => 'Hello world',
+			'api_nonce' => wp_create_nonce( 'wp_rest' ),
+			'api_url'   => rest_url( $this->plugin_slug . '/v1/' ),
+			'sumOfQuestions' => $sum??0,
 		), $atts, 'wp-reactivate' );
 
 		wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );
 
 		$shortcode = '<div class="wp-reactivate-shortcode" data-object-id="' . $object_name . '"></div>';
+
 		return $shortcode;
 	}
 }

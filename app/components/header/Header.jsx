@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Container, Row, Col } from 'reactstrap'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Grid, Row, Col } from "react-bootstrap";
+import CourseTitle from "./CourseTitle";
+import ProgressBar from "./ProgressBar";
+import UserPanel from "./UserPanel";
 
 export default class Header extends Component {
-  render () {
+  render() {
     return (
-      <Container  fluid>
+      <Grid fluid>
         <Row>
-          <Col className="d-flex header-wraper">
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
+          <Col className="col-sm-offset-6 col-sm-6">
+            <ProgressBar />
           </Col>
         </Row>
-      </Container>
-    )
+      </Grid>
+    );
   }
 }
-

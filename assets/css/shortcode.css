@@ -1,7 +1,35 @@
-:root{
-    --main-background: purple;
-    --main-font: "Times New Roman", Times, serif;
+.sitebar-admin-wraper {
+    margin-top: 30px;
 }
-.header-wraper{
-    height: 10vh;
+
+.active.list-group-item-heading {
+    background-color: #006036;
+    font-weight: bold;
+}
+.active.list-group-item {
+    background-color: #006036;
+    font-weight: bold;
+}
+.btn-default:hover{
+    background-color: #006036;
+    color: white;
+}
+.list-group-item.active:hover{
+    background-color: #006036;
+    color: white;
+}
+.list-group-item:hover{
+    background-color: #006036;
+    color: white;
+}
+
+.list-group-item:hover{
+    background-color: rgba(0, 96, 54, 0.9);
+    color: white;
+}
+.question-number{
+    margin-right: 15px;
+}
+.label-question{
+    font-size: 20px;
 }

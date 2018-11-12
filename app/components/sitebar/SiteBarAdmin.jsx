@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Grid, Row, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import { connect } from "react-redux";
-import { setActivePost, setModules } from "../../../redux/appState/actions";
 import {
+  setActivePost,
+  setActiveSubmodule,
   setActiveModule,
   setAppMode,
-  setCurrentTest,
-  setActiveSubmodule
+  setModules,
+  setModuleKeys
 } from "../../../redux/appState/actions";
 
 class SiteBarAdmin extends Component {
@@ -24,12 +25,32 @@ class SiteBarAdmin extends Component {
     this.fetchModules();
   }
 
+  componentDidMount() {}
+
+  getAllModules = modules => {
+    return modules.reduce(function(acumulator, data, key) {
+      let tmp_array = [];
+      for (let i = 0; i < 6; i++) {
+        let elementName = "module_title_" + i;
+        let submodulNumber = key + "_" + i;
+        !!data.fields[elementName] && tmp_array.push(submodulNumber);
+      }
+      return acumulator.concat(tmp_array);
+    }, []);
+  };
+
   componentWillReceiveProps = nextProps => {
-    if (nextProps.activeSubmodule != this.props.activeSubmodule) {
+    if (
+      nextProps.activeSubmodule != this.props.activeSubmodule ||
+      this.props.globalAppMode !== this.props.globalAppMode
+    ) {
       // this.setState({adminList:[]})
       // this.setState({adminList:this.state.adminList})
       this.setState({ activeSubmodule: nextProps.activeSubmodule });
       // this.fillList(this.state.endpointData)
+      this.forceUpdate();
+    }
+    if (nextProps.globalAppMode !== this.props.globalAppMode) {
       this.forceUpdate();
     }
   };
@@ -38,6 +59,7 @@ class SiteBarAdmin extends Component {
     this.props.fetchWP.get("modules").then(json => {
       this.setState({ adminList: json.modules });
       this.props.setModules(json.modules);
+      this.props.setModuleKeys(this.getAllModules(json.modules));
     });
   };
 
@@ -48,10 +70,15 @@ class SiteBarAdmin extends Component {
   getActiveModule = () => {
     return this.props.activeModule;
   };
-
-  setActiveElem = (k, elem) => {
-    console.log(k + elem);
-    // this.props.setActiveSubmodule(k + elem);
+  onClickModule = key => {
+    if (
+      this.props.appGlobalMode !== "test" &&
+      this.props.appGlobalMode !== "welcome"
+    ) {
+      this.props.setActiveSubmodule(key);
+      this.props.setActiveModule(key[0]);
+      this.props.setAppMode("post");
+    }
   };
 
   fillList = modules => {
@@ -61,99 +88,46 @@ class SiteBarAdmin extends Component {
         tmp_array.push(
           <ListGroupItem
             active={this.getActiveModule() == key}
+            key={key + "_module"}
             header={data.post_title}
           />
         );
 
-        data.fields.module_title_0 !== undefined &&
-        data.fields.module_title_0 !== ""
-          ? tmp_array.push(
+        for (let i = 0; i < 6; i++) {
+          let elementName = "module_title_" + i;
+          let submodulNumber = key + "_" + i;
+          !!data.fields[elementName] &&
+            tmp_array.push(
               <ListGroupItem
-                active={this.getActiveSubmodule() == key + "_0"}
-                onClick={e => this.setActiveElem(key, "_0")}
+                onClick={() => this.onClickModule(submodulNumber)}
+                active={this.getActiveSubmodule() == submodulNumber}
+                key={elementName}
               >
-                1. {data.fields.module_title_0}
+                1. {data.fields[elementName]}
               </ListGroupItem>
-            )
-          : null;
-
-        data.fields.module_title_1 !== undefined &&
-        data.fields.module_title_1 !== ""
-          ? tmp_array.push(
-              <ListGroupItem
-                active={this.getActiveSubmodule() == key + "_1"}
-                onClick={e => this.setActiveElem(key, "_1")}
-              >
-                2. {data.fields.module_title_1}
-              </ListGroupItem>
-            )
-          : null;
-
-        data.fields.module_title_2 !== undefined &&
-        data.fields.module_title_2 !== ""
-          ? tmp_array.push(
-              <ListGroupItem
-                active={this.getActiveSubmodule() == key + "_2"}
-                onClick={e => this.setActiveElem(key, "_2")}
-              >
-                3. {data.fields.module_title_2}
-              </ListGroupItem>
-            )
-          : null;
-
-        data.fields.module_title_3 !== undefined &&
-        data.fields.module_title_3 !== ""
-          ? tmp_array.push(
-              <ListGroupItem
-                active={this.getActiveSubmodule() == key + "_3"}
-                onClick={e => this.setActiveElem(key, "_3")}
-              >
-                4. {data.fields.module_title_3}
-              </ListGroupItem>
-            )
-          : null;
-
-        data.fields.module_title_4 !== undefined &&
-        data.fields.module_title_4 !== ""
-          ? tmp_array.push(
-              <ListGroupItem
-                active={this.props.activeSubmodule == key + "_4"}
-                onClick={e => this.setActiveElem(key, "_4")}
-              >
-                5. {data.fields.module_title_4}
-              </ListGroupItem>
-            )
-          : null;
-
-        data.fields.module_title_5 !== undefined &&
-        data.fields.module_title_5 !== ""
-          ? tmp_array.push(
-              <ListGroupItem
-                active={this.props.activeSubmodule == key + "_5"}
-                onClick={e => this.setActiveElem(key, "_5")}
-              >
-                6. {data.fields.module_title_5}
-              </ListGroupItem>
-            )
-          : null;
-
+            );
+        }
         return tmp_array;
       }.bind(this)
     );
   };
 
   render() {
+    const isTest = this.props.appGlobalMode === "test";
+    const isWelcome = this.props.appGlobalMode === "welcome";
     return (
       <div className="sitebar-admin-wraper">
         <ListGroup className="sitebar-admin-course-list">
           <ListGroupItem
-            header="Test wstępny"
-            active={this.props.currentTest == "pre-test"}
+            header="Pretest"
+            active={
+              (isTest || isWelcome) && this.props.currentTest == "pre-test"
+            }
           />
           {this.fillList(this.state.adminList)}
           <ListGroupItem
-            header="Test końcowy"
-            active={this.props.currentTest == "post-test"}
+            header="Test egzaminacyjny"
+            active={isTest && this.props.currentTest == "post-test"}
           />
         </ListGroup>
       </div>
@@ -161,16 +135,23 @@ class SiteBarAdmin extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  activePost: post => setActivePost(post),
-  setModules: modules => setModules(modules)
-};
+const mapDispatchToProps = dispatch => ({
+  activePost: post => dispatch(setActivePost(post)),
+  setModules: modules => dispatch(setModules(modules)),
+  setActiveSubmodule: submodule => dispatch(setActiveSubmodule(submodule)),
+  setActiveModule: module => dispatch(setActiveModule(module)),
+  setAppMode: mode => dispatch(setAppMode(mode)),
+  setModuleKeys: keys => dispatch(setModuleKeys(keys))
+});
 
 const mapStateToProps = state => ({
   listOfTests: state.appState.listOfTests,
   currentTest: state.appState.currentTest,
   fetchWP: state.appState.fetchWP,
-  activeModule: state.appState.activeModule
+  activeModule: state.appState.activeModule,
+  activeSubmodule: state.appState.activeSubmodule,
+  appGlobalMode: state.appState.appGlobalMode,
+  moduleKeys: state.appState.moduleKeys
 });
 
 export default connect(
