@@ -6,37 +6,53 @@
     background-color: #006036;
     font-weight: bold;
 }
+
 .active.list-group-item {
     background-color: #006036;
     font-weight: bold;
 }
-.btn-default:hover{
-    background-color: #006036;
-    color: white;
-}
-.list-group-item.active:hover{
-    background-color: #006036;
-    color: white;
-}
-.list-group-item:hover{
+
+.btn-default:hover {
     background-color: #006036;
     color: white;
 }
 
-.list-group-item:hover{
+.list-group-item.active:hover {
+    background-color: #006036;
+    color: white;
+}
+
+.list-group-item:hover {
+    background-color: #006036;
+    color: white;
+}
+
+.list-group-item:hover {
     background-color: rgba(0, 96, 54, 0.9);
     color: white;
 }
-.question-number{
+
+.question-number {
     margin-right: 15px;
 }
-.label-question{
+
+.label-question {
     font-size: 20px;
 }
 
-.post-btn-container{
+.post-btn-container {
+    padding: 8px;
+    margin: 8px;
     display: flex;
-    padding:8px;
     justify-content: space-between;
-    margin:8px;
+}
+
+.btn-left {
+    justify-self: flex-start;
+    margin-right: auto;
+}
+
+.btn-right {
+    justify-self: flex-end;
+    margin-left: auto;
 }

@@ -100,7 +100,7 @@ class Post extends Component {
   renderNextButton = () => {
     if (!this.isLastSubmodule()) {
       return (
-        <Button bsStyle="primary" onClick={this.onClickNextSubmoduleButton} bsSize="large">
+        <Button bsStyle="primary" className="btn-right" onClick={this.onClickNextSubmoduleButton} bsSize="large">
           Dalej
         </Button>
       )
