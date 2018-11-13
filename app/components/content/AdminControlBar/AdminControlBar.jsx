@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { setAppMode } from "../../../../redux/appState/actions";
+import "./AdminControlBar.scss";
 
 class AdminControlBar extends Component {
   constructor(props) {

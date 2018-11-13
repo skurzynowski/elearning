@@ -4,6 +4,7 @@ import { Grid, Row, Col } from "react-bootstrap";
 import CourseTitle from "../CourseTitle/CourseTitle";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import UserPanel from "../UserPanel/UserPanel";
+import "./Header.scss";
 
 export default class Header extends Component {
   render() {

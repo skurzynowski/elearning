@@ -10,6 +10,7 @@ import {
   setModules,
   setModuleKeys
 } from "../../../../redux/appState/actions";
+import "./SiteBarAdmin.scss";
 
 class SiteBarAdmin extends Component {
   constructor(props) {
@@ -70,6 +71,7 @@ class SiteBarAdmin extends Component {
   getActiveModule = () => {
     return this.props.activeModule;
   };
+
   onClickModule = key => {
     if (
       this.props.appGlobalMode !== "test" &&

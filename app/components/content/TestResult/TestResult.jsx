@@ -27,6 +27,7 @@ import {
 import StartTestButton from "../StartTestButton/StartTestButton";
 import StartModuleButton from "../StartModuleButton/StartModuleButton";
 import DownloadCertificateButton from "../DownloadCertificateButton/DownloadCertificateButton";
+import "./TestResult.scss";
 
 const imagePlaceholder =
   "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
@@ -57,6 +58,7 @@ class TestResult extends Component {
       this.setState({ lastTest: true });
     }
   };
+
   getCertificateButton = () => {
     if (
       this.props.certificateDownloaded === true ||
@@ -67,6 +69,7 @@ class TestResult extends Component {
       return <DownloadCertificateButton />;
     }
   };
+
   getAllertPercents = () => {
     if (this.props.testResults.percents >= 75) {
       var alertClass = "success";
@@ -81,6 +84,7 @@ class TestResult extends Component {
       </Alert>
     );
   };
+
   getAllertCorrectAnswers = () => {
     if (this.props.testResults.percents >= 75) {
       var alertClass = "success";

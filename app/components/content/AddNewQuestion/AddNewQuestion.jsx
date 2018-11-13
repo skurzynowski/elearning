@@ -19,6 +19,7 @@ import {
   updateQuestionsCollection,
   updateListOfTests
 } from "../../../../redux/appState/actions";
+import "./AddNewQuestion.scss";
 
 const imagePlaceholder =
   "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";
@@ -50,6 +51,7 @@ class AddNewQuestion extends Component {
   onChangeQuestion = e => {
     this.setState({ question: e.target.value });
   };
+
   onClickBtnAddCourse = e => {
     let tests = this.props.listOfTests;
     tests = tests.concat({ title: this.state.testTitle, ID: tests.length + 1 });
@@ -57,18 +59,18 @@ class AddNewQuestion extends Component {
     this.setState({ testTitle: "" });
   };
 
-  imageExists(image_url) {
+  imageExists = image_url => {
     if ("" === image_url) {
       return false;
     }
 
-    var http = new XMLHttpRequest();
+    let http = new XMLHttpRequest();
 
     http.open("HEAD", image_url, false);
     http.send();
 
     return http.status != 404;
-  }
+  };
 
   onChangeAnswer = (answerNumber, e) => {
     let answers = this.state.answers;

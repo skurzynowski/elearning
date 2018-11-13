@@ -20,6 +20,7 @@ import {
   setCurrentTest,
   setSelectedAnswersDefault
 } from "../../../../redux/appState/actions";
+import "./StartModuleButton.scss";
 
 class StartModuleButton extends Component {
   startModule = () => {

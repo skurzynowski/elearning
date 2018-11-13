@@ -10,6 +10,7 @@ import {
   setTestResults,
   setCurrentTest
 } from "../../../../redux/appState/actions";
+import "./LightBox.scss";
 
 class LightboxExample extends Component {
   constructor(props) {

@@ -1,22 +1,26 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Grid, Row, Col } from 'react-bootstrap'
-import { connect } from 'react-redux'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Grid, Row, Col } from "react-bootstrap";
+import { connect } from "react-redux";
+import "./Logo.scss";
 
 class Logo extends Component {
-  render () {
+  render() {
     return (
       <div className="sitebar-logo">
-        <img src={this.props.logoUrl} alt="..." className="img-thumbnail"/>
+        <img src={this.props.logoUrl} alt="..." className="img-thumbnail" />
       </div>
-    )
+    );
   }
 }
 
-const mapDispatchToProps = ({})
+const mapDispatchToProps = {};
 
 const mapStateToProps = state => ({
   logoUrl: state.appState.logoUrl
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Logo)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Logo);

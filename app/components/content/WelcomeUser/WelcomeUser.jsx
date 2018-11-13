@@ -15,6 +15,7 @@ import fetchWp from "../../../utils/fetchWP";
 import { connect } from "react-redux";
 import StartTestButton from "../StartTestButton/StartTestButton";
 import jsPDF from "jspdf";
+import "./WelcomeUser.scss";
 
 const imagePlaceholder =
   "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180";

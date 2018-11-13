@@ -20,6 +20,7 @@ import {
   updateAnswers,
   setSelectedAnswersDefault
 } from "../../../../redux/appState/actions";
+import "./StartTestButton.scss";
 
 class StartTestButton extends Component {
   getQuestions = () => {
@@ -29,6 +30,7 @@ class StartTestButton extends Component {
       .then(json => this.props.updateQuestionsCollection(json.question))
       .then(this.props.setAppMode("test"));
   };
+
   componentWillReceiveProps = newProps => {};
 
   render() {

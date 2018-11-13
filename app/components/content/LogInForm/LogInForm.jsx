@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { updateListOfTests } from "../../../../redux/appState/actions";
+import "./LogInForm.scss";
 
 class LogInForm extends Component {
   constructor(props) {

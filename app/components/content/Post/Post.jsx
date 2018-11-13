@@ -21,6 +21,7 @@ import {
   setActiveSubmodule,
   setProgress
 } from "../../../../redux/appState/actions";
+import "./Post.scss";
 
 class Post extends Component {
   constructor(props) {

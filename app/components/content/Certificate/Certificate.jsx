@@ -18,6 +18,7 @@ import {
   setAppMode,
   setCertificateDownloaded
 } from "../../../../redux/appState/actions";
+import "./Certificate.scss";
 
 class Certificate extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class Certificate extends Component {
   onClickSave = () => {
     this.setState({ hiddeButton: true });
   };
+
   componentDidUpdate = () => {
     if (this.state.hiddeButton === true) {
       window.print();
@@ -42,6 +44,7 @@ class Certificate extends Component {
       this.props.setAppMode("result");
     }
   };
+
   renderCertificateContent = () => {
     return (
       <div

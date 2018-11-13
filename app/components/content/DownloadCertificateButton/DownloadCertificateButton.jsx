@@ -20,6 +20,7 @@ import {
   setCurrentTest,
   setCertificateDownloaded
 } from "../../../../redux/appState/actions";
+import "./DownloadCertificateButton.scss";
 
 class DownloadCertificateButton extends Component {
   downloadCertyficate = () => {

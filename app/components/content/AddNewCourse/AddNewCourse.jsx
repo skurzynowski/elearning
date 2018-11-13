@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { updateListOfTests } from "../../../../redux/appState/actions";
+import "./AddNewCourse.scss";
 
 class AddNewCourse extends Component {
   constructor(props) {
@@ -27,9 +28,11 @@ class AddNewCourse extends Component {
   onChangeTitle = e => {
     this.setState({ testTitle: e.target.value });
   };
+
   onChangeDescription = e => {
     this.setState({ description: e.target.value });
   };
+
   onClickBtnAddCourse = e => {
     this.props.fetchWP
       .post("course", {

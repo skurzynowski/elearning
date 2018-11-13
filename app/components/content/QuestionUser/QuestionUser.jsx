@@ -25,7 +25,7 @@ import {
   setCurrentTest,
   setProgress
 } from "../../../../redux/appState/actions";
-
+import "./QuestionUser.scss";
 import LightBox from "../LightBox/LightBox";
 
 const imagePlaceholder =
@@ -53,6 +53,7 @@ class QuestionUser extends Component {
 
     this.props.updateAnswers(answers);
   };
+
   onClickNextQuestion = () => {
     this.props.setProgress(this.props.progress + 1);
     this.updateAnswers();
@@ -61,6 +62,7 @@ class QuestionUser extends Component {
       selectedAnswer: ""
     });
   };
+
   renderCourseOptions = () => {
     return this.props.listOfTests.map(function(data) {
       return (
@@ -74,6 +76,7 @@ class QuestionUser extends Component {
   onChangeRadio = e => {
     this.setState({ selectedAnswer: e.target.value });
   };
+
   renderQuestions = () => {
     let questions = this.props.questionsCollection[this.state.questionIndex]
       .answer;
@@ -182,6 +185,7 @@ class QuestionUser extends Component {
       );
     }
   };
+
   onClickImage = () => {
     // this.setState({
     //   selectedImages: this.state.selectedImages.concat(
