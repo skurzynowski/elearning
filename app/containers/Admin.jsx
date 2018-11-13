@@ -83,7 +83,6 @@ export default class Admin extends Component {
       <div className="wrap">
         <form>
           <h1>WP Reactivate Settings</h1>
-          
           <label>
           Example Setting:
             <input

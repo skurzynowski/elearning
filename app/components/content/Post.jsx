@@ -151,10 +151,10 @@ class Post extends Component {
                 }}
               />
             ) : null}
-            <Panel.Body>
+            <div className="post-btn-container">
               {this.renderPreviousButton()}
               {this.renderNextButton()}
-            </Panel.Body>
+            </div>
           </Panel>
         </Grid>
       </Col>
