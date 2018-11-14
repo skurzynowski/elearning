@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Grid, Row, Col } from "react-bootstrap";
-import Header from "../components/header/Header/Header";
+import Header from "../components/header/Header";
 import { connect } from "react-redux";
 import {
   setCurrentTest,
@@ -11,17 +11,17 @@ import {
   setAppMode,
   setSumOfQuestions
 } from "../../redux/appState/actions";
-import SiteBarAdmin from "../components/sitebar/SiteBarAdmin/SiteBarAdmin";
-import AddNewCourse from "../components/content/AddNewCourse/AddNewCourse";
-import AddNewQuestion from "../components/content/AddNewQuestion/AddNewQuestion";
+import SiteBarAdmin from "../components/sitebar/SiteBarAdmin";
+import AddNewCourse from "../components/content/AddNewCourse";
+import AddNewQuestion from "../components/content/AddNewQuestion";
 import fetchWP from "../utils/fetchWP";
-import AdminControlBar from "../components/content/AdminControlBar/AdminControlBar";
-import WelcomeUser from "../components/content/WelcomeUser/WelcomeUser";
-import QuestionUser from "../components/content/QuestionUser/QuestionUser";
-import TestResult from "../components/content/TestResult/TestResult";
-import Post from "../components/content/Post/Post";
-import Certificate from "../components/content/Certificate/Certificate";
-import Timer from "../components/content/Timer/Timer";
+import AdminControlBar from "../components/content/AdminControlBar";
+import WelcomeUser from "../components/content/WelcomeUser";
+import QuestionUser from "../components/content/QuestionUser";
+import TestResult from "../components/content/TestResult";
+import Post from "../components/content/Post";
+import Certificate from "../components/content/Certificate";
+import Timer from "../components/content/Timer";
 
 class Shortcode extends Component {
   constructor(props) {
