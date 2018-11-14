@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
-  FormControl,
   Grid,
-  Row,
   Col,
   Form,
   FormGroup,

@@ -1,15 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  Grid,
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  ControlLabel,
-  Button,
-  ButtonGroup
-} from "react-bootstrap";
+import { Grid, Col, Button, ButtonGroup } from "react-bootstrap";
 import { connect } from "react-redux";
 import { setAppMode } from "../../../redux/appState/actions";
 import "../../../style/components/content/AdminControlBar.scss";

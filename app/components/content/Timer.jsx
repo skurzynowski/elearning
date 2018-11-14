@@ -1,18 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {
-  FormControl,
-  Grid,
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  ControlLabel,
-  Button,
-  Panel,
-  Radio
-} from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import "../../../style/components/content/Timer.scss";
 
 class Timer extends React.Component {

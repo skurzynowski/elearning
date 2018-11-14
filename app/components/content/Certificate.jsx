@@ -1,16 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  FormControl,
-  Grid,
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  ControlLabel,
-  Button,
-  Panel
-} from "react-bootstrap";
+import { Grid, Col, Button, Panel } from "react-bootstrap";
 import fetchWp from "../../utils/fetchWP";
 import { connect } from "react-redux";
 import StartTestButton from "./StartTestButton";

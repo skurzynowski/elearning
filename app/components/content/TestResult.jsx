@@ -1,19 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  FormControl,
-  Grid,
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  ControlLabel,
-  Button,
-  Panel,
-  ProgressBar,
-  Alert,
-  Badge
-} from "react-bootstrap";
+import { Grid, Col, Panel, ProgressBar, Alert } from "react-bootstrap";
 import fetchWp from "../../utils/fetchWP";
 import { connect } from "react-redux";
 import {

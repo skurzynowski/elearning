@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
-  FormText,
   Panel,
   Grid,
-  Row,
   Col,
   Form,
   FormGroup,
