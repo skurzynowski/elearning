@@ -175,8 +175,6 @@ class AddNewQuestion extends Component {
                   <Button onClick={this.onClickSelectImage} bsStyle="primary">
                     Wybierz obrazek
                   </Button>
-                  {/*<FormControl onBlur={this.onBlurImageLink} onChange={this.onChangePhotoUrl} value={this.state.photoUrl}*/}
-                  {/*type="url" name="url" id="exampleUrl" placeholder="Wprowadź adres URL obrazka"/>*/}
                 </FormGroup>
                 <FormGroup>
                   <ControlLabel>Wprowadź treść pytania:</ControlLabel>

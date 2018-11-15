@@ -1454,14 +1454,6 @@ function (_Component) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickImage", function () {// this.setState({
-      //   selectedImages: this.state.selectedImages.concat(
-      //     this.props.questionsCollection[this.state.questionIndex].imageSrc
-      //   )
-      // });
-      // this.props.toggleLightbox();
-    });
-
     _this.state = {
       questionIndex: 0,
       questionsCollection: _this.props.questionsCollection,
@@ -1494,7 +1486,6 @@ function (_Component) {
       }, typeof this.state.selectedImages[0] != "undefined" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LightBox__WEBPACK_IMPORTED_MODULE_7__["default"], {
         imageUrl: this.state.selectedImages
       }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        onClick: this.onClickImage,
         src: this.props.questionsCollection[this.state.questionIndex].imageSrc,
         alt: "...",
         className: "img-thumbnail"
@@ -1899,12 +1890,15 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertPercents", function () {
+      var alertClass = "";
+      var text = "";
+
       if (_this.props.testResults.percents >= 75) {
-        var alertClass = "success";
-        var text = "Gratulacje uzyskałeś niezbędne 75%";
+        alertClass = "success";
+        text = "Gratulacje uzyskałeś niezbędne 75%";
       } else {
-        var alertClass = "danger";
-        var text = "Aby uzyskać certyfikat powinieneś uzyskać 75%";
+        alertClass = "danger";
+        text = "Aby uzyskać certyfikat powinieneś uzyskać 75%";
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {
@@ -1913,10 +1907,12 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertCorrectAnswers", function () {
+      var alertClass = "";
+
       if (_this.props.testResults.percents >= 75) {
-        var alertClass = "success";
+        alertClass = "success";
       } else {
-        var alertClass = "danger";
+        alertClass = "danger";
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {
@@ -1925,10 +1921,12 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getAllertWrongAnswers", function () {
+      var alertClass = "";
+
       if (_this.props.testResults.percents >= 75) {
-        var alertClass = "success";
+        alertClass = "success";
       } else {
-        var alertClass = "danger";
+        alertClass = "danger";
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Alert"], {

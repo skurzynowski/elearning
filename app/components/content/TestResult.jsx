@@ -58,12 +58,14 @@ class TestResult extends Component {
   };
 
   getAllertPercents = () => {
+    let alertClass = "";
+    let text = "";
     if (this.props.testResults.percents >= 75) {
-      var alertClass = "success";
-      var text = "Gratulacje uzyskałeś niezbędne 75%";
+      alertClass = "success";
+      text = "Gratulacje uzyskałeś niezbędne 75%";
     } else {
-      var alertClass = "danger";
-      var text = "Aby uzyskać certyfikat powinieneś uzyskać 75%";
+      alertClass = "danger";
+      text = "Aby uzyskać certyfikat powinieneś uzyskać 75%";
     }
     return (
       <Alert bsStyle={alertClass}>
@@ -73,10 +75,11 @@ class TestResult extends Component {
   };
 
   getAllertCorrectAnswers = () => {
+    let alertClass = "";
     if (this.props.testResults.percents >= 75) {
-      var alertClass = "success";
+      alertClass = "success";
     } else {
-      var alertClass = "danger";
+      alertClass = "danger";
     }
     return (
       <Alert bsStyle={alertClass}>
@@ -86,10 +89,11 @@ class TestResult extends Component {
   };
 
   getAllertWrongAnswers = () => {
+    let alertClass = "";
     if (this.props.testResults.percents >= 75) {
-      var alertClass = "success";
+      alertClass = "success";
     } else {
-      var alertClass = "danger";
+      alertClass = "danger";
     }
     return (
       <Alert bsStyle={alertClass}>

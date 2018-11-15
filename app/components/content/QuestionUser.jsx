@@ -184,15 +184,6 @@ class QuestionUser extends Component {
     }
   };
 
-  onClickImage = () => {
-    // this.setState({
-    //   selectedImages: this.state.selectedImages.concat(
-    //     this.props.questionsCollection[this.state.questionIndex].imageSrc
-    //   )
-    // });
-    // this.props.toggleLightbox();
-  };
-
   render() {
     return (
       <Col>
@@ -202,7 +193,6 @@ class QuestionUser extends Component {
           ) : null}
           <Panel>
             <img
-              onClick={this.onClickImage}
               src={
                 this.props.questionsCollection[this.state.questionIndex]
                   .imageSrc

@@ -168,31 +168,31 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Admin).call(this, props));
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getSetting", function () {
-      _this.fetchWP.get('example').then(function (json) {
+      _this.fetchWP.get("example").then(function (json) {
         return _this.setState({
           exampleSetting: json.value,
           savedExampleSetting: json.value
         });
       }, function (err) {
-        return console.log('error', err);
+        return console.log("error", err);
       });
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "updateSetting", function () {
-      _this.fetchWP.post('example', {
+      _this.fetchWP.post("example", {
         exampleSetting: _this.state.exampleSetting
       }).then(function (json) {
-        return _this.processOkResponse(json, 'saved');
+        return _this.processOkResponse(json, "saved");
       }, function (err) {
-        return console.log('error', err);
+        return console.log("error", err);
       });
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "deleteSetting", function () {
-      _this.fetchWP.delete('example').then(function (json) {
-        return _this.processOkResponse(json, 'deleted');
+      _this.fetchWP.delete("example").then(function (json) {
+        return _this.processOkResponse(json, "deleted");
       }, function (err) {
-        return console.log('error', err);
+        return console.log("error", err);
       });
     });
 
@@ -217,7 +217,7 @@ function (_Component) {
       event.preventDefault();
 
       if (_this.state.exampleSetting === _this.state.savedExampleSetting) {
-        console.log('Setting unchanged');
+        console.log("Setting unchanged");
       } else {
         _this.updateSetting();
       }
@@ -230,8 +230,8 @@ function (_Component) {
     });
 
     _this.state = {
-      exampleSetting: '',
-      savedExampleSetting: ''
+      exampleSetting: "",
+      savedExampleSetting: ""
     };
     _this.fetchWP = new _utils_fetchWP__WEBPACK_IMPORTED_MODULE_2__["default"]({
       restURL: _this.props.wpObject.api_url,
