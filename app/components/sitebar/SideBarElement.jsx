@@ -9,7 +9,7 @@ import {
   setActiveModule,
   setAppMode,
   setModules,
-  setModuleKeys,
+  setModuleKeys, setNotAllowed, setSelectedAnswersDefault, updateQuestionsCollection, setCurrentTest
 } from '../../../redux/appState/actions'
 
 class SideBarElement extends Component {
@@ -21,18 +21,88 @@ class SideBarElement extends Component {
     }
   }
 
+  setNotAllowed = (message) => {
+    let notAllowed = {}
+    notAllowed.status = true
+    notAllowed.info = {}
+    notAllowed.info.btn = 'Zamknij'
+    notAllowed.info.body = message
+
+    this.props.setNotAllowed(notAllowed)
+  }
+
+  isClickValid = () => {
+    if (this.props.appGlobalMode === 'welcome') {
+      return false
+    }
+    if (this.props.appGlobalMode === 'test') {
+      return false
+    }
+    if (this.props.appGlobalMode === 'post') {
+      return true
+    }
+    if (this.props.appGlobalMode === 'result') {
+      this.props.setAppMode('post')
+      return true
+    }
+  }
+
+  startPreTest = () => {
+    if (this.props.appGlobalMode === 'welcome') {
+      this.props.setAnswersDefault()
+      this.props.fetchWP
+        .get('question/' + this.props.currentTest)
+        .then(json => this.props.updateQuestionsCollection(json.question))
+        .then(this.props.setAppMode('test'))
+    }
+  }
+
+  startExamTest = () => {
+    //not all module finished
+    if (this.props.visitedModules.length !== this.props.moduleKeys.length) {
+      this.setNotAllowed('Ukończ wszystkie moduły, aby zacząć test końcowy')
+      return
+    }
+
+    //test already started
+    if (this.props.appGlobalMode === 'test') {
+      return
+    }
+
+    this.props.setAnswersDefault()
+    this.props.fetchWP
+      .get('question/' + 'post-test')
+      .then(json => this.props.updateQuestionsCollection(json.question))
+      .then(this.props.setAppMode('test'))
+      .then(this.props.setCurrentTest('post-test'))
+      .then(this.props.setActiveSubmodule(null))
+      .then(this.props.setActiveModule(null))
+  }
+
   handleClick = () => {
     const {type} = this.props
     const submodule = typeof this.props.submoduleKey === 'undefined' ? '0' : this.props.submoduleKey
     const module = this.props.moduleKey
     switch (type) {
       case 'pretest':
+        this.startPreTest()
+        break
       case 'posttest':
-        return
+        this.startExamTest()
+        break
       case 'submodule':
       case 'module':
-        this.props.setActiveSubmodule(module + '_' + submodule)
-        this.props.setActiveModule(module)
+        if (this.isClickValid()) {
+          this.props.setActiveSubmodule(module + '_' + submodule)
+          this.props.setActiveModule(module)
+          return
+        } else {
+          if (this.props.currentTest === 'pre-test') {
+            this.setNotAllowed('Ukończ test wstępny aby przejść do modułu lekcyjnego')
+          } else {
+            this.setNotAllowed('Ukończ egzamin aby wrócić do modułu lekcyjnego')
+          }
+        }
     }
   }
 
@@ -91,6 +161,10 @@ const mapDispatchToProps = dispatch => ({
   setActiveModule: module => dispatch(setActiveModule(module)),
   setAppMode: mode => dispatch(setAppMode(mode)),
   setModuleKeys: keys => dispatch(setModuleKeys(keys)),
+  setNotAllowed: bool => dispatch(setNotAllowed(bool)),
+  setAnswersDefault: () => dispatch(setSelectedAnswersDefault()),
+  updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),
+  setCurrentTest: test => dispatch(setCurrentTest(test)),
 })
 
 const mapStateToProps = state => ({

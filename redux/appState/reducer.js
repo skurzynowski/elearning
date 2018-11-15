@@ -23,6 +23,7 @@ const defaultState = {
   sumQuestions: 0,
   progress: 0,
   visitedModules: [],
+  notAllowed: false,
 }
 
 export default function appState (state = defaultState, action) {
@@ -110,8 +111,13 @@ export default function appState (state = defaultState, action) {
     case 'APPSTATE_SET_SUM_QUESTIONS':
       newState.sumQuestions = action.sum
       return newState
+
     case 'APPSTATE_SET_PROGRESS':
       newState.progress = action.value
+      return newState
+
+    case 'APPSTATE_SET_NOT_ALLOWED':
+      newState.notAllowed = action.notAllowed
       return newState
 
     default:

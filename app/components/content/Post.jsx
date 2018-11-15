@@ -85,7 +85,7 @@ class Post extends Component {
   onClickPreviousModule = () => {
     let indexOfActiveSubmodule = this.props.moduleKeys.indexOf(this.props.activeSubmodule)
     this.props.setActiveSubmodule(this.props.moduleKeys[indexOfActiveSubmodule - 1])
-    this.props.setActiveModule(this.props.moduleKeys[indexOfActiveSubmodule - 1][0])
+    this.props.setActiveModule(parseInt( this.props.moduleKeys[indexOfActiveSubmodule - 1][0]))
   }
   renderPreviousButton = () => {
     if (this.props.activeSubmodule == '0_0') {

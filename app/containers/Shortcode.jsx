@@ -22,6 +22,7 @@ import TestResult from '../components/content/TestResult'
 import Post from '../components/content/Post'
 import Certificate from '../components/content/Certificate'
 import Timer from '../components/content/Timer'
+import InfoModal from '../components/sitebar/InfoModal'
 
 class Shortcode extends Component {
   constructor (props) {
@@ -33,7 +34,7 @@ class Shortcode extends Component {
     })
 
     this.props.setFetchWP(fetchWPInstance)
-    this.props.setSumOfQuestions(this.props.wpObject.sumOfQuestions);
+    this.props.setSumOfQuestions(this.props.wpObject.sumOfQuestions)
   }
 
   render () {
@@ -51,7 +52,6 @@ class Shortcode extends Component {
                 {this.props.appGlobalMode === 'certificate' ? <Certificate/> : (
                   <Header/>
                 )}
-                {}
                 {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
                 {(this.props.appGlobalMode === 'test' &&
                   this.props.questionsCollection.length > 0) ||
@@ -62,6 +62,7 @@ class Shortcode extends Component {
                 this.props.questionsCollection.length > 0 ? (
                   <QuestionUser/>
                 ) : null}
+                {this.props.notAllowed.status === true ? <InfoModal/> : null}
                 {this.props.appGlobalMode === 'result' ? <TestResult/> : null}
                 {this.props.appGlobalMode === 'post' ? <Post/> : null}
                 {this.props.appGlobalMode === 'add_question' ? (
@@ -90,11 +91,13 @@ const mapDispatchToProps = dispatch => ({
   setAppMode: mode => dispatch(setAppMode(mode)),
   setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug)),
   setSumOfQuestions: sum => dispatch(setSumOfQuestions(sum)),
+
 })
 
 const mapStateToProps = state => ({
   appGlobalMode: state.appState.appGlobalMode,
-  questionsCollection: state.appState.questionsCollection
+  questionsCollection: state.appState.questionsCollection,
+  notAllowed: state.appState.notAllowed,
 })
 
 export default connect(

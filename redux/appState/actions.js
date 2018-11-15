@@ -90,3 +90,7 @@ export const setProgress = (value) => ({
   type: 'APPSTATE_SET_PROGRESS',
   value
 })
+export const setNotAllowed = (notAllowed) => ({
+  type: 'APPSTATE_SET_NOT_ALLOWED',
+  notAllowed
+})

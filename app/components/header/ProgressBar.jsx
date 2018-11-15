@@ -5,20 +5,56 @@ import { connect } from 'react-redux'
 import { ProgressBar } from 'react-bootstrap'
 
 class ProgressBarTest extends Component {
+  constructor (props) {
+    super(props)
+  }
+
   countProgres = () => {
-    let allQuestions = this.props.sumQuestions
-    let allModules = this.props.moduleKeys.length
-    let progress = this.props.progress && parseInt(((this.props.progress / (parseInt(allModules) + parseInt(allQuestions))) * 100))
-    if (progress > 100) {
-      return 100
+    const {currentTest, visitedModules, moduleKeys, appGlobalMode, selectedAnswers, questionsCollection} = this.props
+    switch (appGlobalMode) {
+      case 'test':
+        if (questionsCollection.length > 0) {
+          return (parseInt((selectedAnswers.length / questionsCollection.length) * 100))
+        }
+        return 0
+      case 'post':
+        if (visitedModules.length > 0) {
+          return (parseInt((visitedModules.length / moduleKeys.length) * 100))
+        }
+        return 0
+      case 'welcome':
+        return 0
+      case 'result':
+        return 100
     }
-    return progress
+  }
+
+  getTitle = () => {
+    const {currentTest, visitedModules, moduleKeys, appGlobalMode, selectedAnswers, questionsCollection} = this.props
+    switch (appGlobalMode) {
+      case 'test':
+        if (currentTest === 'pre-test') {
+          return 'Ukończenie pretestu'
+        } else {
+          return 'Ukończenie egzaminu'
+        }
+      case 'post':
+        return 'Ukończenie kursu'
+      case 'welcome':
+        return 'Ukończenie pretestu'
+      case 'result':
+        if (currentTest === 'pre-test') {
+          return 'Ukończenie pretestu'
+        } else {
+          return 'Ukończenie egzaminu'
+        }
+    }
   }
 
   render () {
     return (
       <div className="header-progress-bar">
-        <div className="text-left">Ukończenie kursu {this.countProgres()}%</div>
+        <div className="text-left">{this.getTitle()} {this.countProgres()}%</div>
         <ProgressBar now={this.countProgres()}/>
       </div>
     )
@@ -31,6 +67,10 @@ const mapStateToProps = state => ({
   sumQuestions: state.appState.sumQuestions,
   progress: state.appState.progress,
   moduleKeys: state.appState.moduleKeys,
+  appGlobalMode: state.appState.appGlobalMode,
+  visitedModules: state.appState.visitedModules,
+  moduleKeys: state.appState.moduleKeys,
+  currentTest: state.appState.currentTest,
 })
 
 export default connect(mapStateToProps)(ProgressBarTest)
