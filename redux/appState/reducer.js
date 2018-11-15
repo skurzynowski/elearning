@@ -22,6 +22,7 @@ const defaultState = {
   moduleKeys: [],
   sumQuestions: 0,
   progress: 0,
+  visitedModules: [],
 }
 
 export default function appState (state = defaultState, action) {
@@ -93,6 +94,10 @@ export default function appState (state = defaultState, action) {
 
     case 'APPSTATE_SET_ACTIVE_SUBMODULE':
       newState.activeSubmodule = action.submodule
+      const index = state.moduleKeys.indexOf(action.submodule)
+      if (0 < index && state.visitedModules.length <= index) {
+        newState.visitedModules = state.moduleKeys.slice(0, index + 1)
+      }
       return newState
 
     case 'APPSTATE_SET_CERTIFICATE_DOWNLOADED':

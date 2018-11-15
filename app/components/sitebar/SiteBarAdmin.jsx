@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import SideBarElement from './SideBarElement'
 import {
   setActivePost,
   setActiveSubmodule,
@@ -21,16 +22,15 @@ class SiteBarAdmin extends Component {
       endpointData: [],
       activeSubmodule: false,
     }
-
-    this.fetchModules()
   }
 
   componentDidMount () {
+    this.fetchModules()
   }
 
   getAllModules = (modules) => {
     return modules.reduce(
-      function (acumulator,data, key) {
+      function (acumulator, data, key) {
         let tmp_array = []
         for (let i = 0; i < 6; i++) {
           let elementName = 'module_title_' + i
@@ -38,7 +38,7 @@ class SiteBarAdmin extends Component {
           !!data.fields[elementName] && tmp_array.push(submodulNumber)
         }
         return acumulator.concat(tmp_array)
-      },[])
+      }, [])
   }
 
   componentWillReceiveProps = nextProps => {
@@ -58,7 +58,7 @@ class SiteBarAdmin extends Component {
     this.props.fetchWP.get('modules').then(json => {
       this.setState({adminList: json.modules})
       this.props.setModules(json.modules)
-      this.props.setModuleKeys( this.getAllModules(json.modules))
+      this.props.setModuleKeys(this.getAllModules(json.modules))
     })
   }
 
@@ -82,9 +82,10 @@ class SiteBarAdmin extends Component {
       function (data, key) {
         let tmp_array = []
         tmp_array.push(
-          <ListGroupItem
-            active={this.getActiveModule() == key}
+          <SideBarElement
             key={key + '_module'}
+            moduleKey={key}
+            type="module"
             header={data.post_title}
           />
         )
@@ -92,11 +93,14 @@ class SiteBarAdmin extends Component {
         for (let i = 0; i < 6; i++) {
           let elementName = 'module_title_' + i
           let submodulNumber = key + '_' + i
-          !!data.fields[elementName] && tmp_array.push(<ListGroupItem
-            onClick={() => this.onClickModule(submodulNumber)}
-            active={this.getActiveSubmodule() == submodulNumber} key={elementName}>
-            1. {data.fields[elementName]}
-          </ListGroupItem>)
+          !!data.fields[elementName] && tmp_array.push(
+            <SideBarElement
+              key={key + '_' + i}
+              moduleKey={key}
+              submoduleKey={i}
+              type="submodule"
+              text={data.fields[elementName]}
+            />)
         }
         return tmp_array
       }.bind(this)
@@ -104,20 +108,12 @@ class SiteBarAdmin extends Component {
   }
 
   render () {
-    const isTest = this.props.appGlobalMode === 'test'
-    const isWelcome = this.props.appGlobalMode === 'welcome'
     return (
       <div className="sitebar-admin-wraper">
         <ListGroup className="sitebar-admin-course-list">
-          <ListGroupItem
-            header="Pretest"
-            active={(isTest || isWelcome) && this.props.currentTest == 'pre-test'}
-          />
+          <SideBarElement type="pretest" header={'Pretest'}/>
           {this.fillList(this.state.adminList)}
-          <ListGroupItem
-            header="Test egzaminacyjny"
-            active={isTest && this.props.currentTest == 'post-test'}
-          />
+          <SideBarElement type="posttest" header={'Test egzaminacyjny'}/>
         </ListGroup>
       </div>
     )
