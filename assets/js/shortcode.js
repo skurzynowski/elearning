@@ -143,16 +143,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(AddNewCourse).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onChangeTitle", function (e) {
-      _this.setState({
-        testTitle: e.target.value
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onChangeDescription", function (e) {
-      _this.setState({
-        description: e.target.value
-      });
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onChange", function (e, element) {
+      _this.setState(_defineProperty({}, element, e.target.value));
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickBtnAddCourse", function (e) {
@@ -184,18 +176,24 @@ function (_Component) {
   _createClass(AddNewCourse, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
         xs: 8,
         offset: 2
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
         componentClass: "content-add-new-course"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Heading, null, "Dodaj kurs:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Tytu\u0142 testu"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
-        onChange: this.onChangeTitle,
+        onChange: function onChange(e) {
+          return _this2.onChange(e, "testTitle");
+        },
         value: this.state.testTitle,
         componentClass: "textarea",
         name: "courseTitleInput"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ControlLabel"], null, "Kr\xF3tki opis testu"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["FormControl"], {
-        onChange: this.onChangeDescription,
+        onChange: function onChange(e) {
+          return _this2.onChange(e, "description");
+        },
         value: this.state.description,
         componentClass: "textarea",
         name: "courseTitleInput"
@@ -592,78 +590,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_appState_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../redux/appState/actions */ "./redux/appState/actions.js");
 /* harmony import */ var _style_components_content_AdminControlBar_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../style/components/content/AdminControlBar.scss */ "./style/components/content/AdminControlBar.scss");
 /* harmony import */ var _style_components_content_AdminControlBar_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_style_components_content_AdminControlBar_scss__WEBPACK_IMPORTED_MODULE_5__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _this = undefined;
 
 
 
 
 
 
+ // const { propName } = this.props;
 
+var AdminControlBar = function AdminControlBar(propName) {
+  onClickBtnAddCourse = function onClickBtnAddCourse(e) {
+    propName.setAppMode("add_course");
+  };
 
-var AdminControlBar =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(AdminControlBar, _Component);
+  onClickBtnAddQuestion = function onClickBtnAddQuestion(e) {
+    Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_4__["setAppMode"])("add_question");
+  };
 
-  function AdminControlBar(props) {
-    var _this;
-
-    _classCallCheck(this, AdminControlBar);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(AdminControlBar).call(this, props));
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickBtnAddCourse", function (e) {
-      _this.props.setAppMode("add_course");
-    });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickBtnAddQuestion", function (e) {
-      _this.props.setAppMode("add_question");
-    });
-
-    return _this;
-  }
-
-  _createClass(AdminControlBar, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
-        xs: 8,
-        offset: 2
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
-        className: "admin-control-bar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        size: "lg",
-        onClick: this.onClickBtnAddCourse,
-        bsStyle: "success"
-      }, "Nowy test"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        size: "lg",
-        onClick: this.onClickBtnAddQuestion,
-        bsStyle: "info"
-      }, "Nowe pytanie"))));
-    }
-  }]);
-
-  return AdminControlBar;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
+    xs: 8,
+    offset: 2
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Grid"], {
+    className: "admin-control-bar"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonGroup"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    size: "lg",
+    onClick: _this.onClickBtnAddCourse,
+    bsStyle: "success"
+  }, "Nowy test"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    size: "lg",
+    onClick: _this.onClickBtnAddQuestion,
+    bsStyle: "info"
+  }, "Nowe pytanie"))));
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
@@ -840,25 +799,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/appState/actions */ "./redux/appState/actions.js");
 /* harmony import */ var _style_components_content_DownloadCertificateButton_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../style/components/content/DownloadCertificateButton.scss */ "./style/components/content/DownloadCertificateButton.scss");
 /* harmony import */ var _style_components_content_DownloadCertificateButton_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_style_components_content_DownloadCertificateButton_scss__WEBPACK_IMPORTED_MODULE_6__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _this = undefined;
 
 
 
@@ -866,51 +807,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+ // const { propName } = this.props;
 
+var DownloadCertificateButton = function DownloadCertificateButton(propName) {
+  downloadCertyficate = function downloadCertyficate() {
+    propName.setAppMode("certificate");
+    propName.setActiveModule(parseInt(null));
+    propName.setActiveSubmodule(null);
+    propName.setCurrentTest(null);
+  };
 
-var DownloadCertificateButton =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(DownloadCertificateButton, _Component);
-
-  function DownloadCertificateButton() {
-    var _getPrototypeOf2;
-
-    var _this;
-
-    _classCallCheck(this, DownloadCertificateButton);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(DownloadCertificateButton)).call.apply(_getPrototypeOf2, [this].concat(args)));
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "downloadCertyficate", function () {
-      _this.props.setAppMode("certificate");
-
-      _this.props.setActiveModule(parseInt(null));
-
-      _this.props.setActiveSubmodule(null);
-
-      _this.props.setCurrentTest(null);
-    });
-
-    return _this;
-  }
-
-  _createClass(DownloadCertificateButton, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        bsStyle: "primary",
-        onClick: this.downloadCertyficate
-      }, "Pobierz certyfikat");
-    }
-  }]);
-
-  return DownloadCertificateButton;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    bsStyle: "primary",
+    onClick: _this.downloadCertyficate
+  }, "Pobierz certyfikat");
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
@@ -1556,25 +1467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/appState/actions */ "./redux/appState/actions.js");
 /* harmony import */ var _style_components_content_StartModuleButton_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../style/components/content/StartModuleButton.scss */ "./style/components/content/StartModuleButton.scss");
 /* harmony import */ var _style_components_content_StartModuleButton_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_style_components_content_StartModuleButton_scss__WEBPACK_IMPORTED_MODULE_6__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _this = undefined;
 
 
 
@@ -1582,53 +1475,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+ // const { propName } = this.props;
 
+var StartModuleButton = function StartModuleButton(propName) {
+  startModule = function startModule() {
+    propName.setAppMode("post");
+    propName.setActiveModule(parseInt(0));
+    propName.setActiveSubmodule("0_0");
+    propName.setCurrentTest(null);
+    setAnswersDefault();
+  };
 
-var StartModuleButton =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(StartModuleButton, _Component);
-
-  function StartModuleButton() {
-    var _getPrototypeOf2;
-
-    var _this;
-
-    _classCallCheck(this, StartModuleButton);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(StartModuleButton)).call.apply(_getPrototypeOf2, [this].concat(args)));
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "startModule", function () {
-      _this.props.setAppMode("post");
-
-      _this.props.setActiveModule(parseInt(0));
-
-      _this.props.setActiveSubmodule("0_0");
-
-      _this.props.setCurrentTest(null);
-
-      _this.props.setAnswersDefault();
-    });
-
-    return _this;
-  }
-
-  _createClass(StartModuleButton, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        bsStyle: "primary",
-        onClick: this.startModule
-      }, "Rozpocznij nauk\u0119");
-    }
-  }]);
-
-  return StartModuleButton;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    bsStyle: "primary",
+    onClick: _this.startModule
+  }, "Rozpocznij nauk\u0119");
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
@@ -1680,24 +1542,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/appState/actions */ "./redux/appState/actions.js");
 /* harmony import */ var _style_components_content_StartTestButton_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../style/components/content/StartTestButton.scss */ "./style/components/content/StartTestButton.scss");
 /* harmony import */ var _style_components_content_StartTestButton_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_style_components_content_StartTestButton_scss__WEBPACK_IMPORTED_MODULE_6__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -1706,52 +1550,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+ // const { propName } = this.props;
 
+var StartTestButton = function StartTestButton(propName) {
+  getQuestions = function getQuestions(event) {
+    propName.setAnswersDefault();
+    propName.fetchWP.get("question/" + propName.currentTest).then(function (json) {
+      return propName.updateQuestionsCollection(json.question);
+    }).then(propName.setAppMode("test"));
+  };
 
-var StartTestButton =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(StartTestButton, _Component);
+  componentWillReceiveProps = function componentWillReceiveProps(newProps) {};
 
-  function StartTestButton() {
-    var _getPrototypeOf2;
-
-    var _this;
-
-    _classCallCheck(this, StartTestButton);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(StartTestButton)).call.apply(_getPrototypeOf2, [this].concat(args)));
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getQuestions", function () {
-      _this.props.setAnswersDefault();
-
-      _this.props.fetchWP.get("question/" + _this.props.currentTest).then(function (json) {
-        return _this.props.updateQuestionsCollection(json.question);
-      }).then(_this.props.setAppMode("test"));
-    });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentWillReceiveProps", function (newProps) {});
-
-    return _this;
-  }
-
-  _createClass(StartTestButton, [{
-    key: "render",
-    value: function render() {
-      var text = this.props.currentTest == "post-test" && this.props.selectedAnswers.length === this.props.questionsCollection.length ? "Powtórz test" : "Rozpocznij test";
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-        className: "btn-primary",
-        onClick: this.getQuestions
-      }, text);
-    }
-  }]);
-
-  return StartTestButton;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+  var text = currentTest == "post-test" && selectedAnswers.length === questionsCollection.length ? "Powtórz test" : "Rozpocznij test";
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    className: "btn-primary",
+    onClick: getQuestions
+  }, text);
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
@@ -2211,51 +2027,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _style_components_header_CourseTitle_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../style/components/header/CourseTitle.scss */ "./style/components/header/CourseTitle.scss");
 /* harmony import */ var _style_components_header_CourseTitle_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_components_header_CourseTitle_scss__WEBPACK_IMPORTED_MODULE_3__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
+ // const { propName } = this.props;
 
-
-
-var CourseTitle =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(CourseTitle, _Component);
-
-  function CourseTitle() {
-    _classCallCheck(this, CourseTitle);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(CourseTitle).apply(this, arguments));
-  }
-
-  _createClass(CourseTitle, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "header-course-title"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, this.props.courseTitle));
-    }
-  }]);
-
-  return CourseTitle;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+var CourseTitle = function CourseTitle(propName) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "header-course-title"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, propName.courseTitle));
+};
 
 var mapDispatchToProps = {};
 
@@ -2431,51 +2212,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _style_components_header_UserPanel_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../style/components/header/UserPanel.scss */ "./style/components/header/UserPanel.scss");
 /* harmony import */ var _style_components_header_UserPanel_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_components_header_UserPanel_scss__WEBPACK_IMPORTED_MODULE_3__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
+ // const { propName } = this.props;
 
-
-
-var UserPanel =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(UserPanel, _Component);
-
-  function UserPanel() {
-    _classCallCheck(this, UserPanel);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(UserPanel).apply(this, arguments));
-  }
-
-  _createClass(UserPanel, [{
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "header-user-panel"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.userName, " ", this.props.userSurname));
-    }
-  }]);
-
-  return UserPanel;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+var UserPanel = function UserPanel(userName, userSurname) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "header-user-panel"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, propName.userName, " ", propName.userSurname));
+};
 
 var mapDispatchToProps = {};
 

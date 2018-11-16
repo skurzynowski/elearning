@@ -12,31 +12,31 @@ import {
 } from "../../../redux/appState/actions";
 import "../../../style/components/content/StartTestButton.scss";
 
-class StartTestButton extends Component {
-  getQuestions = () => {
-    this.props.setAnswersDefault();
-    this.props.fetchWP
-      .get("question/" + this.props.currentTest)
-      .then(json => this.props.updateQuestionsCollection(json.question))
-      .then(this.props.setAppMode("test"));
+// const { propName } = this.props;
+
+const StartTestButton = propName => {
+  getQuestions = event => {
+    propName.setAnswersDefault();
+    propName.fetchWP
+      .get("question/" + propName.currentTest)
+      .then(json => propName.updateQuestionsCollection(json.question))
+      .then(propName.setAppMode("test"));
   };
 
   componentWillReceiveProps = newProps => {};
 
-  render() {
-    const text =
-      this.props.currentTest == "post-test" &&
-      this.props.selectedAnswers.length ===
-        this.props.questionsCollection.length
-        ? "Powtórz test"
-        : "Rozpocznij test";
-    return (
-      <Button className="btn-primary" onClick={this.getQuestions}>
-        {text}
-      </Button>
-    );
-  }
-}
+  const text =
+    currentTest == "post-test" &&
+    selectedAnswers.length === questionsCollection.length
+      ? "Powtórz test"
+      : "Rozpocznij test";
+
+  return (
+    <Button className="btn-primary" onClick={getQuestions}>
+      {text}
+    </Button>
+  );
+};
 
 const mapDispatchToProps = dispatch => ({
   updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),

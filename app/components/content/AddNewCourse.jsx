@@ -24,12 +24,8 @@ class AddNewCourse extends Component {
     };
   }
 
-  onChangeTitle = e => {
-    this.setState({ testTitle: e.target.value });
-  };
-
-  onChangeDescription = e => {
-    this.setState({ description: e.target.value });
+  onChange = (e, element) => {
+    this.setState({ [element]: e.target.value });
   };
 
   onClickBtnAddCourse = e => {
@@ -58,7 +54,7 @@ class AddNewCourse extends Component {
                 <FormGroup>
                   <ControlLabel>Tytuł testu</ControlLabel>
                   <FormControl
-                    onChange={this.onChangeTitle}
+                    onChange={e => this.onChange(e, "testTitle")}
                     value={this.state.testTitle}
                     componentClass="textarea"
                     name="courseTitleInput"
@@ -67,7 +63,7 @@ class AddNewCourse extends Component {
                 <FormGroup>
                   <ControlLabel>Krótki opis testu</ControlLabel>
                   <FormControl
-                    onChange={this.onChangeDescription}
+                    onChange={e => this.onChange(e, "description")}
                     value={this.state.description}
                     componentClass="textarea"
                     name="courseTitleInput"

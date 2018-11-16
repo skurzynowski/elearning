@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "../../../style/components/sitebar/Logo.scss";
 
-class Logo extends Component {
-  render() {
-    return (
-      <div className="sitebar-logo">
-        <img src={this.props.logoUrl} alt="..." className="img-thumbnail" />
-      </div>
-    );
-  }
-}
+const { propName } = this.props;
+
+const Logo = () => {
+  return (
+    <div className="sitebar-logo">
+      <img src={propName.logoUrl} alt="..." className="img-thumbnail" />
+    </div>
+  );
+};
 
 const mapDispatchToProps = {};
 

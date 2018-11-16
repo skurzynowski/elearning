@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import "../../../style/components/header/UserPanel.scss";
 
-class UserPanel extends Component {
-  render() {
-    return (
-      <div className="header-user-panel">
-        <p>
-          {this.props.userName} {this.props.userSurname}
-        </p>
-      </div>
-    );
-  }
-}
+// const { propName } = this.props;
+
+const UserPanel = (userName, userSurname) => {
+  return (
+    <div className="header-user-panel">
+      <p>
+        {propName.userName} {propName.userSurname}
+      </p>
+    </div>
+  );
+};
 
 const mapDispatchToProps = {};
 

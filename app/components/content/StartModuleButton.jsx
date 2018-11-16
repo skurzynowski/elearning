@@ -12,23 +12,22 @@ import {
 } from "../../../redux/appState/actions";
 import "../../../style/components/content/StartModuleButton.scss";
 
-class StartModuleButton extends Component {
-  startModule = () => {
-    this.props.setAppMode("post");
-    this.props.setActiveModule(parseInt(0));
-    this.props.setActiveSubmodule("0_0");
-    this.props.setCurrentTest(null);
-    this.props.setAnswersDefault();
-  };
+// const { propName } = this.props;
 
-  render() {
-    return (
-      <Button bsStyle="primary" onClick={this.startModule}>
-        Rozpocznij naukę
-      </Button>
-    );
-  }
-}
+const StartModuleButton = propName => {
+  startModule = () => {
+    propName.setAppMode("post");
+    propName.setActiveModule(parseInt(0));
+    propName.setActiveSubmodule("0_0");
+    propName.setCurrentTest(null);
+    setAnswersDefault();
+  };
+  return (
+    <Button bsStyle="primary" onClick={this.startModule}>
+      Rozpocznij naukę
+    </Button>
+  );
+};
 
 const mapDispatchToProps = dispatch => ({
   setAppMode: list => dispatch(setAppMode(list)),

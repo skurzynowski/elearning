@@ -12,22 +12,22 @@ import {
 } from "../../../redux/appState/actions";
 import "../../../style/components/content/DownloadCertificateButton.scss";
 
-class DownloadCertificateButton extends Component {
+// const { propName } = this.props;
+
+const DownloadCertificateButton = propName => {
   downloadCertyficate = () => {
-    this.props.setAppMode("certificate");
-    this.props.setActiveModule(parseInt(null));
-    this.props.setActiveSubmodule(null);
-    this.props.setCurrentTest(null);
+    propName.setAppMode("certificate");
+    propName.setActiveModule(parseInt(null));
+    propName.setActiveSubmodule(null);
+    propName.setCurrentTest(null);
   };
 
-  render() {
-    return (
-      <Button bsStyle="primary" onClick={this.downloadCertyficate}>
-        Pobierz certyfikat
-      </Button>
-    );
-  }
-}
+  return (
+    <Button bsStyle="primary" onClick={this.downloadCertyficate}>
+      Pobierz certyfikat
+    </Button>
+  );
+};
 
 const mapDispatchToProps = dispatch => ({
   setAppMode: list => dispatch(setAppMode(list)),

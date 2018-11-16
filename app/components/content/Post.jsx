@@ -94,6 +94,7 @@ class Post extends Component {
       this.props.moduleKeys[indexOfActiveSubmodule - 1][0]
     );
   };
+
   renderPreviousButton = () => {
     if (this.props.activeSubmodule == "0_0") {
       return;
@@ -109,6 +110,7 @@ class Post extends Component {
       </Button>
     );
   };
+
   renderNextButton = () => {
     if (!this.isLastSubmodule()) {
       return (
