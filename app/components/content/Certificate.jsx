@@ -26,7 +26,7 @@ import * as HmtlToPdf from '../../utils/htmlToPdf'
 class Certificate extends Component {
   renderCertificateContent = () => {
     return (
-      <div  id="nodeToRenderAsPDF"
+      <div id="nodeToRenderAsPDF"
            dangerouslySetInnerHTML={{__html: this.props.certificate}}
       />
     )
@@ -36,11 +36,11 @@ class Certificate extends Component {
     return (
       <Col xs={10} lg={10} md={10} offset={2}>
         <Grid componentClass="content-add-new-course">
-          <Panel style={{ marginTop: "30px" ,width: '211mm', height: '298mm'}}>
-              {this.renderCertificateContent()}
-              {/*{this.state.hiddeButton ? null : (*/}
-              {/*<Button bsStyle="primary" onClick={this.onClickSave}>Zapisz</Button>*/}
-              {/*)}*/}
+          <Panel style={{height: '298mm'}}>
+            {this.renderCertificateContent()}
+            {/*{this.state.hiddeButton ? null : (*/}
+            {/*<Button bsStyle="primary" onClick={this.onClickSave}>Zapisz</Button>*/}
+            {/*)}*/}
           </Panel>
         </Grid>
       </Col>
