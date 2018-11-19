@@ -108,7 +108,8 @@ class SiteBarAdmin extends Component {
   }
   getStyle = () => {
 
-    if (this.props.currentTest === 'post-test' || this.props.currentTest === 'pre-test') {
+    const {currentTest, appGlobalMode} = this.props
+    if ((appGlobalMode === 'test' && currentTest === 'post-test') || currentTest === 'pre-test') {
       return {
         pointerEvents: 'none'
       }

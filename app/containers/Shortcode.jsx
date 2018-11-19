@@ -53,9 +53,7 @@ class Shortcode extends Component {
               <Col>
                 {this.props.appGlobalMode === 'certificate' ? (<Certificate/>) : (<Header/>)}
                 {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
-                {(this.props.appGlobalMode === 'test' &&
-                  this.props.questionsCollection.length > 0) ||
-                this.props.appGlobalMode === 'result' ? (
+                {(this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0) ? (
                   <Timer/>
                 ) : null}
                 {this.props.appGlobalMode === 'test' &&
