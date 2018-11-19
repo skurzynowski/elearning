@@ -60,7 +60,7 @@
 .user-certificate-name {
     position: absolute;
     margin-top: 120mm;
-    margin-left: -15px;
+    margin-left: -20px;
     background-color: white;
     width: 210mm;
     text-align: center;
@@ -74,31 +74,31 @@
 
 .user-certificate-name > li:first-child {
     /*certyfikat title*/
-    font-size: 18mm;
+    font-size: 64px;
     text-transform: uppercase;
     margin-bottom: 12mm;
 }
 
 .user-certificate-name > li:nth-child(2) {
-    font-size: 15mm;
+    font-size: 56px;
     text-transform: capitalize;
 }
 
 .user-certificate-name > li:nth-child(3) {
-    font-size: 8mm;
+    font-size: 24px;
 }
 
 .user-certificate-name > li:nth-child(4) {
-    font-size: 10mm;
+    font-size: 32px;
 }
 
 .user-certificate-name > li:nth-child(5) {
-    font-size: 6mm;
+    font-size: 22px;
     margin-top: 8mm;
     text-align: left;
 }
 
 .user-certificate-name > li:nth-child(6) > ul li {
     text-align: left;
-    font-size: 6mm;
+    font-size: 20px;
 }
