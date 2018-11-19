@@ -66,13 +66,13 @@ export default function appState (state = defaultState, action) {
 
     case 'APPSTATE_SET_APP_MODE':
       newState.appGlobalMode = action.mode
-      if (mode === 'test') {
+      if (action.mode === 'test') {
         newState.timeStartStop.start = +new Date()
       }
-      if (mode === 'result') {
+      if (action.mode === 'result') {
         newState.timeStartStop.stop = +new Date()
       }
-     
+
       return newState
 
     case 'APPSTATE_UPDATE_ANSWERS':
