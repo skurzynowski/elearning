@@ -61,6 +61,11 @@ class SideBarElement extends Component {
   }
 
   startExamTest = () => {
+    if (this.props.appGlobalMode === 'result' && this.props.currentTest === 'post-test') {
+      this.setNotAllowed('Zakończyłeś już przeglądanie modułów szkoleniowych')
+      return
+    }
+
     // not all module finished
     if (this.props.visitedModules.length !== this.props.moduleKeys.length) {
       this.setNotAllowed('Ukończ wszystkie moduły, aby zacząć test końcowy')

@@ -26,6 +26,7 @@ const defaultState = {
   visitedModules: [],
   notAllowed: false,
   certificate: '',
+  timeStartStop: {},
 }
 
 export default function appState (state = defaultState, action) {
@@ -65,6 +66,13 @@ export default function appState (state = defaultState, action) {
 
     case 'APPSTATE_SET_APP_MODE':
       newState.appGlobalMode = action.mode
+      if (mode === 'test') {
+        newState.timeStartStop.start = +new Date()
+      }
+      if (mode === 'result') {
+        newState.timeStartStop.stop = +new Date()
+      }
+     
       return newState
 
     case 'APPSTATE_UPDATE_ANSWERS':
@@ -78,6 +86,7 @@ export default function appState (state = defaultState, action) {
     case 'APPSTATE_SET_CURRENT_TEST':
       newState.currentTest = action.testSlug
       return newState
+
     case 'APPSTATE_SET_ANSWERS_DEFAULT':
       newState.selectedAnswers = []
       return newState
