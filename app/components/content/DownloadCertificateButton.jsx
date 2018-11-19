@@ -21,6 +21,13 @@ import * as HmtlToPdf from '../../utils/htmlToPdf'
 
 class DownloadCertificateButton extends Component {
 
+  constructor (props) {
+    super(props)
+    this.state = {
+      downladed: false
+    }
+  }
+
   downloadCertyficate = () => {
     this.props.fetchWP
       .get('certificate')
@@ -33,7 +40,14 @@ class DownloadCertificateButton extends Component {
         }
       ).then(() => {
       HmtlToPdf.print()
-    }).then(() => {this.props.setAppMode('result')})
+    }).then(() => {
+      this.setState({downladed: true})
+      this.props.setAppMode('result')
+    })
+  }
+
+  isDisabled = () => {
+    return this.state.downladed
   }
 
   componentDidUpdate () {
@@ -41,7 +55,8 @@ class DownloadCertificateButton extends Component {
 
   render () {
     return (
-      <Button bsStyle="primary" onClick={this.downloadCertyficate}>Pobierz certyfikat</Button>
+      <Button disabled={this.isDisabled()} bsStyle="primary" onClick={this.downloadCertyficate}>Pobierz
+        certyfikat</Button>
     )
   }
 }
