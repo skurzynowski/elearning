@@ -33,10 +33,9 @@ class StartTestButton extends Component {
   }
 
   render () {
-    const text = (this.props.currentTest == 'post-test' && this.props.selectedAnswers.length === this.props.questionsCollection.length) ? 'Powtórz test' : 'Rozpocznij test'
     return (
       <Button className="btn-primary" onClick={this.getQuestions}>
-        {text}
+        Rozpocznij test
       </Button>
     )
   }

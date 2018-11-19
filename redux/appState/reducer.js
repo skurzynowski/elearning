@@ -1,4 +1,5 @@
 const defaultState = {
+  testsTime: [],
   isUserLoggedIn: false,
   isUserAdmin: false,
   courseTitle: 'This is default title',
@@ -24,6 +25,7 @@ const defaultState = {
   progress: 0,
   visitedModules: [],
   notAllowed: false,
+  certificate: '',
 }
 
 export default function appState (state = defaultState, action) {
@@ -102,9 +104,23 @@ export default function appState (state = defaultState, action) {
 
       return newState
 
+    case 'APPSTATE_RESET_VISITED_MODULES':
+      newState.visitedModules = []
+
+      return newState
+
+    case 'APPSTATE_SET_TESTS_TIME':
+      newState.testsTime = action.testsTime
+      return newState
+
     case 'APPSTATE_SET_CERTIFICATE_DOWNLOADED':
       newState.certificateDownloaded = action.bool
       return newState
+
+    case 'APPSTATE_SET_CERTIFICATE':
+      newState.certificate = action.certificate
+      return newState
+
     case 'APPSTATE_SET_MODULE_KEYS':
       newState.moduleKeys = action.keys
       return newState

@@ -77,6 +77,10 @@ export const setCertificateDownloaded = (bool) => ({
   type: 'APPSTATE_SET_CERTIFICATE_DOWNLOADED',
   bool
 })
+export const setCertificate = (certificate) => ({
+  type: 'APPSTATE_SET_CERTIFICATE',
+  certificate
+})
 export const setModuleKeys = (keys) => ({
   type: 'APPSTATE_SET_MODULE_KEYS',
   keys
@@ -93,4 +97,12 @@ export const setProgress = (value) => ({
 export const setNotAllowed = (notAllowed) => ({
   type: 'APPSTATE_SET_NOT_ALLOWED',
   notAllowed
+})
+export const resetVisitedModules = () => ({
+  type: 'APPSTATE_RESET_VISITED_MODULES'
+})
+
+export const setTestsTime = (testsTime) => ({
+  type: 'APPSTATE_SET_TESTS_TIME',
+  testsTime
 })

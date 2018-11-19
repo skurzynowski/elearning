@@ -56,3 +56,41 @@
     justify-self: flex-end;
     margin-left: auto;
 }
+.user-certificate-name{
+    position: absolute;
+    margin-top: 120mm;
+    background-color: white;
+    width: 210mm;
+    text-align: center;
+    height: 168mm;
+    color:#363B51;
+}
+.user-certificate-name li{
+    list-style: none;
+}
+.user-certificate-name > li:first-child{
+    /*certyfikat title*/
+    font-size: 18mm;
+    text-transform: uppercase;
+    margin-bottom: 12mm;
+}
+.user-certificate-name > li:nth-child(2){
+    font-size: 15mm;
+    text-transform: capitalize;
+}
+.user-certificate-name > li:nth-child(3){
+    font-size: 8mm;
+}
+.user-certificate-name > li:nth-child(4){
+    font-size: 10mm;
+}
+
+.user-certificate-name > li:nth-child(5){
+    font-size: 6mm;
+    margin-top: 20mm;
+    text-align: left;
+}
+.user-certificate-name > li:nth-child(6) > ul li{
+    text-align: left;
+    font-size: 6mm;
+}

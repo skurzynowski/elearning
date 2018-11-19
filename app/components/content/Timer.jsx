@@ -15,9 +15,11 @@ import {
 } from 'react-bootstrap'
 
 class Timer extends React.Component {
-  constructor () {
-    super()
-    this.state = {time: {}, seconds: 600, counter: 1, currentQuestionNumber: 1}
+  constructor (props) {
+    super(props)
+    let seconds = this.props.currentTest === 'pre-test' ? this.props.testsTime.pretestTime : this.props.testsTime.posttestTime
+    seconds = seconds * 60
+    this.state = {time: {}, seconds: seconds, counter: 1, currentQuestionNumber: 1}
     this.timer = 0
     this.startTimer = this.startTimer.bind(this)
     this.countDown = this.countDown.bind(this)
@@ -41,7 +43,6 @@ class Timer extends React.Component {
     let timeLeftVar = this.secondsToTime(this.state.seconds)
     this.setState({time: timeLeftVar})
   }
-
 
   startTimer = () => {
     if (
@@ -80,13 +81,13 @@ class Timer extends React.Component {
     //   checkbox.disabled = true;
     // });
   }
-  componentWillReceiveProps = (newProps)=>{
-    console.log("timer", newProps)
+  componentWillReceiveProps = (newProps) => {
+    console.log('timer', newProps)
   }
 
   showQuestionNumber = () => {
-    let currentQuestion = this.props.selectedAnswers.length < 1 ? 1 : this.props.selectedAnswers.length + 1 ;
-     currentQuestion = (currentQuestion >= this.props.questionsCollection.length ) ? this.props.questionsCollection.length : currentQuestion;
+    let currentQuestion = this.props.selectedAnswers.length < 1 ? 1 : this.props.selectedAnswers.length + 1
+    currentQuestion = (currentQuestion >= this.props.questionsCollection.length) ? this.props.questionsCollection.length : currentQuestion
     return <span>Pytanie {currentQuestion} z {this.props.questionsCollection.length}</span>
   }
 
@@ -111,7 +112,6 @@ class Timer extends React.Component {
       fontSize: '24px'
     }
 
-
     return (
       <Col key={this.props.questionsCollection[0].ID}>
         <div style={panelStyle}>
@@ -128,7 +128,9 @@ const mapDispatchToProps = {}
 const mapStateToProps = state => ({
   questionsCollection: state.appState.questionsCollection,
   testResults: state.appState.testResults,
-  selectedAnswers: state.appState.selectedAnswers
+  selectedAnswers: state.appState.selectedAnswers,
+  currentTest: state.appState.currentTest,
+  testsTime: state.appState.testsTime,
 })
 
 export default connect(

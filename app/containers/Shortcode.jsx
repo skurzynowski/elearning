@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Grid, Row, Col, Panel } from 'react-bootstrap'
 import Header from '../components/header/Header'
 import { connect } from 'react-redux'
 import {
@@ -9,7 +9,8 @@ import {
   setFetchWP,
   updateListOfTests,
   setAppMode,
-  setSumOfQuestions
+  setSumOfQuestions,
+  setTestsTime,
 } from '../../redux/appState/actions'
 import SiteBarAdmin from '../components/sitebar/SiteBarAdmin'
 import AddNewCourse from '../components/content/AddNewCourse'
@@ -34,7 +35,10 @@ class Shortcode extends Component {
     })
 
     this.props.setFetchWP(fetchWPInstance)
+  }
+  componentDidMount() {
     this.props.setSumOfQuestions(this.props.wpObject.sumOfQuestions)
+    this.props.setTestsTime(this.props.wpObject.testsTime)
   }
 
   render () {
@@ -42,16 +46,12 @@ class Shortcode extends Component {
       <Grid>
         <Row>
           <Col className="col-md-3 col-xs-12">
-            {this.props.appGlobalMode === 'certificate' ? null : (
-              <SiteBarAdmin/>
-            )}
+            <SiteBarAdmin/>
           </Col>
           <Col className="col-md-9 col-xs-12">
             <Row>
               <Col>
-                {this.props.appGlobalMode === 'certificate' ? <Certificate/> : (
-                  <Header/>
-                )}
+                {this.props.appGlobalMode === 'certificate' ? (<Certificate/>) : (<Header/>)}
                 {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
                 {(this.props.appGlobalMode === 'test' &&
                   this.props.questionsCollection.length > 0) ||
@@ -91,13 +91,14 @@ const mapDispatchToProps = dispatch => ({
   setAppMode: mode => dispatch(setAppMode(mode)),
   setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug)),
   setSumOfQuestions: sum => dispatch(setSumOfQuestions(sum)),
-
+  setTestsTime: testsTime => dispatch(setTestsTime(testsTime))
 })
 
 const mapStateToProps = state => ({
   appGlobalMode: state.appState.appGlobalMode,
   questionsCollection: state.appState.questionsCollection,
   notAllowed: state.appState.notAllowed,
+  certificate: state.appState.certificate,
 })
 
 export default connect(

@@ -96,15 +96,22 @@ class Shortcode {
 		$page_url = get_post()->guid;
 		if ( function_exists( 'get_field' ) ) {
 			$preQuestions  = get_field( 'pre_test_limit_questions', 'options' );
-			$postQuestions = get_field( 'pre_test_limit_questions','options');
-			$sum = $postQuestions + $postQuestions;
+			$postQuestions = get_field( 'pre_test_limit_questions', 'options' );
+			$sum           = $postQuestions + $postQuestions;
+			$pretest_time  = get_field( 'test_wstepny', 'options' );
+			$post_test     = get_field( 'test_koncowy', 'options' );
 		}
 
 		$object = shortcode_atts( array(
-			'title'     => 'Hello world',
-			'api_nonce' => wp_create_nonce( 'wp_rest' ),
-			'api_url'   => rest_url( $this->plugin_slug . '/v1/' ),
-			'sumOfQuestions' => $sum??0,
+			'title'          => 'Hello world',
+			'api_nonce'      => wp_create_nonce( 'wp_rest' ),
+			'api_url'        => rest_url( $this->plugin_slug . '/v1/' ),
+			'sumOfQuestions' => $sum ?? 0,
+			'testsTime'      => array(
+				'pretestTime'  => $pretest_time,
+				'posttestTime' => $post_test,
+			)
+
 		), $atts, 'wp-reactivate' );
 
 		wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );

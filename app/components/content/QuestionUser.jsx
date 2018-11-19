@@ -184,9 +184,6 @@ class QuestionUser extends Component {
     return (
       <Col>
         <Grid componentClass="content-add-new-course">
-          {typeof this.state.selectedImages[0] != 'undefined' ? (
-            <LightBox imageUrl={this.state.selectedImages}/>
-          ) : null}
           <Panel>
             <img
               onClick={this.onClickImage}

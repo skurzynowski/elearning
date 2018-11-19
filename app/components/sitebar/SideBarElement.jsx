@@ -41,7 +41,10 @@ class SideBarElement extends Component {
     if (this.props.appGlobalMode === 'post') {
       return true
     }
-    if (this.props.appGlobalMode === 'result') {
+    if (this.props.appGlobalMode === 'result' && this.props.currentTest === 'post-test') {
+      return false
+    }
+    if (this.props.appGlobalMode === 'result' && this.props.currentTest === 'pre-test') {
       this.props.setAppMode('post')
       return true
     }
@@ -58,13 +61,13 @@ class SideBarElement extends Component {
   }
 
   startExamTest = () => {
-    //not all module finished
+    // not all module finished
     if (this.props.visitedModules.length !== this.props.moduleKeys.length) {
       this.setNotAllowed('Ukończ wszystkie moduły, aby zacząć test końcowy')
       return
     }
 
-    //test already started
+    // test already started
     if (this.props.appGlobalMode === 'test') {
       return
     }
@@ -100,7 +103,7 @@ class SideBarElement extends Component {
           if (this.props.currentTest === 'pre-test') {
             this.setNotAllowed('Ukończ test wstępny aby przejść do modułu lekcyjnego')
           } else {
-            this.setNotAllowed('Ukończ egzamin aby wrócić do modułu lekcyjnego')
+            this.setNotAllowed('Moduły szkoleniowe są zablokowane')
           }
         }
     }

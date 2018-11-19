@@ -106,10 +106,20 @@ class SiteBarAdmin extends Component {
       }.bind(this)
     )
   }
+  getStyle = () => {
+
+    if (this.props.currentTest === 'post-test') {
+      return {
+        pointerEvents: 'none'
+      }
+    } else {
+      return {}
+    }
+  }
 
   render () {
     return (
-      <div className="sitebar-admin-wraper">
+      <div style={this.getStyle()} className="sitebar-admin-wraper">
         <ListGroup className="sitebar-admin-course-list">
           <SideBarElement type="pretest" header={'Pretest'}/>
           {this.fillList(this.state.adminList)}

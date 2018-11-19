@@ -34,6 +34,7 @@
     "bootstrap3": "^3.3.5",
     "css-loader": "^1.0.0",
     "google-maps-react": "^2.0.2",
+    "html2canvas": "^1.0.0-alpha.12",
     "i": "^0.3.6",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.3.1",

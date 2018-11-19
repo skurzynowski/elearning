@@ -154,9 +154,8 @@ class Example {
 		$result       = get_field( 'certyficate', 'option' );
 		$current_user = wp_get_current_user();
 
-		$result = str_replace( '{username}', $current_user->user_firstname, $result );
-		$result = str_replace( '{surname}', $current_user->user_lastname, $result );
-		$result = str_replace( '{email}', $current_user->user_email, $result );
+		$full_user_name = $current_user->user_firstname . ' ' . $current_user->user_lastname;
+		$result         = str_replace( '{username}', $full_user_name, $result );
 
 		return new \WP_REST_Response( array(
 			'success'     => true,

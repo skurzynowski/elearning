@@ -85,7 +85,7 @@ class Post extends Component {
   onClickPreviousModule = () => {
     let indexOfActiveSubmodule = this.props.moduleKeys.indexOf(this.props.activeSubmodule)
     this.props.setActiveSubmodule(this.props.moduleKeys[indexOfActiveSubmodule - 1])
-    this.props.setActiveModule(parseInt( this.props.moduleKeys[indexOfActiveSubmodule - 1][0]))
+    this.props.setActiveModule(parseInt(this.props.moduleKeys[indexOfActiveSubmodule - 1][0]))
   }
   renderPreviousButton = () => {
     if (this.props.activeSubmodule == '0_0') {
@@ -97,7 +97,13 @@ class Post extends Component {
       </Button>
     )
   }
+
+  allModulesVisited = () => {
+    return (this.props.visitedModules.length > 0 && this.props.visitedModules.length === this.props.moduleKeys.length)
+  }
+
   renderNextButton = () => {
+
     if (!this.isLastSubmodule()) {
       return (
         <Button bsStyle="primary" className="btn-right" onClick={this.onClickNextSubmoduleButton} bsSize="large">
@@ -105,13 +111,14 @@ class Post extends Component {
         </Button>
       )
     } else {
-      if (this.isLastModule()) {
+      if (this.isLastModule() && this.allModulesVisited()) {
         return (
           <Button bsStyle="primary" onClick={this.onClickStartLastTest} bsSize="large">
             Test końcowy
           </Button>
         )
-      } else {
+      }
+      else if ( ! this.isLastModule()) {
         return (
           <Button bsStyle="primary" onClick={this.onClickNextModuleButton} bsSize="large">
             Następny moduł
@@ -178,6 +185,7 @@ const mapStateToProps = state => ({
   activeModule: state.appState.activeModule,
   moduleKeys: state.appState.moduleKeys,
   progress: state.appState.progress,
+  visitedModules: state.appState.visitedModules,
 })
 
 export default connect(

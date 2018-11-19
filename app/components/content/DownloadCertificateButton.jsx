@@ -14,16 +14,29 @@ import {
 import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import {
-  setAppMode, setActiveSubmodule, setActiveModule, setCurrentTest,setCertificateDownloaded
+  setCertificate,
+  setAppMode, setActiveSubmodule, setActiveModule, setCurrentTest, setCertificateDownloaded
 } from '../../../redux/appState/actions'
+import * as HmtlToPdf from '../../utils/htmlToPdf'
 
 class DownloadCertificateButton extends Component {
 
   downloadCertyficate = () => {
-    this.props.setAppMode('certificate')
-    this.props.setActiveModule(parseInt(null))
-    this.props.setActiveSubmodule(null)
-    this.props.setCurrentTest(null)
+    this.props.fetchWP
+      .get('certificate')
+      .then((json) => { this.props.setCertificate(json.certificate) })
+      .then(
+        () => {
+          this.props.setAppMode('certificate')
+          this.props.setActiveModule(parseInt(null))
+          this.props.setActiveSubmodule(null)
+        }
+      ).then(() => {
+      HmtlToPdf.print()
+    }).then(() => {this.props.setAppMode('result')})
+  }
+
+  componentDidUpdate () {
   }
 
   render () {
@@ -39,6 +52,7 @@ const mapDispatchToProps = dispatch => ({
   setActiveModule: (module) => dispatch(setActiveModule(module)),
   setCurrentTest: (test) => dispatch(setCurrentTest(test)),
   setCertificateDownloaded: (bool) => dispatch(setCertificateDownloaded(bool)),
+  setCertificate: (certificate) => dispatch(setCertificate(certificate)),
 })
 
 const mapStateToProps = state => ({
