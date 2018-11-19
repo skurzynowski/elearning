@@ -46,7 +46,7 @@ class Post extends Component {
 
   onClickNextSubmoduleButton = () => {
     this.props.setActiveSubmodule(
-      this.state.moduleIndex + '_' + parseInt(this.state.subModuleIndex + 1)
+      this.state.moduleIndex + '_' + (parseInt(this.state.subModuleIndex) + 1)
     )
     this.setState({subModuleIndex: this.state.subModuleIndex + 1})
     // this.forceUpdate()
@@ -118,7 +118,7 @@ class Post extends Component {
           </Button>
         )
       }
-      else if ( ! this.isLastModule()) {
+      else if (!this.isLastModule()) {
         return (
           <Button bsStyle="primary" onClick={this.onClickNextModuleButton} bsSize="large">
             Następny moduł
