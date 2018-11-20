@@ -24,8 +24,6 @@ class Config {
 		if ( ! function_exists( 'register_posttype' ) ) {
 			add_action( 'init', array( $this, 'custom_taxonomy' ), 0 );
 			add_action( 'init', array( $this, 'register_posttype' ), 0 );
-			add_filter( 'acf/update_value/type=checkbox', array( $this, 'prevent_saving_checkbox' ), 15, 3 );
-			add_action( 'acf/save_post', array( $this, 'download_csv' ), 10 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'my_load_scripts' ) );
 			if ( isset( $_REQUEST['downloadcsv'] ) ) {
 				add_action( 'admin_init', array( $this, 'download_csv' ) );
@@ -97,15 +95,6 @@ class Config {
 
 		fclose( $fp );
 		die;
-	}
-
-	public function prevent_saving_checkbox( $value, $post_id, $field ) {
-
-		if ( 'download_csv' !== $field['name'] ) {
-			return $value;
-		}
-
-		return '';
 	}
 
 	function register_posttype() {
