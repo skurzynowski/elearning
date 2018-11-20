@@ -152,10 +152,12 @@ class TestResult extends Component {
               {this.props.currentTest == 'pre-test' ? (
                 <StartModuleButton/>
               ) : null}
-              {this.getRepeateCourseButton()}
-              {this.getRepeateExamButton()}
-              {this.getCertificateButton()}
-              {this.getFinishCourseButton()}
+              <div style={{float: 'right'}}>
+                {this.getRepeateCourseButton()}
+                {this.getRepeateExamButton()}
+                {this.getCertificateButton()}
+                {this.getFinishCourseButton()}
+              </div>
             </Panel.Body>
           </Panel>
         </Grid>
