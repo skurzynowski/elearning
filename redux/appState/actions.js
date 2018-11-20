@@ -106,3 +106,8 @@ export const setTestsTime = (testsTime) => ({
   type: 'APPSTATE_SET_TESTS_TIME',
   testsTime
 })
+
+export const setTimeout = (timeout) => ({
+  type: 'APPSTATE_SET_TIMEOUT',
+  timeout
+})

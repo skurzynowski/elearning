@@ -27,6 +27,7 @@ const defaultState = {
   notAllowed: false,
   certificate: '',
   timeStartStop: {},
+  timeout: 1000,
 }
 
 export default function appState (state = defaultState, action) {
@@ -144,6 +145,11 @@ export default function appState (state = defaultState, action) {
 
     case 'APPSTATE_SET_NOT_ALLOWED':
       newState.notAllowed = action.notAllowed
+      return newState
+
+    case 'APPSTATE_SET_TIMEOUT':
+      newState.timeout = action.timeout
+
       return newState
 
     default:

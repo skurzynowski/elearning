@@ -13,12 +13,16 @@ import {
   Panel,
   Radio
 } from 'react-bootstrap'
+import {
+  setTimeout
+} from '../../../redux/appState/actions'
 
 class Timer extends React.Component {
   constructor (props) {
     super(props)
     let seconds = this.props.currentTest === 'pre-test' ? this.props.testsTime.pretestTime : this.props.testsTime.posttestTime
     seconds = seconds * 60
+    this.props.setTimeOut(seconds)
     this.state = {time: {}, seconds: seconds, counter: 1, currentQuestionNumber: 1}
     this.timer = 0
     this.startTimer = this.startTimer.bind(this)
@@ -76,6 +80,7 @@ class Timer extends React.Component {
   }
 
   disableCheckboxes = () => {
+    this.props.setTimeOut(0)
     // let checkboxes = document.querySelectorAll(".radio-inline input");
     // checkboxes.forEach(checkbox => {
     //   checkbox.disabled = true;
@@ -123,7 +128,9 @@ class Timer extends React.Component {
   }
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = dispatch => ({
+  setTimeOut: timeout => dispatch(setTimeout(timeout)),
+})
 
 const mapStateToProps = state => ({
   questionsCollection: state.appState.questionsCollection,

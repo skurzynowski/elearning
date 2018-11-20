@@ -165,6 +165,7 @@ class Example {
 	}
 
 	public function check_answers( $request ) {
+
 		$quiz_results = json_decode( $request['selectedAnswers'] );
 		$test_type    = json_decode( $request['test'] );
 
@@ -199,18 +200,34 @@ class Example {
 
 	public function updateScoreInBackend( string $testType, int $score ) {
 		if ( function_exists( 'get_current_user' ) && function_exists( 'add_row' ) ) {
+			//set start of current test
+			$current_user = wp_get_current_user();
+			$start_time   = get_user_meta( $current_user->ID, 'start_test', true );
+			$end_time     = $this->get_current_time();
+
 			$current_user = wp_get_current_user();
 			$user_name    = ucfirst( $current_user->user_firstname );
 			$user_surname = ucfirst( $current_user->user_lastname );
 			$row          = array(
-				"date"      => current_time( 'd/m/Y' ),
-				"user"      => $user_name . ' ' . $user_surname,
-				"test_type" => $testType,
-				"score"     => $score,
+				"date"       => current_time( 'd/m/Y' ),
+				"user"       => $user_name . ' ' . $user_surname,
+				"test_type"  => $testType,
+				"score"      => $score,
+				"start_time" => $start_time,
+				"end_time"   => $end_time,
+				'user_id'    => $current_user->ID,
 			);
 
 			add_row( 'test_results', $row, 'options' );
 		}
+	}
+
+	public function get_current_time() {
+
+		$tz   = new \DateTimeZone( 'Europe/Berlin' );
+		$date = new \DateTime( null, $tz );
+
+		return $date->format( 'H:i:s' );
 	}
 
 	public function get_courses( $request ) {
@@ -332,7 +349,10 @@ class Example {
 	 */
 	public function get_questions( $request ) {
 		$slug_id = $request['term_slug'];
-
+		$time    = $this->get_current_time();
+		//set start of current test
+		$current_user = wp_get_current_user();
+		update_user_meta( $current_user->ID, 'start_test', $time );
 
 		$posts = new \WP_Query( array(
 			'post_type'   => 'question',
@@ -407,22 +427,6 @@ class Example {
 		return new \WP_REST_Response( array(
 			'success' => true,
 			'postId'  => $post_id
-		), 200 );
-	}
-
-	/**
-	 * Delete Example
-	 *
-	 * @param WP_REST_Request $request Full data about the request.
-	 *
-	 * @return WP_Error|WP_REST_Request
-	 */
-	public function delete_example( $request ) {
-		$deleted = delete_option( 'wpr_example_setting' );
-
-		return new \WP_REST_Response( array(
-			'success' => $deleted,
-			'value'   => ''
 		), 200 );
 	}
 

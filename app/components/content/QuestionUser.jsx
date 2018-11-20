@@ -116,7 +116,7 @@ class QuestionUser extends Component {
   componentWillReceiveProps (nextProps) {
     if (
       nextProps.selectedAnswers !== this.props.selectedAnswers &&
-      this.state.finishBtnClicked === true
+      this.state.finishBtnClicked === true || nextProps.timeout === 0
     ) {
       this.props.fetchWP
         .post('check/result', {
@@ -231,6 +231,7 @@ const mapStateToProps = state => ({
   listOfTests: state.appState.listOfTests,
   currentTest: state.appState.currentTest,
   progress: state.appState.progress,
+  timeout: state.appState.timeout,
 })
 
 export default connect(

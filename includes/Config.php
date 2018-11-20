@@ -24,7 +24,88 @@ class Config {
 		if ( ! function_exists( 'register_posttype' ) ) {
 			add_action( 'init', array( $this, 'custom_taxonomy' ), 0 );
 			add_action( 'init', array( $this, 'register_posttype' ), 0 );
+			add_filter( 'acf/update_value/type=checkbox', array( $this, 'prevent_saving_checkbox' ), 15, 3 );
+			add_action( 'acf/save_post', array( $this, 'download_csv' ), 10 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'my_load_scripts' ) );
+			if ( isset( $_REQUEST['downloadcsv'] ) ) {
+				add_action( 'admin_init', array( $this, 'download_csv' ) );
+			}
 		}
+	}
+
+	function my_load_scripts( $hook ) {
+		if ( 'toplevel_page_acf-options-opcje-elearning' !== $hook ) {
+			return;
+		}
+		wp_enqueue_script( 'custom_js', plugins_url( 'js/custom.js', __FILE__ ), array( 'jquery' ) );
+	}
+
+
+	public function download_csv() {
+		$field = get_field_object( 'download_csv', 'options' );
+		$key   = $field['key'];
+
+		$filename = 'wyniki-testow.csv';
+		header( 'Content-Type: text/csv' );
+		header( 'Content-Disposition: attachment;filename=' . $filename );
+		$fp = fopen( 'php://output', 'w' );
+		fputcsv( $fp, array(
+			'data testu',
+			'imie',
+			'nazwisko',
+			'rodzaj testu',
+			'wynik',
+			'czas rozpoczecia',
+			'czas zakonczenia',
+			'email',
+			'zawod',
+			'doświadczenie',
+			'data urodzenia',
+			'miejsce wyk. zawodu'
+		) );
+
+		$fields = get_field( 'test_results', 'options' );
+
+		foreach ( $fields as $field ) {
+			if ( ! empty( $field['user_id'] ) ) {
+				$current_user = get_user_by( 'id', $field['user_id'] );
+				$user_name    = ucfirst( $current_user->user_firstname );
+				$user_surname = ucfirst( $current_user->user_lastname );
+				$user_email   = $current_user->user_email;
+			} else {
+				$user_name    = '';
+				$user_surname = '';
+				$user_email   = '';
+			}
+
+			$tmp   = array();
+			$tmp[] = $field['date'];
+			$tmp[] = $user_name;
+			$tmp[] = $user_surname;
+			$tmp[] = $field['test_type'];
+			$tmp[] = $field['score'];
+			$tmp[] = $field['start_time'];
+			$tmp[] = $field['end_time'];
+			$tmp[] = $user_email;
+			$tmp[] = get_user_meta( $field['user_id'], 'job', true );
+			$tmp[] = get_user_meta( $field['user_id'], 'experience', true );
+			$tmp[] = get_user_meta( $field['user_id'], 'birthday', true );
+			$tmp[] = get_user_meta( $field['user_id'], 'workplace', true );
+
+			fputcsv( $fp, $tmp );
+		}
+
+		fclose( $fp );
+		die;
+	}
+
+	public function prevent_saving_checkbox( $value, $post_id, $field ) {
+
+		if ( 'download_csv' !== $field['name'] ) {
+			return $value;
+		}
+
+		return '';
 	}
 
 	function register_posttype() {
