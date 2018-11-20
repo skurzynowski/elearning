@@ -22,12 +22,13 @@ import {
   setCurrentTest,
   updateListOfTests,
   setSelectedAnswersDefault,
-  setCertificateDownloaded
+  setCertificateDownloaded,
 } from '../../../redux/appState/actions'
 import StartTestButton from '../content/StartTestButton'
 import StartModuleButton from '../content/StartModuleButton'
 import DownloadCertificateButton from '../content/DownloadCertificateButton'
 import RepeatCourseButton from './RepeatCourseButton'
+import RepeatExamButton from './RepeatExamButton'
 
 const imagePlaceholder =
   'https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180'
@@ -125,6 +126,14 @@ class TestResult extends Component {
     }
   }
 
+  getRepeateExamButton = () => {
+    console.log(this.props.currentTest === 'post-test' && this.props.testResults.percents < 75)
+    console.log('thit is test')
+    if (this.props.currentTest === 'post-test' && this.props.testResults.percents < 75) {
+      return (<RepeatExamButton/>)
+    }
+  }
+
   render () {
     return (
       <Col>
@@ -144,6 +153,7 @@ class TestResult extends Component {
                 <StartModuleButton/>
               ) : null}
               {this.getRepeateCourseButton()}
+              {this.getRepeateExamButton()}
               {this.getCertificateButton()}
               {this.getFinishCourseButton()}
             </Panel.Body>

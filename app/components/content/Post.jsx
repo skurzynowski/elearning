@@ -114,7 +114,7 @@ class Post extends Component {
       if (this.isLastModule() && this.allModulesVisited()) {
         return (
           <Button bsStyle="primary" onClick={this.onClickStartLastTest} bsSize="large">
-            Test końcowy
+            Test egzaminacyjny
           </Button>
         )
       }
