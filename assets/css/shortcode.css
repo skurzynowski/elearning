@@ -87,18 +87,22 @@
     margin-bottom: 10px;
     font-size: 24px;
 }
-
 .user-certificate-name > li:nth-child(4) {
-    font-size: 32px;
+    margin-bottom: 10px;
+    font-size: 24px;
 }
 
 .user-certificate-name > li:nth-child(5) {
+    font-size: 32px;
+}
+
+.user-certificate-name > li:nth-child(6) {
     font-size: 22px;
     margin-top: 50px;
     text-align: left;
 }
 
-.user-certificate-name > li:nth-child(6) > ul li {
+.user-certificate-name > li:nth-child(7) > ul li {
     text-align: left;
     font-size: 20px;
 }
