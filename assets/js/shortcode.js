@@ -1108,10 +1108,21 @@ function (_Component) {
         subModuleIndex: _this.state.subModuleIndex + 1
       }); // this.forceUpdate()
 
+
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClickNextModuleButton", function () {
       var newModuleIndex = parseInt(_this.state.moduleIndex + 1);
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
 
       _this.props.setActiveModule(newModuleIndex);
 
@@ -1133,6 +1144,12 @@ function (_Component) {
       _this.props.setProgress(_this.props.progress + _this.props.moduleKeys.length);
 
       _this.props.setAppMode('test');
+
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "isLastSubmodule", function () {
@@ -1150,6 +1167,12 @@ function (_Component) {
       _this.props.setActiveSubmodule(_this.props.moduleKeys[indexOfActiveSubmodule - 1]);
 
       _this.props.setActiveModule(parseInt(_this.props.moduleKeys[indexOfActiveSubmodule - 1][0]));
+
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderPreviousButton", function () {
@@ -1355,6 +1378,12 @@ function (_Component) {
         questionIndex: _this.state.questionIndex + 1,
         selectedAnswer: ''
       });
+
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderCourseOptions", function () {
@@ -1369,6 +1398,14 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onChangeRadio", function (e) {
       _this.setState({
         selectedAnswer: e.target.value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "scrollToBottom", function () {
+      window.scroll({
+        top: 2500,
+        left: 0,
+        behavior: 'smooth'
       });
     });
 
@@ -1399,7 +1436,8 @@ function (_Component) {
               textAlign: 'left'
             },
             className: 'btn btn-block label-question',
-            htmlFor: html_id
+            htmlFor: html_id,
+            onClick: this.scrollToBottom
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
             className: "question-number"
           }, this.counterQuestion, "."), " ", data.value));

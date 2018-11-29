@@ -60,6 +60,7 @@ class QuestionUser extends Component {
       questionIndex: this.state.questionIndex + 1,
       selectedAnswer: ''
     })
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
   }
   renderCourseOptions = () => {
     return this.props.listOfTests.map(function (data) {
@@ -74,6 +75,11 @@ class QuestionUser extends Component {
   onChangeRadio = e => {
     this.setState({selectedAnswer: e.target.value})
   }
+
+  scrollToBottom = () => {
+    window.scroll({ top: 2500, left: 0, behavior: 'smooth' });
+  }
+
   renderQuestions = () => {
     let questions = this.props.questionsCollection[this.state.questionIndex]
       .answer
@@ -99,6 +105,7 @@ class QuestionUser extends Component {
                 style={{textAlign: 'left'}}
                 className={'btn btn-block label-question'}
                 htmlFor={html_id}
+                onClick={this.scrollToBottom}
               >
                 <span className="question-number">{this.counterQuestion}.</span> {data.value}
               </ControlLabel>
