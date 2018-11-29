@@ -154,10 +154,11 @@ class Example {
 		$result       = get_field( 'certyficate', 'option' );
 		$current_user = wp_get_current_user();
 
-		$birthday = get_user_meta( $current_user->ID, 'birthday', true );
+		$birthday       = get_user_meta( $current_user->ID, 'birthday', true );
+		$birthday       = \DateTime::createFromFormat( 'Y-m-d', $birthday );
 		$full_user_name = $current_user->user_firstname . ' ' . $current_user->user_lastname;
 		$result         = str_replace( '{username}', $full_user_name, $result );
-		$result         = str_replace( '{birthday}', $birthday, $result );
+		$result         = str_replace( '{birthday}', $birthday->format( 'd/m/Y' ), $result );
 
 		return new \WP_REST_Response( array(
 			'success'     => true,
