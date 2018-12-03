@@ -858,6 +858,10 @@ function (_Component) {
       _this.props.fetchWP.get('certificate').then(function (json) {
         _this.props.setCertificate(json.certificate);
       }).then(function () {
+        _this.setState({
+          previousState: _this.props.appGlobalMode
+        });
+
         _this.props.setAppMode('certificate');
 
         _this.props.setActiveModule(parseInt(null));
@@ -870,11 +874,7 @@ function (_Component) {
           downladed: true
         });
 
-        if (_this.props.passedTest.result === 'false') {
-          _this.props.setAppMode('result');
-        } else {
-          _this.props.setAppMode('welcome');
-        }
+        _this.props.setAppMode(_this.state.previousState);
       });
     });
 
@@ -883,7 +883,8 @@ function (_Component) {
     });
 
     _this.state = {
-      downladed: false
+      downladed: false,
+      previousState: ''
     };
     return _this;
   }
@@ -924,6 +925,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setCertificate: function setCertificate(certificate) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setCertificate"])(certificate));
+    },
+    setPreviousState: function setPreviousState(previousState) {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setPreviousState"])(previousState));
     }
   };
 };
@@ -932,7 +936,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     fetchWP: state.appState.fetchWP,
     currentTest: state.appState.currentTest,
-    passedTest: state.appState.passedTest
+    passedTest: state.appState.passedTest,
+    appGlobalMode: state.appState.appGlobalMode
   };
 };
 

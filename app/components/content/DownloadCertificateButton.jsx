@@ -15,7 +15,7 @@ import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import {
   setCertificate,
-  setAppMode, setActiveSubmodule, setActiveModule, setCurrentTest, setCertificateDownloaded
+  setAppMode, setActiveSubmodule, setActiveModule, setCurrentTest, setCertificateDownloaded, setPreviousState
 } from '../../../redux/appState/actions'
 import * as HmtlToPdf from '../../utils/htmlToPdf'
 
@@ -30,12 +30,15 @@ class DownloadCertificateButton extends Component {
   }
 
   downloadCertyficate = () => {
+
     this.props.fetchWP
       .get('certificate')
       .then((json) => { this.props.setCertificate(json.certificate) })
       .then(
         () => {
-          //zapisz poprzedni stan w tym komponencie
+
+          this.setState({ previousState: this.props.appGlobalMode })
+
           this.props.setAppMode('certificate')
           this.props.setActiveModule(parseInt(null))
           this.props.setActiveSubmodule(null)
@@ -43,8 +46,8 @@ class DownloadCertificateButton extends Component {
       ).then(() => {
       HmtlToPdf.print()
     }).then(() => {
-      this.setState({downladed: true})
-      //odtwórz poprzedni stan
+      this.setState({downladed: true});
+      this.props.setAppMode(this.state.previousState);
     })
   }
 
@@ -70,12 +73,14 @@ const mapDispatchToProps = dispatch => ({
   setCurrentTest: (test) => dispatch(setCurrentTest(test)),
   setCertificateDownloaded: (bool) => dispatch(setCertificateDownloaded(bool)),
   setCertificate: (certificate) => dispatch(setCertificate(certificate)),
+  setPreviousState: (previousState) => dispatch(setPreviousState(previousState))
 })
 
 const mapStateToProps = state => ({
   fetchWP: state.appState.fetchWP,
   currentTest: state.appState.currentTest,
-  passedTest: state.appState.passedTest
+  passedTest: state.appState.passedTest,
+  appGlobalMode: state.appState.appGlobalMode
 })
 
 export default connect(
