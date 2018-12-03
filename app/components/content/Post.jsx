@@ -19,7 +19,8 @@ import {
   setAppMode,
   setCurrentTest,
   setActiveSubmodule,
-  setProgress
+  setProgress,
+  setTestCounter
 } from '../../../redux/appState/actions'
 
 class Post extends Component {
@@ -62,6 +63,7 @@ class Post extends Component {
   }
 
   onClickStartLastTest = () => {
+    this.props.setTestCounter();
     this.props.setActiveSubmodule(null)
     this.props.setActiveModule(null)
     this.props.setCurrentTest('post-test')
@@ -179,6 +181,7 @@ const mapDispatchToProps = dispatch => ({
   setActiveModule: module => dispatch(setActiveModule(module)),
   setActiveSubmodule: module => dispatch(setActiveSubmodule(module)),
   setProgress: progress => dispatch(setProgress(progress)),
+  setTestCounter: () => dispatch(setTestCounter())
 })
 
 const mapStateToProps = state => ({
@@ -190,6 +193,7 @@ const mapStateToProps = state => ({
   moduleKeys: state.appState.moduleKeys,
   progress: state.appState.progress,
   visitedModules: state.appState.visitedModules,
+  testCounter: state.appState.testCounter
 })
 
 export default connect(

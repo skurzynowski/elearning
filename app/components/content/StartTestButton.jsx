@@ -18,12 +18,14 @@ import {
   updateListOfTests,
   setAppMode,
   updateAnswers,
-  setSelectedAnswersDefault
+  setSelectedAnswersDefault,
+  setTestCounter
 } from '../../../redux/appState/actions'
 
 class StartTestButton extends Component {
   getQuestions = () => {
-    this.props.setAnswersDefault()
+    this.props.setAnswersDefault();
+    this.props.setTestCounter();
     this.props.fetchWP
       .get('question/' + this.props.currentTest)
       .then(json => this.props.updateQuestionsCollection(json.question))
@@ -44,7 +46,8 @@ class StartTestButton extends Component {
 const mapDispatchToProps = dispatch => ({
   updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),
   setAppMode: list => dispatch(setAppMode(list)),
-  setAnswersDefault: () => dispatch(setSelectedAnswersDefault())
+  setAnswersDefault: () => dispatch(setSelectedAnswersDefault()),
+  setTestCounter: () => dispatch(setTestCounter())
 })
 
 const mapStateToProps = state => ({
@@ -54,6 +57,7 @@ const mapStateToProps = state => ({
   currentTest: state.appState.currentTest,
   selectedAnswers: state.appState.selectedAnswers,
   questionsCollection: state.appState.questionsCollection,
+  testCounter: state.appState.testCounter
 })
 
 export default connect(

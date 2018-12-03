@@ -9,7 +9,7 @@ import {
   setActiveModule,
   setAppMode,
   setModules,
-  setModuleKeys, setNotAllowed, setSelectedAnswersDefault, updateQuestionsCollection, setCurrentTest
+  setModuleKeys, setNotAllowed, setSelectedAnswersDefault, updateQuestionsCollection, setCurrentTest, setTestCounter
 } from '../../../redux/appState/actions'
 
 class SideBarElement extends Component {
@@ -96,6 +96,7 @@ class SideBarElement extends Component {
         this.startPreTest()
         break
       case 'posttest':
+        this.props.setTestCounter();
         this.startExamTest()
         break
       case 'submodule':
@@ -173,6 +174,7 @@ const mapDispatchToProps = dispatch => ({
   setAnswersDefault: () => dispatch(setSelectedAnswersDefault()),
   updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),
   setCurrentTest: test => dispatch(setCurrentTest(test)),
+  setTestCounter: () => dispatch(setTestCounter())
 })
 
 const mapStateToProps = state => ({

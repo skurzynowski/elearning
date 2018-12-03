@@ -8,10 +8,12 @@ import {
   updateQuestionsCollection,
   setAppMode,
   setSelectedAnswersDefault,
+  setTestCounter
 } from '../../../redux/appState/actions'
 
 class RepeatExamButton extends Component {
   onClick = () => {
+    this.props.setTestCounter();
     this.props.setAppMode('test')
     this.props.setAnswersDefault()
     this.props.updateQuestionsCollection(list)
@@ -30,6 +32,7 @@ const mapDispatchToProps = dispatch => ({
   updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),
   setAppMode: list => dispatch(setAppMode(list)),
   setAnswersDefault: () => dispatch(setSelectedAnswersDefault()),
+  setTestCounter: () => dispatch(setTestCounter())
 })
 
 export default connect(

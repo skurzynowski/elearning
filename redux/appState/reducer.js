@@ -29,6 +29,7 @@ const defaultState = {
   certificate: '',
   timeStartStop: {},
   timeout: 1000,
+  testCounter: 0
 }
 
 export default function appState (state = defaultState, action) {
@@ -156,7 +157,11 @@ export default function appState (state = defaultState, action) {
     case 'APPSTATE_SET_USER_PASSED_EXAM':
       newState.passedTest = action.passedTest
       return newState
-      
+
+    case 'APPSTATE_SET_TEST_COUNTER':
+      newState.testCounter++
+      return newState
+
     default:
       return state
   }

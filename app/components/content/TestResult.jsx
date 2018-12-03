@@ -24,6 +24,7 @@ import {
   setSelectedAnswersDefault,
   setCertificateDownloaded,
   setUserPassExam,
+  setTestCounter
 } from '../../../redux/appState/actions'
 import StartTestButton from '../content/StartTestButton'
 import StartModuleButton from '../content/StartModuleButton'
@@ -131,7 +132,7 @@ class TestResult extends Component {
   }
 
   getRepeateCourseButton = () => {
-    if (this.props.currentTest === 'post-test' && this.props.testResults.percents < 75) {
+    if (this.props.currentTest === 'post-test' && this.props.testResults.percents < 75 && this.props.testCounter < 3) {
       return (<RepeatCourseButton/>)
     }
   }
@@ -139,7 +140,7 @@ class TestResult extends Component {
   getRepeateExamButton = () => {
     console.log(this.props.currentTest === 'post-test' && this.props.testResults.percents < 75)
     console.log('thit is test')
-    if (this.props.currentTest === 'post-test' && this.props.testResults.percents < 75) {
+    if (this.props.currentTest === 'post-test' && this.props.testResults.percents < 75 && this.props.testCounter < 3) {
       return (<RepeatExamButton/>)
     }
   }
@@ -189,7 +190,8 @@ const mapStateToProps = state => ({
   testResults: state.appState.testResults,
   currentTest: state.appState.currentTest,
   listOfTests: state.appState.listOfTests,
-  certificateDownloaded: state.appState.certificateDownloaded
+  certificateDownloaded: state.appState.certificateDownloaded,
+  testCounter: state.appState.testCounter
 })
 
 export default connect(
