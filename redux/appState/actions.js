@@ -111,3 +111,8 @@ export const setTimeout = (timeout) => ({
   type: 'APPSTATE_SET_TIMEOUT',
   timeout
 })
+
+export const setUserPassExam = (passedTest) => ({
+  type: 'APPSTATE_SET_USER_PASSED_EXAM',
+  passedTest
+})

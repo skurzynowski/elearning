@@ -42,7 +42,11 @@ class DownloadCertificateButton extends Component {
       HmtlToPdf.print()
     }).then(() => {
       this.setState({downladed: true})
-      this.props.setAppMode('result')
+      if (this.props.passedTest.result === 'false') {
+        this.props.setAppMode('result')
+      } else {
+        this.props.setAppMode('welcome')
+      }
     })
   }
 
@@ -73,6 +77,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   fetchWP: state.appState.fetchWP,
   currentTest: state.appState.currentTest,
+  passedTest: state.appState.passedTest
 })
 
 export default connect(

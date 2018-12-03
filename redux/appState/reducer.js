@@ -1,5 +1,6 @@
 const defaultState = {
   testsTime: [],
+  passedTest: true,
   isUserLoggedIn: false,
   isUserAdmin: false,
   courseTitle: 'This is default title',
@@ -150,6 +151,10 @@ export default function appState (state = defaultState, action) {
     case 'APPSTATE_SET_TIMEOUT':
       newState.timeout = action.timeout
 
+      return newState
+
+    case 'APPSTATE_SET_USER_PASSED_EXAM':
+      newState.passedTest = action.passedTest
       return newState
 
     default:

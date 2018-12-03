@@ -23,6 +23,7 @@ import {
   updateListOfTests,
   setSelectedAnswersDefault,
   setCertificateDownloaded,
+  setUserPassExam,
 } from '../../../redux/appState/actions'
 import StartTestButton from '../content/StartTestButton'
 import StartModuleButton from '../content/StartModuleButton'
@@ -60,11 +61,20 @@ class TestResult extends Component {
     }
   }
   getCertificateButton = () => {
+    const {certificateDownloaded, currentTest, testResults} = this.props
+
     if (
-      this.props.certificateDownloaded === true ||
-      (this.props.currentTest == 'post-test' &&
-        this.props.testResults.percents >= 75)
+      certificateDownloaded === true ||
+      (currentTest == 'post-test' &&
+        testResults.percents >= 75)
     ) {
+
+      let  result = {}
+      result.result = testResults.percents
+      result.passed = 'true'
+      result.test = 'egzamin'
+
+      this.props.setUserPassExam(result)
       this.props.setCertificateDownloaded(true)
       return <DownloadCertificateButton/>
     }
@@ -152,7 +162,7 @@ class TestResult extends Component {
               {this.props.currentTest == 'pre-test' ? (
                 <StartModuleButton/>
               ) : null}
-              <div id={"btns-container"} style={{float: 'right'}}>
+              <div id={'btns-container'} style={{float: 'right'}}>
                 {this.getRepeateCourseButton()}
                 {this.getRepeateExamButton()}
                 {this.getCertificateButton()}
@@ -171,7 +181,8 @@ const mapDispatchToProps = dispatch => ({
   updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),
   setAnswersDefault: () => dispatch(setSelectedAnswersDefault()),
   setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug)),
-  setCertificateDownloaded: bool => dispatch(setCertificateDownloaded(bool))
+  setCertificateDownloaded: bool => dispatch(setCertificateDownloaded(bool)),
+  setUserPassExam: result => dispatch(setUserPassExam(result))
 })
 
 const mapStateToProps = state => ({

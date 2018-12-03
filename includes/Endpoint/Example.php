@@ -154,8 +154,12 @@ class Example {
 		$result       = get_field( 'certyficate', 'option' );
 		$current_user = wp_get_current_user();
 
-		$birthday       = get_user_meta( $current_user->ID, 'birthday', true );
-		$birthday       = \DateTime::createFromFormat( 'Y-m-d', $birthday );
+		$birthday = get_user_meta( $current_user->ID, 'birthday', true );
+		if ( ! empty( $birthday ) ) {
+			$birthday = \DateTime::createFromFormat( 'Y-m-d', $birthday );
+		} else {
+			$birthday = \DateTime::createFromFormat( 'Y-m-d', '1970-01-01' );
+		}
 		$full_user_name = $current_user->user_firstname . ' ' . $current_user->user_lastname;
 		$result         = str_replace( '{username}', $full_user_name, $result );
 		$result         = str_replace( '{birthday}', $birthday->format( 'd/m/Y' ), $result );
@@ -186,6 +190,16 @@ class Example {
 		$percents = floor( count( $correct_answers ) / count( $tmp ) * 100 );
 
 		$this->updateScoreInBackend( $test_type, $percents );
+
+		if ( 'egzamin' === $test_type ) {
+			$user = wp_get_current_user();
+			update_user_meta( $user->ID, WPR\Shortcode::CERTIFICATE_RESULT_KEY,
+				array(
+					'result' => $percents,
+					'passed' => $percents >= 75 ? 'true' : 'false',
+					'test'   => $test_type,
+				) );
+		}
 
 		$result = array(
 			'percents' => $percents,

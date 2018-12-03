@@ -16,6 +16,7 @@ namespace Pangolin\WPR;
  * @subpackage Shortcode
  */
 class Shortcode {
+	const CERTIFICATE_RESULT_KEY = 'certificate';
 
 	/**
 	 * Instance of this class.
@@ -101,12 +102,16 @@ class Shortcode {
 			$pretest_time  = get_field( 'test_wstepny', 'options' );
 			$post_test     = get_field( 'test_koncowy', 'options' );
 		}
+		$user = wp_get_current_user();
+
+		$certificate = get_user_meta( $user->ID, self::CERTIFICATE_RESULT_KEY , true);
 
 		$object = shortcode_atts( array(
 			'title'          => 'Hello world',
 			'api_nonce'      => wp_create_nonce( 'wp_rest' ),
 			'api_url'        => rest_url( $this->plugin_slug . '/v1/' ),
 			'sumOfQuestions' => $sum ?? 0,
+			'examResult'     => $certificate,
 			'testsTime'      => array(
 				'pretestTime'  => $pretest_time,
 				'posttestTime' => $post_test,

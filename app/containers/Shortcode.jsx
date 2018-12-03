@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Grid, Row, Col, Panel } from 'react-bootstrap'
+import { Grid, Row, Col, Panel, Alert } from 'react-bootstrap'
 import Header from '../components/header/Header'
 import { connect } from 'react-redux'
 import {
@@ -11,6 +11,7 @@ import {
   setAppMode,
   setSumOfQuestions,
   setTestsTime,
+  setUserPassExam,
 } from '../../redux/appState/actions'
 import SiteBarAdmin from '../components/sitebar/SiteBarAdmin'
 import AddNewCourse from '../components/content/AddNewCourse'
@@ -24,6 +25,7 @@ import Post from '../components/content/Post'
 import Certificate from '../components/content/Certificate'
 import Timer from '../components/content/Timer'
 import InfoModal from '../components/sitebar/InfoModal'
+import DownloadCertificateButton from '../components/content/DownloadCertificateButton'
 
 class Shortcode extends Component {
   constructor (props) {
@@ -35,10 +37,33 @@ class Shortcode extends Component {
     })
 
     this.props.setFetchWP(fetchWPInstance)
+    this.props.setUserPassExam(this.props.wpObject.examResult)
   }
-  componentDidMount() {
+
+  componentDidMount () {
     this.props.setSumOfQuestions(this.props.wpObject.sumOfQuestions)
     this.props.setTestsTime(this.props.wpObject.testsTime)
+  }
+
+  getAlertDownoladCertificate = () => {
+    if (true) {
+      return (<Header passedExam alert={this.getAlert}/>)
+    }
+  }
+
+  getAlert = () => {
+    if (this.props.userPassedExam.passed === 'true') {
+      const alertClass = 'success'
+      const text = 'Egzamin zdany. Gratulacje!'
+      const button = <DownloadCertificateButton/>
+      return (
+        <Alert id={'certificateDownloadAlert'} bsStyle={alertClass}>
+          {text}{button}
+        </Alert>
+      )
+    } else {
+      return ''
+    }
   }
 
   render () {
@@ -51,7 +76,9 @@ class Shortcode extends Component {
           <Col className="col-md-9 col-xs-12">
             <Row>
               <Col>
-                {this.props.appGlobalMode === 'certificate' ? (<Certificate/>) : (<Header/>)}
+                {this.props.appGlobalMode === 'certificate' ? (<Certificate/>) : (
+                  this.getAlertDownoladCertificate()
+                )}
                 {this.props.appGlobalMode === 'welcome' ? <WelcomeUser/> : null}
                 {(this.props.appGlobalMode === 'test' && this.props.questionsCollection.length > 0) ? (
                   <Timer/>
@@ -89,7 +116,8 @@ const mapDispatchToProps = dispatch => ({
   setAppMode: mode => dispatch(setAppMode(mode)),
   setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug)),
   setSumOfQuestions: sum => dispatch(setSumOfQuestions(sum)),
-  setTestsTime: testsTime => dispatch(setTestsTime(testsTime))
+  setTestsTime: testsTime => dispatch(setTestsTime(testsTime)),
+  setUserPassExam: result => dispatch(setUserPassExam(result))
 })
 
 const mapStateToProps = state => ({
@@ -97,6 +125,7 @@ const mapStateToProps = state => ({
   questionsCollection: state.appState.questionsCollection,
   notAllowed: state.appState.notAllowed,
   certificate: state.appState.certificate,
+  userPassedExam: state.appState.passedTest,
 })
 
 export default connect(

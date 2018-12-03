@@ -1,5 +1,5 @@
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 .sitebar-admin-wraper {
@@ -91,6 +91,7 @@ html {
     margin-bottom: 10px;
     font-size: 24px;
 }
+
 .user-certificate-name > li:nth-child(4) {
     margin-bottom: 10px;
     font-size: 24px;
@@ -110,6 +111,16 @@ html {
     text-align: left;
     font-size: 20px;
 }
+
 #btns-container > .btn-primary {
- float: unset;
+    float: unset;
+}
+
+#certificateDownloadAlert {
+    display: flex;
+    align-items: center;
+}
+
+#certificateDownloadAlert > button {
+    margin-left: 8px;
 }
