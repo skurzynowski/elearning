@@ -24,7 +24,8 @@ class DownloadCertificateButton extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      downladed: false
+      downladed: false,
+      previousState: '',
     }
   }
 
@@ -34,6 +35,7 @@ class DownloadCertificateButton extends Component {
       .then((json) => { this.props.setCertificate(json.certificate) })
       .then(
         () => {
+          //zapisz poprzedni stan w tym komponencie
           this.props.setAppMode('certificate')
           this.props.setActiveModule(parseInt(null))
           this.props.setActiveSubmodule(null)
@@ -42,11 +44,7 @@ class DownloadCertificateButton extends Component {
       HmtlToPdf.print()
     }).then(() => {
       this.setState({downladed: true})
-      if (this.props.passedTest.result === 'false') {
-        this.props.setAppMode('result')
-      } else {
-        this.props.setAppMode('welcome')
-      }
+      //odtwórz poprzedni stan
     })
   }
 
