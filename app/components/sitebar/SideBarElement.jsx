@@ -96,8 +96,12 @@ class SideBarElement extends Component {
         this.startPreTest()
         break
       case 'posttest':
+        if (this.props.testCounter >= 2) {
+          this.setNotAllowed('Wykorzystałeś już dwa podejścia do testu egzaminacyjnego')
+          return false
+        }
         if (this.props.appGlobalMode !== 'result') {
-          this.props.setTestCounter();
+          this.props.setTestCounter()
         }
         this.startExamTest()
         break
@@ -188,6 +192,7 @@ const mapStateToProps = state => ({
   appGlobalMode: state.appState.appGlobalMode,
   moduleKeys: state.appState.moduleKeys,
   visitedModules: state.appState.visitedModules,
+  testCounter: state.appState.testCounter,
 })
 
 export default connect(

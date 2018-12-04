@@ -51,25 +51,25 @@ class Post extends Component {
     )
     this.setState({subModuleIndex: this.state.subModuleIndex + 1})
     // this.forceUpdate()
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    window.scroll({top: 0, left: 0, behavior: 'smooth'})
   }
 
   onClickNextModuleButton = () => {
     let newModuleIndex = parseInt(this.state.moduleIndex + 1)
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    window.scroll({top: 0, left: 0, behavior: 'smooth'})
     this.props.setActiveModule(newModuleIndex)
     this.props.setActiveSubmodule(newModuleIndex + '_0')
     this.setState({subModuleIndex: 0, moduleIndex: newModuleIndex})
   }
 
   onClickStartLastTest = () => {
-    this.props.setTestCounter();
+    this.props.setTestCounter()
     this.props.setActiveSubmodule(null)
     this.props.setActiveModule(null)
     this.props.setCurrentTest('post-test')
     this.props.setProgress(this.props.progress + this.props.moduleKeys.length)
     this.props.setAppMode('test')
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    window.scroll({top: 0, left: 0, behavior: 'smooth'})
   }
 
   isLastSubmodule = () => {
@@ -91,7 +91,7 @@ class Post extends Component {
     let indexOfActiveSubmodule = this.props.moduleKeys.indexOf(this.props.activeSubmodule)
     this.props.setActiveSubmodule(this.props.moduleKeys[indexOfActiveSubmodule - 1])
     this.props.setActiveModule(parseInt(this.props.moduleKeys[indexOfActiveSubmodule - 1][0]))
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    window.scroll({top: 0, left: 0, behavior: 'smooth'})
   }
   renderPreviousButton = () => {
     if (this.props.activeSubmodule == '0_0') {
@@ -117,7 +117,7 @@ class Post extends Component {
         </Button>
       )
     } else {
-      if (this.isLastModule() && this.allModulesVisited()) {
+      if (this.isLastModule() && this.allModulesVisited() && this.props.testCounter < 2) {
         return (
           <Button bsStyle="primary" onClick={this.onClickStartLastTest} bsSize="large">
             Test egzaminacyjny

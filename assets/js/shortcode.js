@@ -1210,7 +1210,7 @@ function (_Component) {
           bsSize: "large"
         }, "Dalej");
       } else {
-        if (_this.isLastModule() && _this.allModulesVisited()) {
+        if (_this.isLastModule() && _this.allModulesVisited() && _this.props.testCounter < 2) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
             bsStyle: "primary",
             onClick: _this.onClickStartLastTest,
@@ -2191,7 +2191,7 @@ function (_Component) {
             color: "#a94442",
             float: "left"
           }
-        }, "Limit pr\xF3b zosta\u0142 wykorzystany. Spr\xF3buj ponownie p\xF3\u017Aniej.");
+        }, "Limit pr\xF3b zosta\u0142 wykorzystany.");
       }
     });
 
@@ -2243,7 +2243,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getRepeateCourseButton", function () {
-      if (_this.props.currentTest === 'post-test' && _this.props.testResults.percents < 75 && _this.props.testCounter < 3) {
+      if (_this.props.currentTest === 'post-test' && _this.props.testResults.percents < 75 && _this.props.testCounter < 2) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RepeatCourseButton__WEBPACK_IMPORTED_MODULE_9__["default"], null);
       }
     });
@@ -2252,7 +2252,7 @@ function (_Component) {
       console.log(_this.props.currentTest === 'post-test' && _this.props.testResults.percents < 75);
       console.log('thit is test');
 
-      if (_this.props.currentTest === 'post-test' && _this.props.testResults.percents < 75 && _this.props.testCounter < 3) {
+      if (_this.props.currentTest === 'post-test' && _this.props.testResults.percents < 75 && _this.props.testCounter < 2) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RepeatExamButton__WEBPACK_IMPORTED_MODULE_10__["default"], null);
       }
     });
@@ -3305,6 +3305,12 @@ function (_Component) {
           break;
 
         case 'posttest':
+          if (_this.props.testCounter >= 2) {
+            _this.setNotAllowed('Wykorzystałeś już dwa podejścia do testu egzaminacyjnego');
+
+            return false;
+          }
+
           if (_this.props.appGlobalMode !== 'result') {
             _this.props.setTestCounter();
           }
@@ -3440,7 +3446,8 @@ var mapStateToProps = function mapStateToProps(state) {
     activeSubmodule: state.appState.activeSubmodule,
     appGlobalMode: state.appState.appGlobalMode,
     moduleKeys: state.appState.moduleKeys,
-    visitedModules: state.appState.visitedModules
+    visitedModules: state.appState.visitedModules,
+    testCounter: state.appState.testCounter
   };
 };
 
@@ -3801,6 +3808,7 @@ function (_Component) {
     value: function componentDidMount() {
       this.props.setSumOfQuestions(this.props.wpObject.sumOfQuestions);
       this.props.setTestsTime(this.props.wpObject.testsTime);
+      this.props.setInitTestCounter(this.props.wpObject.testCounter);
     }
   }, {
     key: "render",
@@ -3845,6 +3853,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     setUserPassExam: function setUserPassExam(result) {
       return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setUserPassExam"])(result));
+    },
+    setInitTestCounter: function setInitTestCounter(initValue) {
+      return dispatch(Object(_redux_appState_actions__WEBPACK_IMPORTED_MODULE_5__["setInitTestCounter"])(initValue));
     }
   };
 };
@@ -69756,7 +69767,7 @@ if (!self.fetch) {
 /*!***********************************!*\
   !*** ./redux/appState/actions.js ***!
   \***********************************/
-/*! exports provided: setDefault, setNumber, setCallback, toggleUserLogginStatus, updateListOfTests, updateQuestionsCollection, setFetchWP, setAppMode, updateAnswers, setTestResults, setCurrentTest, setSelectedAnswersDefault, setActivePost, setModules, setActiveModule, setActiveSubmodule, setCertificateDownloaded, setCertificate, setModuleKeys, setSumOfQuestions, setProgress, setNotAllowed, resetVisitedModules, setTestsTime, setTimeout, setUserPassExam, setTestCounter */
+/*! exports provided: setDefault, setNumber, setCallback, toggleUserLogginStatus, updateListOfTests, updateQuestionsCollection, setFetchWP, setAppMode, updateAnswers, setTestResults, setCurrentTest, setSelectedAnswersDefault, setActivePost, setModules, setActiveModule, setActiveSubmodule, setCertificateDownloaded, setCertificate, setModuleKeys, setSumOfQuestions, setProgress, setNotAllowed, resetVisitedModules, setTestsTime, setTimeout, setUserPassExam, setTestCounter, setInitTestCounter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69788,6 +69799,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTimeout", function() { return setTimeout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserPassExam", function() { return setUserPassExam; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTestCounter", function() { return setTestCounter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setInitTestCounter", function() { return setInitTestCounter; });
 var setDefault = function setDefault() {
   return {
     type: 'APPSTATE_SET_DEFAULT'
@@ -69948,6 +69960,12 @@ var setUserPassExam = function setUserPassExam(passedTest) {
 var setTestCounter = function setTestCounter() {
   return {
     type: 'APPSTATE_SET_TEST_COUNTER'
+  };
+};
+var setInitTestCounter = function setInitTestCounter(initValue) {
+  return {
+    type: 'APPSTATE_SET_INIT_TEST_COUNTER',
+    initValue: initValue
   };
 };
 
@@ -70136,7 +70154,14 @@ function appState() {
       return newState;
 
     case 'APPSTATE_SET_TEST_COUNTER':
-      newState.testCounter++;
+      if (state.currentTest !== 'pre-test') {
+        newState.testCounter++;
+      }
+
+      return newState;
+
+    case 'APPSTATE_SET_INIT_TEST_COUNTER':
+      newState.testCounter = action.initValue;
       return newState;
 
     default:

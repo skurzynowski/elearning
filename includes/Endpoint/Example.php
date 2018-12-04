@@ -193,12 +193,22 @@ class Example {
 
 		if ( 'egzamin' === $test_type ) {
 			$user = wp_get_current_user();
+			//update possibility to download certificate
 			update_user_meta( $user->ID, WPR\Shortcode::CERTIFICATE_RESULT_KEY,
 				array(
 					'result' => $percents,
 					'passed' => $percents >= 75 ? 'true' : 'false',
 					'test'   => $test_type,
 				) );
+
+			//Update how many times user tried to pass exam
+			$counter = get_user_meta( $user->ID, WPR\Shortcode::TEST_COUNTER_KEY, true );
+			if ( empty( $counter ) ) {
+				$counter = 1;
+			} else {
+				$counter = $counter + 1;
+			}
+			update_user_meta( $user->ID, WPR\Shortcode::TEST_COUNTER_KEY, $counter );
 		}
 
 		$result = array(

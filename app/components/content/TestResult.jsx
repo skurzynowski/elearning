@@ -84,7 +84,7 @@ class TestResult extends Component {
   getComebackLaterInfo = () => {
     if(this.props.testCounter === 3){
       return (
-        <p style={{color: "#a94442", float:"left"}}>Limit prób został wykorzystany. Spróbuj ponownie później.</p>
+        <p style={{color: "#a94442", float:"left"}}>Limit prób został wykorzystany.</p>
       )
     }
   }
@@ -140,7 +140,7 @@ class TestResult extends Component {
   }
 
   getRepeateCourseButton = () => {
-    if (this.props.currentTest === 'post-test' && this.props.testResults.percents < 75 && this.props.testCounter < 3) {
+    if (this.props.currentTest === 'post-test' && this.props.testResults.percents < 75 && this.props.testCounter < 2) {
       return (<RepeatCourseButton/>)
     }
   }
@@ -148,7 +148,7 @@ class TestResult extends Component {
   getRepeateExamButton = () => {
     console.log(this.props.currentTest === 'post-test' && this.props.testResults.percents < 75)
     console.log('thit is test')
-    if (this.props.currentTest === 'post-test' && this.props.testResults.percents < 75 && this.props.testCounter < 3) {
+    if (this.props.currentTest === 'post-test' && this.props.testResults.percents < 75 && this.props.testCounter < 2) {
       return (<RepeatExamButton/>)
     }
   }

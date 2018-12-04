@@ -120,3 +120,8 @@ export const setUserPassExam = (passedTest) => ({
 export const setTestCounter = () => ({
   type: 'APPSTATE_SET_TEST_COUNTER'
 })
+
+export const setInitTestCounter = (initValue) => ({
+  type: 'APPSTATE_SET_INIT_TEST_COUNTER',
+  initValue
+})

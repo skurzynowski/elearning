@@ -159,7 +159,14 @@ export default function appState (state = defaultState, action) {
       return newState
 
     case 'APPSTATE_SET_TEST_COUNTER':
-      newState.testCounter++
+      if (state.currentTest !== 'pre-test') {
+        newState.testCounter++
+      }
+      return newState
+
+    case 'APPSTATE_SET_INIT_TEST_COUNTER':
+      newState.testCounter = action.initValue
+
       return newState
 
     default:
