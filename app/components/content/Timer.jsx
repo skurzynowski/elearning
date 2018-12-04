@@ -23,7 +23,7 @@ class Timer extends React.Component {
     let seconds = this.props.currentTest === 'pre-test' ? this.props.testsTime.pretestTime : this.props.testsTime.posttestTime
     seconds = seconds * 60
     this.props.setTimeOut(seconds)
-    this.state = {time: {}, seconds: seconds, counter: 1, currentQuestionNumber: 1}
+    this.state = {counter: 1, currentQuestionNumber: 1, time: {}, seconds: seconds}
     this.timer = 0
     this.startTimer = this.startTimer.bind(this)
     this.countDown = this.countDown.bind(this)
@@ -46,6 +46,10 @@ class Timer extends React.Component {
   componentDidMount = () => {
     let timeLeftVar = this.secondsToTime(this.state.seconds)
     this.setState({time: timeLeftVar})
+  }
+
+  componentWillUnmount = () => {
+    clearInterval(this.timer);
   }
 
   startTimer = () => {
@@ -116,7 +120,6 @@ class Timer extends React.Component {
       margin: '10px 0',
       fontSize: '24px'
     }
-
     return (
       <Col key={this.props.questionsCollection[0].ID}>
         <div style={panelStyle}>

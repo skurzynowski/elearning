@@ -6,7 +6,7 @@ if (!window._babelPolyfill) {
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Shortcode from './containers/Shortcode.jsx'
-// import 'bootstrap3/dist/css/bootstrap.css'
+import 'bootstrap3/dist/css/bootstrap.css'
 import { Provider } from 'react-redux'
 import {store} from '../redux/store'
 
