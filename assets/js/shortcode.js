@@ -2184,6 +2184,17 @@ function (_Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getComebackLaterInfo", function () {
+      if (_this.props.testCounter === 3) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          style: {
+            color: "#a94442",
+            float: "left"
+          }
+        }, "Limit pr\xF3b zosta\u0142 wykorzystany. Spr\xF3buj ponownie p\xF3\u017Aniej.");
+      }
+    });
+
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getFinishCourseButton", function () {
       if (_this.props.currentTest == 'post-test') {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
@@ -2259,7 +2270,7 @@ function (_Component) {
         componentClass: "content-test-result"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Panel"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Zako\u0144czy\u0142e\u015B test", this.props.currentTest == 'pre-test' ? ' wstępny' : ' podsumowujący', "."), this.getAllertPercents(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["ProgressBar"], {
         now: this.props.testResults.percents
-      }), this.getAllertCorrectAnswers(), this.getAllertWrongAnswers(), this.props.currentTest == 'pre-test' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartModuleButton__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), this.getAllertCorrectAnswers(), this.getAllertWrongAnswers(), this.props.currentTest == 'pre-test' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_StartModuleButton__WEBPACK_IMPORTED_MODULE_7__["default"], null) : null, this.getComebackLaterInfo(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: 'btns-container',
         style: {
           float: 'right'
@@ -3294,7 +3305,9 @@ function (_Component) {
           break;
 
         case 'posttest':
-          _this.props.setTestCounter();
+          if (_this.props.appGlobalMode !== 'result') {
+            _this.props.setTestCounter();
+          }
 
           _this.startExamTest();
 

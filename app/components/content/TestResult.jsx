@@ -81,6 +81,14 @@ class TestResult extends Component {
     }
   }
 
+  getComebackLaterInfo = () => {
+    if(this.props.testCounter === 3){
+      return (
+        <p style={{color: "#a94442", float:"left"}}>Limit prób został wykorzystany. Spróbuj ponownie później.</p>
+      )
+    }
+  }
+
   getFinishCourseButton = () => {
     if (this.props.currentTest == 'post-test') {
       return (
@@ -163,6 +171,7 @@ class TestResult extends Component {
               {this.props.currentTest == 'pre-test' ? (
                 <StartModuleButton/>
               ) : null}
+              {this.getComebackLaterInfo()}
               <div id={'btns-container'} style={{float: 'right'}}>
                 {this.getRepeateCourseButton()}
                 {this.getRepeateExamButton()}

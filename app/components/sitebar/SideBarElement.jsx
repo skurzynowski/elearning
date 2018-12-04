@@ -96,7 +96,9 @@ class SideBarElement extends Component {
         this.startPreTest()
         break
       case 'posttest':
-        this.props.setTestCounter();
+        if (this.props.appGlobalMode !== 'result') {
+          this.props.setTestCounter();
+        }
         this.startExamTest()
         break
       case 'submodule':
