@@ -12,6 +12,7 @@ import {
   setSumOfQuestions,
   setTestsTime,
   setUserPassExam,
+  setInitTestCounter,
 } from '../../redux/appState/actions'
 import SiteBarAdmin from '../components/sitebar/SiteBarAdmin'
 import AddNewCourse from '../components/content/AddNewCourse'
@@ -43,6 +44,7 @@ class Shortcode extends Component {
   componentDidMount () {
     this.props.setSumOfQuestions(this.props.wpObject.sumOfQuestions)
     this.props.setTestsTime(this.props.wpObject.testsTime)
+    this.props.setInitTestCounter(this.props.wpObject.testCounter)
   }
 
   getAlertDownoladCertificate = () => {
@@ -117,7 +119,8 @@ const mapDispatchToProps = dispatch => ({
   setCurrentTest: testSlug => dispatch(setCurrentTest(testSlug)),
   setSumOfQuestions: sum => dispatch(setSumOfQuestions(sum)),
   setTestsTime: testsTime => dispatch(setTestsTime(testsTime)),
-  setUserPassExam: result => dispatch(setUserPassExam(result))
+  setUserPassExam: result => dispatch(setUserPassExam(result)),
+  setInitTestCounter: initValue => dispatch(setInitTestCounter(initValue))
 })
 
 const mapStateToProps = state => ({

@@ -9,7 +9,7 @@ import {
   setActiveModule,
   setAppMode,
   setModules,
-  setModuleKeys, setNotAllowed, setSelectedAnswersDefault, updateQuestionsCollection, setCurrentTest
+  setModuleKeys, setNotAllowed, setSelectedAnswersDefault, updateQuestionsCollection, setCurrentTest, setTestCounter
 } from '../../../redux/appState/actions'
 
 class SideBarElement extends Component {
@@ -96,6 +96,13 @@ class SideBarElement extends Component {
         this.startPreTest()
         break
       case 'posttest':
+        if (this.props.testCounter >= 2) {
+          this.setNotAllowed('Wykorzystałeś już dwa podejścia do testu egzaminacyjnego')
+          return false
+        }
+        if (this.props.appGlobalMode !== 'result') {
+          this.props.setTestCounter()
+        }
         this.startExamTest()
         break
       case 'submodule':
@@ -173,6 +180,7 @@ const mapDispatchToProps = dispatch => ({
   setAnswersDefault: () => dispatch(setSelectedAnswersDefault()),
   updateQuestionsCollection: list => dispatch(updateQuestionsCollection(list)),
   setCurrentTest: test => dispatch(setCurrentTest(test)),
+  setTestCounter: () => dispatch(setTestCounter())
 })
 
 const mapStateToProps = state => ({
@@ -184,6 +192,7 @@ const mapStateToProps = state => ({
   appGlobalMode: state.appState.appGlobalMode,
   moduleKeys: state.appState.moduleKeys,
   visitedModules: state.appState.visitedModules,
+  testCounter: state.appState.testCounter,
 })
 
 export default connect(

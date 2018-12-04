@@ -17,6 +17,7 @@ namespace Pangolin\WPR;
  */
 class Shortcode {
 	const CERTIFICATE_RESULT_KEY = 'certificate';
+	const TEST_COUNTER_KEY = 'test_counter';
 
 	/**
 	 * Instance of this class.
@@ -104,7 +105,9 @@ class Shortcode {
 		}
 		$user = wp_get_current_user();
 
-		$certificate = get_user_meta( $user->ID, self::CERTIFICATE_RESULT_KEY , true);
+		$certificate = get_user_meta( $user->ID, self::CERTIFICATE_RESULT_KEY, true );
+		$test_counter = get_user_meta( $user->ID, self::TEST_COUNTER_KEY, true );
+
 
 		$object = shortcode_atts( array(
 			'title'          => 'Hello world',
@@ -112,6 +115,7 @@ class Shortcode {
 			'api_url'        => rest_url( $this->plugin_slug . '/v1/' ),
 			'sumOfQuestions' => $sum ?? 0,
 			'examResult'     => $certificate,
+			'testCounter'    => $test_counter,
 			'testsTime'      => array(
 				'pretestTime'  => $pretest_time,
 				'posttestTime' => $post_test,

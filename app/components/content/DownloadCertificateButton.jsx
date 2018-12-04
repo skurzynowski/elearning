@@ -15,7 +15,7 @@ import fetchWp from '../../utils/fetchWP'
 import { connect } from 'react-redux'
 import {
   setCertificate,
-  setAppMode, setActiveSubmodule, setActiveModule, setCurrentTest, setCertificateDownloaded, setPreviousState
+  setAppMode, setActiveSubmodule, setActiveModule, setCurrentTest, setCertificateDownloaded
 } from '../../../redux/appState/actions'
 import * as HmtlToPdf from '../../utils/htmlToPdf'
 
@@ -73,7 +73,6 @@ const mapDispatchToProps = dispatch => ({
   setCurrentTest: (test) => dispatch(setCurrentTest(test)),
   setCertificateDownloaded: (bool) => dispatch(setCertificateDownloaded(bool)),
   setCertificate: (certificate) => dispatch(setCertificate(certificate)),
-  setPreviousState: (previousState) => dispatch(setPreviousState(previousState))
 })
 
 const mapStateToProps = state => ({
