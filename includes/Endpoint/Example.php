@@ -128,14 +128,6 @@ class Example {
 				'args'                => array(),
 			),
 		) );
-		register_rest_route( $namespace, '/reset/', array(
-			array(
-				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'reset' ),
-				'permission_callback' => array( $this, 'example_permissions_check' ),
-				'args'                => array(),
-			),
-		) );
 		register_rest_route( $namespace, '/course/', array(
 			array(
 				'methods'             => \WP_REST_Server::CREATABLE,
