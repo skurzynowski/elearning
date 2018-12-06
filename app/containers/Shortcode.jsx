@@ -37,6 +37,7 @@ class Shortcode extends Component {
       restNonce: this.props.wpObject.api_nonce
     })
 
+    this.fetchWP = fetchWPInstance
     this.props.setFetchWP(fetchWPInstance)
     this.props.setUserPassExam(this.props.wpObject.examResult)
   }
@@ -44,7 +45,8 @@ class Shortcode extends Component {
   componentDidMount () {
     this.props.setSumOfQuestions(this.props.wpObject.sumOfQuestions)
     this.props.setTestsTime(this.props.wpObject.testsTime)
-    this.props.setInitTestCounter(this.props.wpObject.testCounter)
+    this.fetchWP.get('counterTest')
+      .then((json) => this.props.setInitTestCounter(json.testCounter))
   }
 
   getAlertDownoladCertificate = () => {
@@ -129,6 +131,7 @@ const mapStateToProps = state => ({
   notAllowed: state.appState.notAllowed,
   certificate: state.appState.certificate,
   userPassedExam: state.appState.passedTest,
+  fetchWP: state.appState.fetchWP
 })
 
 export default connect(

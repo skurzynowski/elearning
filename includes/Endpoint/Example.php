@@ -120,6 +120,22 @@ class Example {
 				'args'                => array(),
 			),
 		) );
+		register_rest_route( $namespace, '/counterTest/', array(
+			array(
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_counter_test' ),
+				'permission_callback' => array( $this, 'example_permissions_check' ),
+				'args'                => array(),
+			),
+		) );
+		register_rest_route( $namespace, '/reset/', array(
+			array(
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'reset' ),
+				'permission_callback' => array( $this, 'example_permissions_check' ),
+				'args'                => array(),
+			),
+		) );
 		register_rest_route( $namespace, '/course/', array(
 			array(
 				'methods'             => \WP_REST_Server::CREATABLE,
@@ -147,6 +163,17 @@ class Example {
 			),
 		) );
 
+	}
+
+	public function get_counter_test( $request ) {
+		$user         = wp_get_current_user();
+		$test_counter = get_user_meta( $user->ID, WPR\Shortcode::TEST_COUNTER_KEY, true );
+
+		return new \WP_REST_Response( array(
+			'status'      => 'ok',
+			'testCounter' => $test_counter,
+
+		), 200 );
 	}
 
 	public function get_certificate( $request ) {
