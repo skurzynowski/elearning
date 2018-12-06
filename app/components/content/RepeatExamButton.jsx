@@ -15,6 +15,7 @@ class RepeatExamButton extends Component {
     this.props.setAppMode('test')
     this.props.setAnswersDefault()
     this.props.updateQuestionsCollection(list)
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
   }
 
   render () {

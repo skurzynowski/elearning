@@ -27,6 +27,7 @@ class StartModuleButton extends Component {
     this.props.setActiveSubmodule("0_0");
     this.props.setCurrentTest(null);
     this.props.setAnswersDefault();
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
   };
 
   render() {

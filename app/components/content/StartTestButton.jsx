@@ -28,6 +28,7 @@ class StartTestButton extends Component {
       .get('question/' + this.props.currentTest)
       .then(json => this.props.updateQuestionsCollection(json.question))
       .then(this.props.setAppMode('test'))
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
   }
   componentWillReceiveProps = (newProps) =>{
   }
