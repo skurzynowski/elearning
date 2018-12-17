@@ -28,6 +28,9 @@ class Config {
 			if ( isset( $_REQUEST['downloadcsv'] ) ) {
 				add_action( 'admin_init', array( $this, 'download_csv' ) );
 			}
+			if ( isset( $_REQUEST['downloadusers'] ) ) {
+				add_action( 'admin_init', array( $this, 'download_users' ) );
+			}
 		}
 	}
 
@@ -38,6 +41,47 @@ class Config {
 		wp_enqueue_script( 'custom_js', plugins_url( 'js/custom.js', __FILE__ ), array( 'jquery' ) );
 	}
 
+	public function download_users() {
+		$field = get_field_object( 'download_csv', 'options' );
+		$key   = $field['key'];
+		
+
+		$filename = 'uzytkownicy-medycyna-ratunkowa.csv';
+		header( 'Content-Type: text/csv' );
+		header( 'Content-Disposition: attachment;filename=' . $filename );
+		$fp = fopen( 'php://output', 'w' );
+		fputcsv( $fp, array(
+			'imie',
+			'nazwisko',
+			'email',
+			'zawod',
+			'doświadczenie',
+			'data urodzenia',
+			'miejsce wyk. zawodu'
+		) );
+
+		$users = get_users( array( 'role' => 'subscriber' ) );
+
+		foreach ( $users as $user ) {
+			$user_name    = ucfirst( $user->user_firstname );
+			$user_surname = ucfirst( $user->user_lastname );
+			$user_email   = $user->user_email;
+
+			$tmp   = array();
+			$tmp[] = $user_name;
+			$tmp[] = $user_surname;
+			$tmp[] = $user_email;
+			$tmp[] = get_user_meta( $user->ID, 'job', true );
+			$tmp[] = get_user_meta( $user->ID, 'experience', true );
+			$tmp[] = get_user_meta( $user->ID, 'birthday', true );
+			$tmp[] = get_user_meta( $user->ID, 'workplace', true );
+
+			fputcsv( $fp, $tmp );
+		}
+
+		fclose( $fp );
+		die;
+	}
 
 	public function download_csv() {
 		$field = get_field_object( 'download_csv', 'options' );
